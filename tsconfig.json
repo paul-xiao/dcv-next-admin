@@ -29,10 +29,9 @@
   },
   "include": [
     "tests/**/*.ts",
-    "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
+    "src/**/*.{vue, ts, tsx}",
+    "storybook/**/*.{ts,vue,css}",
     "types/**/*.d.ts",
     "types/**/*.ts",
     "build/**/*.ts",

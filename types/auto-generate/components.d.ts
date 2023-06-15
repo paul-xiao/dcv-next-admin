@@ -20,6 +20,7 @@ declare module 'vue' {
     IEpSearch: typeof import('~icons/ep/search')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Src: typeof import('./../../src/components/Button/src/index.vue')['default']
     TheWelcome: typeof import('./../../src/components/TheWelcome.vue')['default']
     WelcomeItem: typeof import('./../../src/components/WelcomeItem.vue')['default']
   }

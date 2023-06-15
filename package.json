@@ -13,7 +13,7 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 -c ./storybook/.storybook",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -53,6 +53,7 @@
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.63.4",
     "start-server-and-test": "^2.0.0",
     "storybook": "^7.0.20",
     "typescript": "~5.0.4",
