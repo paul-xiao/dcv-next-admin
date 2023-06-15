@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import Button from '../../src/components/Button';
+import AboutView from '../../src/views/AboutView.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta = {
-  title: 'Components/Button',
-  component: Button,
+  title: 'Pages/About',
+  component: AboutView,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
@@ -14,7 +14,7 @@ const meta = {
     onClick: { action: 'clicked' },
   },
   args: { primary: false }, // default value
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof AboutView>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -23,30 +23,9 @@ type Story = StoryObj<typeof meta>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Primary: Story = {
+export const About: Story = {
   args: {
     primary: true,
     label: 'Button',
-  },
-};
-
-export const Success: Story = {
-  args: {
-    primary: false,
-    label: 'Button',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    label: 'Button',
-    size: 'large',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    label: 'Button',
-    size: 'small',
   },
 };
