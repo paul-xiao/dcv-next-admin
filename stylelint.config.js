@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],
-  customSyntax: 'postcss-less',
+  customSyntax: 'postcss-scss',
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
     'selector-class-pattern': null,
@@ -67,7 +67,7 @@ module.exports = {
       ],
       { severity: 'warning' },
     ],
-    'custom-property-no-missing-var-function': null
+    'custom-property-no-missing-var-function': null,
   },
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
   overrides: [
