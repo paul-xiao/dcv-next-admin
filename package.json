@@ -12,14 +12,10 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-<<<<<<< HEAD
     "format": "prettier --write src/",
     "storybook": "storybook dev -p 6006 -c ./storybook/.storybook",
-    "build-storybook": "storybook build"
-=======
-    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "format": "prettier --write src/"
->>>>>>> c92e66a3c0d693a1a590a430a65cf178147bc752
+    "build-storybook": "storybook build",
+    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
@@ -61,15 +57,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.63.4",
+    "sass-loader": "^13.3.2",
     "start-server-and-test": "^2.0.0",
     "storybook": "^7.0.20",
-    "typescript": "~5.0.4",
-    "sass-loader": "^13.3.2",
-    "stylelint": "14.0.1",
+    "stylelint": "^15.5.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-order": "^6.0.3",
+    "typescript": "~5.0.4",
     "unplugin-auto-import": "^0.16.4",
     "unplugin-element-plus": "^0.7.1",
     "unplugin-icons": "^0.16.3",
