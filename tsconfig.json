@@ -8,19 +8,18 @@
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
     "jsx": "preserve",
-    "baseUrl": ".",
-    "allowJs": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    "lib": ["dom", "esnext"],
-    "types": ["vite/client", "element-plus/global"],
-    "typeRoots": ["./node_modules/@types/", "./types"],
+    "lib": ["esnext", "dom"],
+    "types": ["element-plus/global"],
+    // "typeRoots": ["./node_modules/@types/", "./types"],
     "noImplicitAny": false,
     "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "@": ["src"],
       "@/*": ["src/*"],
@@ -30,15 +29,19 @@
   "include": [
     "tests/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.{vue, ts, tsx}",
+    "src/**/*.{vue, ts, tsx, jsx}",
     "storybook/**/*.{ts,vue,css}",
     "types/**/*.d.ts",
     "types/**/*.ts",
     "build/**/*.ts",
     "build/**/*.d.ts",
     "mock/**/*.ts",
-    "vite.config.ts",
     "*.d.ts"
   ],
-  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
+  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
