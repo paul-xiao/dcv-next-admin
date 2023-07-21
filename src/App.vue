@@ -1,22 +1,4 @@
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-    <div class="wrapper">
-      <el-button type="primary">测试element自动按需导入</el-button>
-      <HelloWorld msg="You did it!" />
-      <p class="text-red-500">测试element图标,以及windicss插件</p>
-      <i-ep-edit />
-      <el-input placeholder="搜索文本框">
-        <template #suffix>
-          <i-ep-search />
-        </template>
-      </el-input>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
   <ElConfigProvider :locale="zhCn">
     <RouterView />
   </ElConfigProvider>
