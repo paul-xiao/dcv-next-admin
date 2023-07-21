@@ -1,4 +1,4 @@
-import './assets/main.css';
+import './styles/theme/index.scss';
 //windi
 import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
@@ -9,9 +9,11 @@ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 import router from './router';
+import { globalProvide } from './hooks/useGlobalConfig';
 
 const app = createApp(App);
 
+app.use(globalProvide);
 app.use(createPinia());
 app.use(router);
 

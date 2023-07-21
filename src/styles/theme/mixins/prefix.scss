@@ -1,0 +1,7 @@
+@mixin prefix($prefix) {
+    @at-root {
+      .#{$prefix}#{&} {
+        @content;
+      }
+    }
+  }
