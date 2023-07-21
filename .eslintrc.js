@@ -29,5 +29,6 @@ module.exports = defineConfig({
   rules: {
     'arrow-body-style': 'off',
     'prefer-arrow-callback': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 });

@@ -19,17 +19,19 @@
     // "typeRoots": ["./node_modules/@types/", "./types"],
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@": ["src"],
-      "@/*": ["src/*"],
-      "/#/*": ["types/*"]
+      "@/*": ["./src/*"],
+      "/#/*": ["./types/*"]
     }
   },
   "include": [
     "tests/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.{vue, ts, tsx, jsx}",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
     "storybook/**/*.{ts,vue,css}",
     "types/**/*.d.ts",
     "types/**/*.ts",

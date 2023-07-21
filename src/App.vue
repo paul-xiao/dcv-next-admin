@@ -23,7 +23,7 @@
 </template>
 <script setup lang="ts">
   import { ElConfigProvider } from 'element-plus';
-  import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+  import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
   import { RouterLink, RouterView } from 'vue-router';
   import HelloWorld from './components/HelloWorld.vue';
 </script>
