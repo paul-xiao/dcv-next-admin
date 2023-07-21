@@ -1,5 +1,66 @@
 @include prefix($namespace) {
   &-layout {
-    color: red;
+    .header {
+      height: $headerHeight;
+      line-height: $headerHeight;
+      background: #f2f2f2;
+      display: flex;
+      .logo {
+        display: flex;
+        align-items: center;
+        padding: 0 $padding;
+        min-width: 63px;
+        &-title {
+          font-weight: 700;
+        }
+        &-img {
+          width: calc($headerHeight/2);
+          height: calc($headerHeight/2);
+          margin-right: calc($padding/2);
+        }
+        &.collapsed {
+          justify-content: center;
+          .logo-img {
+            margin: 0;
+          }
+        }
+      }
+      &-main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-left {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          .breadcrumb {
+            margin: 0 $padding;
+          }
+        }
+        &-right {
+          display: flex;
+          align-items: center;
+          margin-right: $padding;
+        }
+      }
+    }
+    .main {
+      display: flex;
+      height: calc(100vh - $headerHeight);
+      .aside {
+        background: #eee;
+        &-menu {
+          min-height: 100%;
+        }
+        &-menu:not(.el-menu--collapse) {
+          width: $asideWidth;
+        }
+      }
+      .content {
+        flex: 1;
+        padding: $padding;
+      }
+    }
   }
 }
