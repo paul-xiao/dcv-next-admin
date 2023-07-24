@@ -34,6 +34,7 @@
   import Breadcrumb from './src/Breadcrumb';
   import { Expand, Fold } from '@element-plus/icons-vue';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
+
   const title = getGlobalConfig('title');
   const isCollapse = ref(false);
 
@@ -43,4 +44,3 @@
     emit('update:isCollapse', isCollapse.value);
   }
 </script>
-@/layout/src/Logo@/layout/src/Breadcrumb

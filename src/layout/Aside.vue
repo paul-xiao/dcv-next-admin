@@ -1,6 +1,6 @@
 <template>
   <div class="aside">
-    <el-menu :default-active="defaultActive" class="aside-menu" unique-opened router :collapse="props.isCollapse"
+    <el-menu :default-active="defaultActive" class="aside-menu" unique-opened router :collapse="isCollapse"
       @open="handleOpen" @close="handleClose" @select="onMenuSelected">
       <template v-for="item of menus">
         <SubMenu :menu="item" />
@@ -20,7 +20,7 @@ const props = withDefaults(
   { isCollapse: false },
 );
 const defaultActive = ref('')
-defaultActive.value = route.path
+defaultActive.value = route.path.includes('/index') ? route.path.replace('/index', '') : route.path
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };

@@ -1,33 +1,46 @@
 <template>
-    <template v-if="menu.children && menu.children.length">
+    <template v-if="children && children.length">
         <el-sub-menu :index="menu.path">
-            <template #title><el-icon>
-                    <setting />
-                </el-icon><span>{{ menu.meta.title }}</span></template>
+            <template #title>
+                <Icon :name="menu.meta.icon"></Icon>
+                <span>{{ menu.meta.title }}</span></template>
 
-            <SubMenu v-for="item of menu.children" :menu="item" />
+            <SubMenu v-for="item of children" :menu="item" />
         </el-sub-menu>
     </template>
-    <el-menu-item v-else :index="menu.path">
-        <el-icon>
-            <setting />
-        </el-icon>
-        <template #title>{{ menu.meta.title }}</template>
-    </el-menu-item>
+    <template v-else>
+        <el-menu-item :index="menu.path" v-if="!menu.meta.isExternal">
+            <Icon :name="menu.meta.icon"></Icon>
+            <template #title>{{ menu.meta.title }}</template>
+        </el-menu-item>
+        <el-menu-item @click="onExternalClick" v-else>
+            <Icon :name="menu.meta.icon"></Icon>
+            <template #title>{{ menu.meta.title }}</template>
+        </el-menu-item>
+    </template>
 </template>
 <script lang="ts">
-import { Setting } from '@element-plus/icons-vue';
+import Icon from '@/components/Icon';
+import { ref } from 'vue';
 export default {
     name: 'SubMenu',
-    components: { Setting },
+    components: { Icon },
     props: {
         menu: {
             type: Object,
             default: () => { },
         },
     },
-    setup() {
-        return {};
+    setup(props) {
+        const children = ref([])
+        children.value = props.menu?.children?.filter(m => !m.meta.hidden)
+        function onExternalClick() {
+            window.open(`${props.menu.meta.protocol}:/${props.menu.path}`)
+        }
+        return {
+            children,
+            onExternalClick
+        };
     },
 };
 </script>

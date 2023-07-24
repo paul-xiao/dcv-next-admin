@@ -1,7 +1,7 @@
 <template>
-  <div class="logo" :class="{collapsed: props.isCollapse}">
-    <img class="logo-img" :src="props.icon" alt="logo">
-    <h1 class="logo-title" v-if="!props.isCollapse">{{ props.title }}</h1>
+  <div class="logo" :class="{collapsed: isCollapse}">
+    <img class="logo-img" :src="icon" alt="logo">
+    <h1 class="logo-title" v-if="!isCollapse">{{ title }}</h1>
   </div>
 </template>
 <script setup lang="ts">
