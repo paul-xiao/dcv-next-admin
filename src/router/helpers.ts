@@ -1,4 +1,5 @@
 import { useMenuStore } from '@/stores/modules/menu';
+import { emptyObjectItemFillter } from '@/utils/object';
 import { Router, RouterView } from 'vue-router';
 export interface Menu {
   id: number;
@@ -8,6 +9,8 @@ export interface Menu {
   parentId: number;
   children?: Menu[];
   hidden?: boolean;
+  isExternal?: boolean;
+  protocol?: string;
 }
 
 /**
@@ -74,7 +77,7 @@ export function parseMenuList(list: Menu[], parentId = 0) {
       if (child.length > 0) {
         item.children = child;
       }
-      const { title, path, component, hidden, children, parentId } = item;
+      const { title, path, component, hidden, children, parentId, isExternal, protocol, icon } = item;
       // const childPath = parentId ? getChildPath(path) : path;
       const name = path.replace('/', '').replace(/\//g, '_');
       const isDefaultComponent = ['LAYOUT', 'RouterView'].includes(component);
@@ -82,15 +85,19 @@ export function parseMenuList(list: Menu[], parentId = 0) {
         ? component
         : component.replace('/', '').replace(/\//g, '_').toLowerCase();
 
+      const metaDta = {
+        title,
+        hidden,
+        parentId,
+        isExternal,
+        protocol,
+        icon,
+      };      
       const treeItem = {
         path,
         name,
         component: compoents[componentName],
-        meta: {
-          title,
-          hidden,
-          parentId,
-        },
+        meta: emptyObjectItemFillter(metaDta),
         children,
         redirect: children?.length ? children[0].path : null,
       };

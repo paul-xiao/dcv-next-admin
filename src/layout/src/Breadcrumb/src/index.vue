@@ -9,5 +9,5 @@ import { RouteLocationMatched, useRoute } from 'vue-router';
 
 const matchedRoute:Ref<RouteLocationMatched[]> = ref([])
 const route = useRoute()
-matchedRoute.value = route.matched
+matchedRoute.value = route.matched?.filter(m => !m.meta.hidden)
 </script>
