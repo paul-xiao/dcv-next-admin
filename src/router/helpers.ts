@@ -11,6 +11,7 @@ export interface Menu {
   hidden?: boolean;
   isExternal?: boolean;
   protocol?: string;
+  icon?: string;
 }
 
 /**

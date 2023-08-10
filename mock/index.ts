@@ -6,8 +6,6 @@ const mockList: MockMethod[] = [
     method: 'post', // 请求方式
     statusCode: 200, // 返回的http状态码
     response: opt => {
-      console.log(opt)
-
       return {
         // 返回的结果集
         statusCode: 200,
@@ -23,8 +21,6 @@ const mockList: MockMethod[] = [
     method: 'get', // 请求方式
     statusCode: 200, // 返回的http状态码
     response: opt => {
-      console.log(opt)
-
       return {
         // 返回的结果集
         statusCode: 200,

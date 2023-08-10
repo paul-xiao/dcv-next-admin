@@ -48,6 +48,14 @@ export default [
     parentId: 5,
   },
   {
+    id: 41,
+    title: '编辑器',
+    path: '/components/editor',
+    component: '/demos/components/editor',
+    icon: 'setting',
+    parentId: 4,
+  },
+  {
     id: 8,
     title: '表格',
     path: '/components/table',
