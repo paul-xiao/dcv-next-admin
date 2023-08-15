@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
 import { nextTick, ref, unref } from "vue";
-import { IFormItem } from "../types";
+import { FormItem } from "../types";
 
 export interface IFormProps {
   labelWidth?: number;
   api?: (params?: any) => Promise<AxiosResponse<any, any>>;
   foot?: boolean;
-  schema: IFormItem[];
+  schema: FormItem[];
 }
 
 export function useForm(props: IFormProps) {

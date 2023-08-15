@@ -10,7 +10,7 @@ export interface FormItem {
   change?: Function;
 }
 
-export interface ISelectOption {
+export interface SelectOption {
   label?: String;
   value?: String;
 }
