@@ -4,7 +4,7 @@ export interface ITableOptionProps {
   columns: ITableColumn[];
 }
 export interface ITableConf {
-  name: string;
+  title: string;
   addBtn?: boolean;
   editBtn?: boolean;
   viewBtn?: boolean;
@@ -27,8 +27,11 @@ export interface ITableColumn {
   rules?: any[];
 }
 export interface IPageProps {
-  size?: number;
-  current?: number;
+  isAsc?: boolean;
+  orderByString?: string;
+  sort?: string;
+  pageSize?: number;
+  pageNum?: number;
   total?: number;
 }
 

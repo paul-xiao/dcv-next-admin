@@ -1,4 +1,5 @@
-@import './mixins//prefix.scss';
+@import './mixins/prefix.scss';
 @import 'var.scss';
 @import 'base.scss';
 @import 'layout.scss';
+@import './components/index.scss';

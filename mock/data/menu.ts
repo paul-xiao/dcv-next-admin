@@ -90,4 +90,20 @@ export default [
     protocol: 'https',
     parentId: 0,
   },
+  {
+    id: 12,
+    title: '算网资源',
+    path: '/pool',
+    component: 'LAYOUT',
+    icon: 'Notebook',
+    parentId: 0,
+  },
+  {
+    id: 121,
+    title: '算力资源池',
+    path: '/pool/cloud',
+    component: '/pool/cloud',
+    icon: 'Notebook',
+    parentId: 12,
+  },
 ];
