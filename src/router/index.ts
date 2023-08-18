@@ -2,13 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 import NotFound from '@/views/errors/404.vue';
 import { setRouteGuards } from './guards';
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      redirect: '/overview/dashboard'
+      redirect: '/overview/dashboard',
     },
     {
       path: '/login',
@@ -18,13 +18,13 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/login/index.vue'),
       meta: {
-        title: '登陆'
-      }
+        title: '登陆',
+      },
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ],
 });
 
-setRouteGuards(router)
-
-export default router;
+export async function setupRouter(app) {
+  app.use(router);
+}

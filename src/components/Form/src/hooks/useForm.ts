@@ -1,15 +1,8 @@
-import { AxiosResponse } from "axios";
-import { nextTick, ref, unref } from "vue";
-import { FormItem } from "../types";
+import { AxiosResponse } from 'axios';
+import { nextTick, ref, unref } from 'vue';
+import { FormProps } from '../types';
 
-export interface IFormProps {
-  labelWidth?: number;
-  api?: (params?: any) => Promise<AxiosResponse<any, any>>;
-  foot?: boolean;
-  schema: FormItem[];
-}
-
-export function useForm(props: IFormProps) {
+export function useForm(props: FormProps) {
   const { schema, ...rest } = props;
   const formRef = ref<any>();
 
@@ -17,30 +10,29 @@ export function useForm(props: IFormProps) {
     const form = unref(formRef);
     if (!form) {
       console.error(
-        "The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!"
+        'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!',
       );
     }
     await nextTick();
     return form as any;
   }
   // 注册
-  const register = (instance) => {
+  const register = instance => {
     instance.setProps(rest);
     instance.getSchema(schema);
     formRef.value = instance;
   };
 
-  function onSubmit() {}
-  async function setValues(values) {
-    const form = await getForm();
-    console.log(form);
-
-    form.setDefautValues(values);
-  }
   // methods
   const methods = {
-    onSubmit,
-    setValues,
+    validate: async () => {
+      const form = await getForm();
+      return form.validate();
+    },
+    setValues: async values => {
+      const form = await getForm();
+      form.setDefautValues(values);
+    },
   };
 
   return [register, methods];

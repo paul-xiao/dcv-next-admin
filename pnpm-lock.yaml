@@ -12,6 +12,7 @@ specifiers:
   '@storybook/testing-library': ^0.0.14-next.2
   '@storybook/vue3': ^7.0.20
   '@storybook/vue3-vite': ^7.1.0
+  '@types/crypto-js': ^4.1.1
   '@types/echarts': ^4.9.16
   '@types/lodash': ^4.14.184
   '@typescript-eslint/eslint-plugin': ^5.13.0
@@ -25,6 +26,7 @@ specifiers:
   axios: ^1.3.4
   commitizen: ^4.2.4
   cross-env: ^7.0.3
+  crypto-js: ^4.1.1
   cz-conventional-changelog: ^3.3.0
   element-plus: ^2.3.8
   eslint: ^8.10.0
@@ -84,6 +86,7 @@ devDependencies:
   '@storybook/testing-library': 0.0.14-next.2
   '@storybook/vue3': 7.1.0_eb461aaeba155e70e66095b3074c25b1
   '@storybook/vue3-vite': 7.1.0_70347dc7f713333df6cb620352ae1fe6
+  '@types/crypto-js': 4.1.1
   '@types/echarts': 4.9.18
   '@types/lodash': 4.14.195
   '@typescript-eslint/eslint-plugin': 5.62.0_813dde211e9fed146d00a3a5a279daee
@@ -96,6 +99,7 @@ devDependencies:
   autoprefixer: 10.4.14_postcss@8.4.26
   commitizen: 4.3.0
   cross-env: 7.0.3
+  crypto-js: 4.1.1
   cz-conventional-changelog: 3.3.0
   eslint: 8.45.0
   eslint-define-config: 1.21.0
@@ -3206,6 +3210,10 @@ packages:
       '@types/node': 20.4.2
     dev: true
 
+  /@types/crypto-js/4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
+    dev: true
+
   /@types/detect-port/1.3.3:
     resolution: {integrity: sha512-bV/jQlAJ/nPY3XqSatkGpu+nGzou+uSwrH1cROhn+jBFg47yaNH+blW4C7p9KhopC7QxCv/6M86s37k8dMk0Yg==}
     dev: true
@@ -4873,6 +4881,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
     dev: true
 
   /crypto-random-string/2.0.0:

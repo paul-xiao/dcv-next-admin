@@ -29,10 +29,9 @@ export interface RequestOptions {
 
 export interface Result<T = any> {
   code: number;
-  type: 'success' | 'error' | 'warning';
-  msg: string;
-  data: T;
-  rows?: T;
+  errorMsg: string;
+  result: T;
+  success: boolean
 }
 
 // multipart/form-data: upload file

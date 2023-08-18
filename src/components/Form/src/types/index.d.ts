@@ -1,3 +1,8 @@
+export interface FormProps {
+  schema: any[],
+  labelWidth?: string
+} 
+
 export interface FormItem {
   label?: string;
   labelWidth?: string;

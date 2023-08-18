@@ -1,6 +1,6 @@
 <template>
   <ElFormItem :label="label" :label-width="labelWidth" :rules="rules" :prop="prop">
-    <template v-if="slot">
+    <template v-if="!!$slots[prop]">
       <slot :name="prop"></slot>
     </template>
     <component :is="getComponent(type)" v-model="myValue" v-bind="componentProps" @change="onChange" v-else />
@@ -16,10 +16,9 @@ export default defineComponent({
   components: { ElFormItem, ElInput, ISelect },
   props: {
     label: { type: String, default: '' },
-    labelWidth: { type: String, default: '' },
+    labelWidth: { type: [String, Number], default: '' },
     prop: { type: String, default: '' },
     type: String,
-    slot: { type: Boolean, default: false },
     rules: { type: Array, default: null } as any,
     componentProps: { type: Object, default: () => { } },
     modelValue: [String, Array],

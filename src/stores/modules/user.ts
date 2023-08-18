@@ -1,7 +1,9 @@
+import { setToken, removeToken } from '@/utils/auth';
 import { defineStore } from 'pinia';
+import { router } from '@/router';
+
 interface User {}
-export const useUserStore = defineStore({
-  id: 'user',
+export const useUserStore = defineStore('user', {
   state: () => {
     return {
       userData: [],
@@ -13,8 +15,14 @@ export const useUserStore = defineStore({
     },
   },
   actions: {
-    async setUserData(data) {
+    async login(data) {
       this.userData = data;
+      setToken(data.token);
+      router.push('/');
+    },
+    logout() {
+      removeToken();
+      router.push('/login');
     },
   },
 });

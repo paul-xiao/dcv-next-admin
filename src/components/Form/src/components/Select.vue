@@ -11,15 +11,15 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from "vue";
 import { ElSelect, ElOption } from "element-plus";
-import { ISelectOption } from "../types";
+import { SelectOption } from "../types";
 
 interface SelectProps {
   api?: Function;
-  options?: ISelectOption[];
+  options?: SelectOption[];
   modelValue?: string | string[];
-  props?: ISelectOption;
+  props?: SelectOption;
 }
-const myOptions = ref<ISelectOption[] | Record<string, any>>([]);
+const myOptions = ref<SelectOption[] | Record<string, any>>([]);
 const _props = defineProps<SelectProps>();
 const emit = defineEmits(["update:modelValue"]);
 // set default
@@ -29,7 +29,7 @@ const model = computed({
   set: (val) => emit("update:modelValue", val),
 });
 
-function getMatched(data, filter: ISelectOption) {
+function getMatched(data, filter: SelectOption) {
   if (!filter) return data;
   return data.reduce((res, cur) => {
     const result = {};

@@ -12,6 +12,7 @@ import { isString } from '@/utils/is';
 import { getToken } from '@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '@/utils';
 import { joinTimestamp, formatRequestDate } from './helper';
+import { ElNotification } from 'element-plus';
 
 const urlPrefix = '/';
 // const { createMessage, createErrorModal, notification } = useMessage();
@@ -36,7 +37,6 @@ const transform: AxiosTransform = {
       return res.data;
     }
     // 错误的时候返回
-
     const { data } = res;
     if (!data) {
       // return '[HTTP] Request has no return value';
@@ -44,16 +44,16 @@ const transform: AxiosTransform = {
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     // rows为分页列表
-    const { code, rows: rows, data: result, msg } = data;
+    const { code, result, errorMsg: msg } = data;
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
     if (hasSuccess) {
-      return result || rows;
+      return result;
     }
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
-    let timeoutMsg = '';
+    let errorMsg = '';
     switch (code) {
       case ResultEnum.TIMEOUT:
         // timeoutMsg = HttpErrorEnumtimeoutMessage;
@@ -62,11 +62,13 @@ const transform: AxiosTransform = {
         // userStore.logout(true);
         break;
       default:
-        if (msg) {
-          timeoutMsg = msg;
-        }
+        errorMsg = msg;
+        break;
     }
-
+    ElNotification.error({
+      title: HttpErrorEnum.errorTip,
+      message: errorMsg
+    });
     // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
     // if (options.errorMessageMode === 'modal') {
@@ -79,7 +81,7 @@ const transform: AxiosTransform = {
     //     description: timeoutMsg,
     //   });
     // }
-    throw new Error(timeoutMsg || HttpErrorEnum.apiRequestFailed);
+    throw new Error(errorMsg || HttpErrorEnum.apiRequestFailed);
   },
 
   // 请求之前处理config
@@ -238,11 +240,9 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   );
 }
-export const defHttp = createAxios();
-// other api url
-// export const otherHttp = createAxios({
-//   requestOptions: {
-//     apiUrl: 'xxx',
-//     urlPrefix: 'xxx',
-//   },
-// });
+export const defHttp = createAxios({
+  requestOptions: {
+    apiUrl: 'http://localhost:5173',
+    urlPrefix: '/api',
+  },
+});

@@ -17,11 +17,7 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>Action 1</el-dropdown-item>
-              <el-dropdown-item>Action 2</el-dropdown-item>
-              <el-dropdown-item>Action 3</el-dropdown-item>
-              <el-dropdown-item disabled>Action 4</el-dropdown-item>
-              <el-dropdown-item divided>Action 5</el-dropdown-item>
+              <el-dropdown-item @click="userStore.logout()">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -34,7 +30,8 @@
   import Breadcrumb from './src/Breadcrumb';
   import { Expand, Fold } from '@element-plus/icons-vue';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
-
+  import { useUserStore } from '@/stores/modules/user';
+  const userStore = useUserStore();
   const title = getGlobalConfig('title');
   const isCollapse = ref(false);
 

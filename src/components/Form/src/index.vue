@@ -9,17 +9,19 @@
   >
     <template v-for="item of schema" :key="item.prop">
       <IFormItem v-model="state.ruleForm[item.prop]" @change="val => handleChange(item, val)" v-bind="item">
-        <template v-if="item.slot" #[item.prop]>
+        <template v-if="!!$slots[item.prop]" #[item.prop]>
+          <!-- row: 当前表单属性, model: 当前表单内容 -->
           <slot :name="item.prop" :row="item" :model="state.ruleForm"></slot>
         </template>
       </IFormItem>
     </template>
-    <ElFormItem v-if="!foot || !slotFoot">
-      <slot name="footer"></slot>
+
+    <ElFormItem v-if="!$slots.footer">
+      <ElButton type="primary" :size="modelSize" @click="submitForm">确认</ElButton>
+      <ElButton @click="resetForm(formRef)">重置</ElButton>
     </ElFormItem>
     <ElFormItem v-else>
-      <ElButton type="primary" :size="modelSize" @click="submitForm(formRef)">确认</ElButton>
-      <ElButton @click="resetForm(formRef)">重置</ElButton>
+      <slot name="footer"></slot>
     </ElFormItem>
   </ElForm>
 </template>
@@ -27,37 +29,32 @@
   import { FormInstance, ElForm, ElFormItem, ElButton } from 'element-plus';
   import IFormItem from './components/FormItem.vue';
   import { computed, onMounted, reactive, ref, unref, watch } from 'vue';
-  import { useSlots } from 'vue';
-  import { IFormProps } from './hooks/useForm';
-  import { FormItem } from './types';
+  import { FormItem, FormProps } from './types';
+  import { getCurrentInstance } from 'vue';
   interface Props {
     modelValue?: object;
     schema?: FormItem[];
     rules?: object;
     modelSize?: 'small' | 'default' | 'large';
-    foot?: boolean;
   }
-  const _props = withDefaults(defineProps<Props>(), {
-    foot: true,
-  });
+  const instance = getCurrentInstance();
+  const _props = withDefaults(defineProps<Props>(), {});
   const _emits = defineEmits(['update:modelValue', 'register', 'submit']);
   const formRef = ref<FormInstance>();
   const schema = ref<any[]>([]);
   const state = reactive({
-    conf: {} as IFormProps,
+    conf: {} as FormProps,
     ruleForm: {} as any,
   });
 
   // init schema without useForm hook
   schema.value = _props.schema || [];
-  state.conf.foot = _props.foot;
-  state.ruleForm = _props.modelValue;
+  state.ruleForm = state.ruleForm = Object.assign({}, _props.modelValue);
+
   // watchs
   watch(
     () => _props.modelValue,
     val => {
-      console.log(val);
-
       state.ruleForm = Object.assign({}, val);
     },
   );
@@ -66,16 +63,11 @@
       return row.rules && row.rules.some((r: any) => r.required);
     };
   });
-  const slotFoot = !!useSlots().footer;
 
-  const submitForm = async (formEl: FormInstance | undefined) => {
-    if (!formEl) return;
-    await formEl.validate(async valid => {
+  const submitForm = async () => {
+    if (!formRef.value) return;
+    await formRef.value.validate(async valid => {
       if (valid) {
-        // https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-
-        // await state?.conf?.api!({ ...unref(ruleForm) })
-        console.log('xxxx', state);
-
         _emits('submit', { ...unref(state.ruleForm) });
       } else {
         console.warn('valid fail!', state.ruleForm);
@@ -83,17 +75,20 @@
     });
   };
 
-  const validate = (cb: any) => formRef.value && formRef.value.validate(cb);
+  const validate = async (cb: any) => {
+    if (formRef.value && (await formRef.value.validate(cb))) {
+      return state.ruleForm;
+    }
+  };
 
   const resetForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     formEl.resetFields();
-    state.ruleForm = {}
+    state.ruleForm = {};
   };
 
   function setProps(props) {
     state.conf = { ...props };
-    console.log(state.conf);
   }
   function setDefautValues(values) {
     state.ruleForm = { ...values };
@@ -101,13 +96,10 @@
   function setFormItem(key, val) {
     state.ruleForm[key] = val;
     state.ruleForm = { ...state.ruleForm };
-
-    console.log(state.ruleForm);
   }
 
   function getSchema(data) {
     schema.value = data;
-    console.log(schema.value);
   }
 
   function handleChange(item, props) {
@@ -119,12 +111,13 @@
     getSchema,
     setDefautValues,
     setFormItem,
+    validate,
   };
 
   onMounted(() => {
     _emits('register', formActions);
   });
   defineExpose({
-    validate,
+    submitForm,
   });
 </script>

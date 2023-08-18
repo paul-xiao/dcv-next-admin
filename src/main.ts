@@ -3,15 +3,14 @@ import './styles/theme/index.scss';
 import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
 import 'virtual:windi-utilities.css';
-
+import App from './App.vue';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
-import { createApp } from 'vue';
+import { router, setupRouter } from './router';
 import { setupStore } from './stores';
-
-import App from './App.vue';
-import router from './router';
 import { globalProvide } from './hooks/useGlobalConfig';
+import { createApp } from 'vue';
+import { setRouteGuards } from './router/guards';
 
 const app = createApp(App);
 
@@ -20,8 +19,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(globalProvide);
-app.use(router);
-
+setupRouter(app);
+// 包含异步操作，需要单独执行
+setRouteGuards(router)
 setupStore(app);
-
 app.mount('#app');
