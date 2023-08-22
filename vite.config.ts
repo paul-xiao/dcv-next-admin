@@ -12,6 +12,8 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'; // 自�
 import ElementPlus from 'unplugin-element-plus/vite'; // 自动导入 Element Plus 的 style
 import WindiCSS from 'vite-plugin-windicss';
 import { viteMockServe } from 'vite-plugin-mock';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import path from 'path';
 
 export default defineConfig(({ mode }: ConfigEnv) => {
   const env = loadEnv(mode, process.cwd());
@@ -83,6 +85,12 @@ export default defineConfig(({ mode }: ConfigEnv) => {
       viteMockServe({
         mockPath: '/mock',
         localEnabled: true,
+      }),
+      createSvgIconsPlugin({
+        // Specify the icon folder to be cached
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        // Specify symbolId format
+        symbolId: 'icon-[dir]-[name]',
       }),
     ],
   };

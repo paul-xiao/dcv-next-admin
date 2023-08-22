@@ -3,6 +3,9 @@ import './styles/theme/index.scss';
 import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
 import 'virtual:windi-utilities.css';
+// svg icon
+import 'virtual:svg-icons-register'
+
 import App from './App.vue';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
