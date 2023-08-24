@@ -4,10 +4,13 @@
 <script setup lang="ts">
   import { list } from '@/api/pool/cloud';
   import { Table, useTable } from '@/components/Table';
-  import { schema } from './cloud';
+  import { schema, searchSchema } from './cloud';
   const [registerTable, {}] = useTable({
     api: list as any,
     schema,
+    search: {
+      schema: searchSchema,
+    },
     page: {
       pageNum: 1,
       pageSize: 10,

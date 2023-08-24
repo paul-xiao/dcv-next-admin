@@ -33,7 +33,7 @@ function getMatched(data, filter: SelectOption) {
   if (!filter) return data;
   return data.reduce((res, cur) => {
     const result = {};
-    Object.keys(filter).forEach((f) => {
+    Object.keys(filter).forEach((f) => {      
       const filterKey = filter[f];
       if (f === "children") {
         result[f] = getMatched(cur[filterKey], filter);
@@ -47,13 +47,14 @@ function getMatched(data, filter: SelectOption) {
 }
 
 async function loadDataFromApi(api: Function) {
-  const res = await api();
+  const data = await api();
+  
   myOptions.value = getMatched(
-    res.data,
+    data,
     _props.props || { label: "label", value: "value" }
   );
 }
-onMounted(() => {
+onMounted(() => {  
   if (typeof _props.api === "function") {
     loadDataFromApi(_props.api);
   }

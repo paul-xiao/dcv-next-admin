@@ -1,6 +1,7 @@
 export interface FormProps {
   schema: any[],
   labelWidth?: string
+  inline?: boolean
 } 
 
 export interface FormItem {

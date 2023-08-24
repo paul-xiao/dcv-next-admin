@@ -14,7 +14,7 @@ export interface ITableConf {
   border?: boolean;
   height?: string | number | undefined;
   fixed?: boolean;
-  size?: "small";
+  size?: 'small';
   optWidth?: string;
 }
 export interface ITableColumn {
@@ -33,6 +33,9 @@ export interface IPageProps {
   pageSize?: number;
   pageNum?: number;
   total?: number;
+}
+export interface ITableSearch {
+  schema?: any;
 }
 
 export interface TableProps<T> {

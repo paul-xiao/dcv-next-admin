@@ -3,6 +3,7 @@
     ref="formRef"
     :rules="rules"
     :model="state.ruleForm"
+    :inline="state?.conf?.inline"
     status-icon
     :label-width="state?.conf?.labelWidth"
     :size="modelSize"
@@ -18,7 +19,7 @@
 
     <ElFormItem v-if="!$slots.footer">
       <ElButton type="primary" :size="modelSize" @click="submitForm">确认</ElButton>
-      <ElButton @click="resetForm(formRef)">重置</ElButton>
+      <ElButton @click="resetForm()">重置</ElButton>
     </ElFormItem>
     <ElFormItem v-else>
       <slot name="footer"></slot>
@@ -81,9 +82,8 @@
     }
   };
 
-  const resetForm = (formEl: FormInstance | undefined) => {
-    if (!formEl) return;
-    formEl.resetFields();
+  const resetForm = () => {
+    formRef.value?.resetFields();
     state.ruleForm = {};
   };
 
@@ -112,6 +112,7 @@
     setDefautValues,
     setFormItem,
     validate,
+    resetForm,
   };
 
   onMounted(() => {

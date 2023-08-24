@@ -13,6 +13,7 @@ import { getToken } from '@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '@/utils';
 import { joinTimestamp, formatRequestDate } from './helper';
 import { ElNotification } from 'element-plus';
+import { useUserStore } from '@/stores/modules/user';
 
 const urlPrefix = '/';
 // const { createMessage, createErrorModal, notification } = useMessage();
@@ -38,7 +39,9 @@ const transform: AxiosTransform = {
     }
     // 错误的时候返回
     const { data } = res;
+    
     if (!data) {
+      
       // return '[HTTP] Request has no return value';
       throw new Error(HttpErrorEnum.apiRequestFailed);
     }
@@ -55,16 +58,15 @@ const transform: AxiosTransform = {
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
     let errorMsg = '';
     switch (code) {
-      case ResultEnum.TIMEOUT:
-        // timeoutMsg = HttpErrorEnumtimeoutMessage;
-        // const userStore = useUserStoreWithOut();
-        // userStore.setToken(undefined);
-        // userStore.logout(true);
+      case ResultEnum.UNAUTH:
+        errorMsg = HttpErrorEnum.errMsg401;
+        const userStore = useUserStore();
+        userStore.logout()
         break;
       default:
         errorMsg = msg;
         break;
-    }
+    }    
     ElNotification.error({
       title: HttpErrorEnum.errorTip,
       message: errorMsg
@@ -154,9 +156,9 @@ const transform: AxiosTransform = {
   /**
    * @description: 响应错误处理
    */
-  responseInterceptorsCatch: (error: any) => {
+  responseInterceptorsCatch: (error: any) => {    
     const { response, code, message, config } = error || {};
-    const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';
+    const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';    
     const msg: string = response?.data?.msg ?? '';
     const err: string = error?.toString?.() ?? '';
     let errMessage = '';

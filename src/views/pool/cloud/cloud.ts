@@ -1,3 +1,21 @@
+import { getCloudTypeList } from '@/api/common';
+
+export const searchSchema = [
+  {
+    label: '名称',
+    prop: 'name',
+  },
+  {
+    label: '云商',
+    prop: 'cloudType',
+    type: 'select',
+    componentProps: {
+      api: getCloudTypeList,
+      props: { label: 'val', value: 'key' },
+    },
+   
+  },
+];
 export const schema = [
   {
     label: '名称',
@@ -5,15 +23,17 @@ export const schema = [
   },
   {
     label: '池区域',
-    prop: 'cloudRegionString',
+    prop: 'cloudRegionName',
   },
   {
     label: '云商',
+    isTag: true,
     prop: 'cloudTypeString',
   },
   {
-    label: '区域',
-    prop: 'cpRegionString',
+    label: '云类型',
+    isTag: true,
+    prop: 'cloudBusTypeString',
   },
   {
     label: '创建时间',

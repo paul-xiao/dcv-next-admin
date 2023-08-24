@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { nextTick, ref, unref } from 'vue';
 import { FormProps } from '../types';
 
@@ -16,6 +15,7 @@ export function useForm(props: FormProps) {
     await nextTick();
     return form as any;
   }
+
   // 注册
   const register = instance => {
     instance.setProps(rest);
@@ -32,6 +32,15 @@ export function useForm(props: FormProps) {
     setValues: async values => {
       const form = await getForm();
       form.setDefautValues(values);
+    },
+    updateSchema: async (schema) => {
+      const form = await getForm();
+      form.getSchema(schema);
+    },
+    resetForm: async () => {
+      const form = await getForm();
+      
+      form.resetForm();
     },
   };
 

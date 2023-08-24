@@ -1,7 +1,9 @@
 <template>
   <div :class="`${ns}-table`">
     <!-- 搜索栏 -->
-    <div :class="`${ns}-table-search`"></div>
+    <div :class="`${ns}-table-search`">
+      <TableSearch :schema="state.search.schema" v-if="state.search" :search-method="onLoad" />
+    </div>
     <!-- 表格 -->
     <div :class="`${ns}-table-head`">
       <div class="title">
@@ -12,11 +14,11 @@
         <ElButton v-if="state.conf?.batchDel" type="danger" @click="handleBatchDelete">删除</ElButton>
         <slot name="batch" :selections="state.multipleSelection"></slot>
       </div>
-      <div>
-        <i class="cursor-pointer el-icon el-icon-refresh" @click="onRefeshTable"></i>
+      <div class="tool mx-2">
+        <SvgIcon icon="refresh" @click="onRefeshTable"></SvgIcon>
       </div>
     </div>
-    <div :class="`${ns}-table-main`">
+    <div :class="`${ns}-table-main`" ref="ITableRef">
       <ElTable
         :data="state.data"
         :stripe="state.conf?.stripe"
@@ -25,7 +27,7 @@
         row-key="id"
         :size="state.conf?.size"
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        style="width: 100%"
+        :style="{ height: tableHight }"
         @selection-change="handleSelectionChange"
       >
         <ElTableColumn type="selection" width="55" />
@@ -38,6 +40,9 @@
         >
           <template v-if="item.slot" #default="{ row }">
             <slot :name="item.prop" :row="row"></slot>
+          </template>
+          <template v-else-if="item.isTag" #default="{ row }">
+            <div class="tag" :data-color-tag="getTagColor(row, item)">{{ row[item.prop] }}</div>
           </template>
         </ElTableColumn>
         <ElTableColumn :fixed="state.conf?.fixed" label="操作" :min-width="state.conf?.optWidth">
@@ -88,10 +93,13 @@
 <script lang="ts" setup>
   import { reactive, ref, computed, onMounted, watchEffect } from 'vue';
   import { ElButton, ElTable, ElTableColumn, ElPagination } from 'element-plus';
+  import { SvgIcon } from '@/components/Icon';
   import IForm from '../../Form';
   import tableProps from './table';
-  import { IPageProps, ITableColumn, ITableConf } from './types';
+  import { IPageProps, ITableColumn, ITableConf, ITableSearch } from './types';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
+  import { CloudTypeColor } from './enums/colors';
+  import TableSearch from './components/TableSearch.vue';
   const ns = getGlobalConfig('namespace');
   const dialogFormRef = ref(null);
   const _props = defineProps(tableProps);
@@ -117,6 +125,8 @@
   });
 
   const dialogVisible = ref(false);
+  const tableHight = ref('');
+  const ITableRef = ref<HTMLElement>();
 
   const state = reactive({
     data: [],
@@ -130,6 +140,7 @@
       border: true,
     } as ITableConf,
     schema: [] as ITableColumn[],
+    search: {} as ITableSearch,
     api: (_params?: any) => {},
     page: {} as IPageProps,
   });
@@ -190,21 +201,21 @@
   }
   function handleSizeChange(val: any) {
     state.page.pageSize = val;
-    const { pageNum, pageSize } = state.page;
-    onLoad({ pageNum, pageSize });
+    setTableHeight();
+    onLoad();
   }
   function handleCurrentChange(val: any) {
     state.page.pageNum = val;
-    const { pageNum, pageSize } = state.page;
-    onLoad({ pageNum, pageSize });
+    onLoad();
   }
 
   function setProps(props) {
     console.group('Set Props:');
-    const { conf, api, schema, page } = props;
+    const { conf, api, schema, page, search } = props;
     state.conf = { ...state.conf, ...conf };
     state.api = api;
     state.schema = schema;
+    state.search = search;
     state.page = { ...state.page, ...page };
     console.groupEnd();
   }
@@ -212,13 +223,16 @@
     const res: any = await state.api({ search: { ...params }, page: { ...state.page } });
     state.data = res?.result;
     state.page.total = res?.total;
-    console.log(res);
-    
   }
 
-  watchEffect(() => {
-    onLoad();
-  });
+  function getTagColor(row, item) {
+    const type = item.prop.includes('String') ? row[item.prop.replace('String', '')] : row.prop;
+    return CloudTypeColor[type];
+  }
+
+  function setTableHeight() {
+    tableHight.value = ITableRef.value?.clientHeight + 'px';
+  }
 
   const tableAction = {
     setProps,
@@ -227,5 +241,13 @@
 
   onMounted(() => {
     emit('register', tableAction);
+    // init data
+    onLoad();
+    setTableHeight();
+    window.addEventListener('resize', setTableHeight);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', setTableHeight);
   });
 </script>

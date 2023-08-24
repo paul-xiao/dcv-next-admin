@@ -49,6 +49,7 @@ declare module 'vue' {
     Select: typeof import('./../../src/components/Form/src/components/Select.vue')['default']
     Src: typeof import('./../../src/components/Button/src/index.vue')['default']
     SvgIcon: typeof import('./../../src/components/Icon/src/SvgIcon.vue')['default']
+    TableSearch: typeof import('./../../src/components/Table/src/components/TableSearch.vue')['default']
     TheWelcome: typeof import('./../../src/components/TheWelcome.vue')['default']
     Upload: typeof import('./../../src/components/Form/src/components/Upload.vue')['default']
     WelcomeItem: typeof import('./../../src/components/WelcomeItem.vue')['default']

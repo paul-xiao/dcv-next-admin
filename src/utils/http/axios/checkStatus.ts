@@ -11,6 +11,9 @@ export function checkStatus(status: number, msg: string, errorMessageMode: Error
     // Jump to the login page if not logged in, and carry the path of the current page
     // Return to the current page after successful login. This step needs to be operated on the login page.
     case 401:
+      console.log(msg);
+      
+      errMessage = msg;
       break;
     case 403:
       errMessage = msg || HttpErrorEnum.errMsg403;

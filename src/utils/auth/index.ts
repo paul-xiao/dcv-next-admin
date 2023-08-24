@@ -1,12 +1,16 @@
-import { CacheEnum } from '@/enums/cacheEnum';
-import { Session } from '@/utils/cache/storage';
+
+import Cookies from 'js-cookie'
+
+const TokenKey = 'dcits_login_token'
 
 export function getToken() {
-  return Session.get(CacheEnum.TOKEN);
+  return Cookies.get(TokenKey)
 }
-export function setToken(val) {
-  return Session.set(CacheEnum.TOKEN, val);
+
+export function setToken(token) {
+  return Cookies.set(TokenKey, token)
 }
+
 export function removeToken() {
-  return Session.remove(CacheEnum.TOKEN);
+  return Cookies.remove(TokenKey)
 }

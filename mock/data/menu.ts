@@ -85,7 +85,7 @@ export default [
     title: 'Element-Plus 文档',
     path: '/element-plus.gitee.io/zh-CN/component/button.html',
     component: '',
-    icon: 'Notebook',
+    icon: 'setting',
     isExternal: true,
     protocol: 'https',
     parentId: 0,
@@ -95,7 +95,7 @@ export default [
     title: '算网资源',
     path: '/pool',
     component: 'LAYOUT',
-    icon: 'Notebook',
+    icon: 'setting',
     parentId: 0,
   },
   {
@@ -103,7 +103,7 @@ export default [
     title: '算力资源池',
     path: '/pool/cloud',
     component: '/pool/cloud',
-    icon: 'Notebook',
+    icon: 'setting',
     parentId: 12,
   },
 ];

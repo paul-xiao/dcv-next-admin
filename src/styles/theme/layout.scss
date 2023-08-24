@@ -46,10 +46,14 @@
       }
     }
     .main {
-      display: flex;
       height: calc(100vh - $headerHeight);
+      position: relative;
       .aside {
+        height: 100%;
         background: #eee;
+        position: absolute;
+        left: 0;
+        top: 0;
         &-menu {
           min-height: 100%;
         }
@@ -58,8 +62,15 @@
         }
       }
       .content {
-        flex: 1;
+        margin-left: $asideWidth;
         padding: $padding;
+        height: 100%;
+        transition: all ease 0.3s;
+      }
+      &.colllapsed {
+        .content {
+          margin-left: 64px;
+        }
       }
     }
   }

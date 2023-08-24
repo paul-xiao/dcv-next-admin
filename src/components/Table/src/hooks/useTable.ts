@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { ref, unref } from "vue";
 import {
   ITableColumn,
+  ITableSearch,
   ITableConf,
   IPageProps,
   UseTableReturnType,
@@ -11,6 +12,7 @@ export interface ITableProps {
   conf: ITableConf;
   api?: (params?: any) => Promise<AxiosResponse<any, any>>;
   schema: ITableColumn[];
+  search: ITableSearch;
   page: IPageProps;
 }
 
