@@ -1,7 +1,7 @@
 import { nextTick, ref, unref } from 'vue';
 import { FormProps } from '../types';
 
-export function useForm(props: FormProps) {
+export function useForm(props: FormProps) : any {
   const { schema, ...rest } = props;
   const formRef = ref<any>();
 

@@ -4,7 +4,6 @@ export interface ITableOptionProps {
   columns: ITableColumn[];
 }
 export interface ITableConf {
-  title: string;
   addBtn?: boolean;
   editBtn?: boolean;
   viewBtn?: boolean;
@@ -44,9 +43,9 @@ export interface TableProps<T> {
   page: IPageProps;
   modelValue: String | Object;
 }
-export interface TableActionType {
-  reload: (opt?: any) => Function<void>;
-}
+// export interface TableActionType {
+//   reload: (opt?: any) => Function<void>;
+// }
 
 export type RegisterFn = (tableInstance: any) => void;
 

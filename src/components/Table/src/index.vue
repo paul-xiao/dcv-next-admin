@@ -7,15 +7,14 @@
     <!-- 表格 -->
     <div :class="`${ns}-table-head`">
       <div class="title">
-        {{ state.conf.title }}
+        {{ state.title }}
       </div>
       <div class="opt">
-        <ElButton v-if="state.conf?.addBtn" type="primary" @click="handleAdd">添加</ElButton>
-        <ElButton v-if="state.conf?.batchDel" type="danger" @click="handleBatchDelete">删除</ElButton>
         <slot name="batch" :selections="state.multipleSelection"></slot>
       </div>
-      <div class="tool mx-2">
+      <div class="tool mx-2 flex">
         <SvgIcon icon="refresh" @click="onRefeshTable"></SvgIcon>
+        <SvgIcon icon="setting" @click="onRefeshTable"></SvgIcon>
       </div>
     </div>
     <div :class="`${ns}-table-main`" ref="ITableRef">
@@ -47,13 +46,6 @@
         </ElTableColumn>
         <ElTableColumn :fixed="state.conf?.fixed" label="操作" :min-width="state.conf?.optWidth">
           <template #default="{ row }">
-            <ElButton v-if="state.conf?.viewBtn" type="primary" text size="small" @click="handleView"> 查看 </ElButton>
-            <ElButton v-if="state.conf?.editBtn" type="success" text size="small" @click="handleEdit()">
-              编辑
-            </ElButton>
-            <ElButton v-if="state.conf?.delBtn" type="danger" text size="small" @click="handleDelete(row)">
-              删除
-            </ElButton>
             <slot name="opt" :row="row"></slot>
           </template>
         </ElTableColumn>
@@ -74,45 +66,22 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <el-dialog v-model="dialogVisible" :title="dialogTitle" width="30%">
-      <IForm ref="dialogFormRef" v-model="form" :schema="state.schema" :foot="false">
-        <!-- form插槽转移到table -->
-        <template v-for="col of state.schema" :key="col.prop" #[col.prop]>
-          <slot :name="`${col.prop}Form`"></slot>
-        </template>
-      </IForm>
-      <template #footer>
-        <span class="dialog-footer">
-          <ElButton @click="handleCancel">取消</ElButton>
-          <ElButton type="primary" @click="handleSubmit(dialogFormRef)">确认</ElButton>
-        </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 <script lang="ts" setup>
   import { reactive, ref, computed, onMounted, watchEffect } from 'vue';
-  import { ElButton, ElTable, ElTableColumn, ElPagination } from 'element-plus';
+  import { ElTable, ElTableColumn, ElPagination } from 'element-plus';
   import { SvgIcon } from '@/components/Icon';
-  import IForm from '../../Form';
   import tableProps from './table';
   import { IPageProps, ITableColumn, ITableConf, ITableSearch } from './types';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
   import { CloudTypeColor } from './enums/colors';
   import TableSearch from './components/TableSearch.vue';
   const ns = getGlobalConfig('namespace');
-  const dialogFormRef = ref(null);
   const _props = defineProps(tableProps);
   const emit = defineEmits([
     'register',
     'update:modelValue',
-    'load',
-    'row-add',
-    'row-update',
-    'row-del',
-    'batch-del',
-    'size-change',
-    'current-change',
   ]);
 
   const form = computed({
@@ -129,6 +98,7 @@
   const ITableRef = ref<HTMLElement>();
 
   const state = reactive({
+    title: '',
     data: [],
     multipleSelection: [],
     flag: 'add',
@@ -136,6 +106,7 @@
       addBtn: true,
       viewBtn: true,
       delBtn: true,
+      batchDel: true,
       editBtn: true,
       border: true,
     } as ITableConf,
@@ -173,26 +144,6 @@
       }
     });
   }
-
-  function handleCancel() {
-    dialogVisible.value = false;
-  }
-
-  function handleView() {
-    dialogVisible.value = true;
-    state.flag = 'view';
-  }
-  function handleEdit() {
-    dialogVisible.value = true;
-    state.flag = 'edit';
-  }
-  function handleDelete(row: any) {
-    emit('row-del', row);
-  }
-
-  function handleBatchDelete() {
-    emit('batch-del', state.multipleSelection);
-  }
   function handleSelectionChange(val: any) {
     state.multipleSelection = val;
   }
@@ -211,8 +162,9 @@
 
   function setProps(props) {
     console.group('Set Props:');
-    const { conf, api, schema, page, search } = props;
+    const { title, conf, api, schema, page, search } = props;
     state.conf = { ...state.conf, ...conf };
+    state.title = title;
     state.api = api;
     state.schema = schema;
     state.search = search;
@@ -237,6 +189,7 @@
   const tableAction = {
     setProps,
     onLoad,
+    handleAdd,
   };
 
   onMounted(() => {

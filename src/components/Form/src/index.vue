@@ -17,13 +17,15 @@
       </IFormItem>
     </template>
 
-    <ElFormItem v-if="!$slots.footer">
-      <ElButton type="primary" :size="modelSize" @click="submitForm">确认</ElButton>
-      <ElButton @click="resetForm()">重置</ElButton>
-    </ElFormItem>
-    <ElFormItem v-else>
-      <slot name="footer"></slot>
-    </ElFormItem>
+    <template v-if="foot">
+      <ElFormItem v-if="!$slots.footer">
+        <ElButton type="primary" :size="modelSize" @click="submitForm">确认</ElButton>
+        <ElButton @click="resetForm()">重置</ElButton>
+      </ElFormItem>
+      <ElFormItem v-else>
+        <slot name="footer"></slot>
+      </ElFormItem>
+    </template>
   </ElForm>
 </template>
 <script setup lang="ts">
@@ -36,10 +38,11 @@
     modelValue?: object;
     schema?: FormItem[];
     rules?: object;
+    foot?: boolean;
     modelSize?: 'small' | 'default' | 'large';
   }
   const instance = getCurrentInstance();
-  const _props = withDefaults(defineProps<Props>(), {});
+  const _props = withDefaults(defineProps<Props>(), { foot: true });
   const _emits = defineEmits(['update:modelValue', 'register', 'submit']);
   const formRef = ref<FormInstance>();
   const schema = ref<any[]>([]);

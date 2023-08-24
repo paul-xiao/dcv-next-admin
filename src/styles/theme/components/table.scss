@@ -8,15 +8,19 @@ $tagColors: (
 @include prefix($namespace) {
   &-table {
     height: 100%;
-    &-search {
+    .search-expanded {
      
+    }
+    &-search {
+      .el-form-item{
+        margin-bottom: 0;
+      }
     }
     &-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 50px;
-      margin-top: -12px;
       .title {
         font-weight: 700;
       }
@@ -27,7 +31,7 @@ $tagColors: (
       }
     }
     &-main {
-      height: calc(100% - 200px);
+      height: calc(100% - 130px);
       overflow-x: hidden;
       overflow-y: auto;
       .tag {
@@ -56,3 +60,4 @@ $tagColors: (
 .el-table th.el-table__cell{
     --el-table-header-bg-color: #f2f2f2;
 }
+

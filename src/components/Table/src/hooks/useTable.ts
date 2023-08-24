@@ -1,18 +1,12 @@
-import { AxiosResponse } from "axios";
-import { ref, unref } from "vue";
-import {
-  ITableColumn,
-  ITableSearch,
-  ITableConf,
-  IPageProps,
-  UseTableReturnType,
-  TableActionType,
-} from "../types";
+import { AxiosResponse } from 'axios';
+import { ref, unref } from 'vue';
+import { ITableColumn, ITableSearch, ITableConf, IPageProps, UseTableReturnType } from '../types';
 export interface ITableProps {
-  conf: ITableConf;
+  title: string;
+  conf?: ITableConf;
   api?: (params?: any) => Promise<AxiosResponse<any, any>>;
   schema: ITableColumn[];
-  search: ITableSearch;
+  search?: ITableSearch;
   page: IPageProps;
 }
 
@@ -20,7 +14,7 @@ export function useTable(props: ITableProps): UseTableReturnType {
   const tableRef = ref<any>(null);
 
   // 注册
-  const register = (instance) => {
+  const register = instance => {
     instance.setProps(props);
     tableRef.value = instance;
   };
@@ -29,8 +23,9 @@ export function useTable(props: ITableProps): UseTableReturnType {
     unref(tableRef)?.onLoad();
   }
   // methods
-  const methods: TableActionType = {
+  const methods = {
     reload,
+    add: () => unref(tableRef)?.handleAdd(),
   };
 
   return [register, methods];

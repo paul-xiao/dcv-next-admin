@@ -13,8 +13,7 @@ export const searchSchema = [
       api: getCloudTypeList,
       props: { label: 'val', value: 'key' },
     },
-   
-  },
+  }
 ];
 export const schema = [
   {
@@ -40,3 +39,20 @@ export const schema = [
     prop: 'createTimeString',
   },
 ];
+
+
+export const FormSchema = [
+  {
+    label: '名称',
+    prop: 'name',
+  },
+  {
+    label: '云商',
+    prop: 'cloudType',
+    type: 'select',
+    componentProps: {
+      api: getCloudTypeList,
+      props: { label: 'val', value: 'key' },
+    },
+  }
+]
