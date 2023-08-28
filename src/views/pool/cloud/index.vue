@@ -5,12 +5,13 @@
       <ElButton type="primary" @click="onQuotaConf">容量配置</ElButton>
     </template>
     <template #opt="{ row }">
-      <ElButton type="primary" text size="small" @click="onDetailView(row)">详情</ElButton>
-      <ElButton type="primary" text size="small" @click="onQuotaConf()">容量配置</ElButton>
+      <ElButton type="primary" text size="small" icon="view" @click="onDetailView(row)">详情</ElButton>
+      <ElButton type="primary" text size="small" icon="setting" @click="onQuotaConf()">容量配置</ElButton>
     </template>
   </Table>
   <!-- 抽屉弹窗 -->
   <CreateDrawer @register="registerDrawer" />
+  <DetailDrawer @register="registerDetailDrawer" />
 </template>
 <script setup lang="ts">
   import { list } from '@/api/pool/cloud';
@@ -18,6 +19,7 @@
   import { useDrawer } from '@/components/Drawer';
   import { schema, searchSchema } from './cloud';
   import CreateDrawer from './createDrawer.vue';
+  import DetailDrawer from './detail.vue';
   const [registerTable, { add }] = useTable({
     title: '算力资源池',
     api: list as any,
@@ -31,7 +33,7 @@
       total: 0,
     },
     conf: {
-      optWidth: '80px',
+      optWidth: '200px',
     },
   });
 
@@ -39,12 +41,17 @@
     title: '新增算力资源池',
     size: '50%',
   });
+  const [registerDetailDrawer, { openDrawer: openDetailDrawer }] = useDrawer({
+    title: '算力资源池详情',
+    size: '50%',
+    footer: false
+  });
 
   function onCreate() {
     openDrawer();
   }
   function onQuotaConf() {}
   function onDetailView(row) {
-    console.log(row.id);
+    openDetailDrawer(row)
   }
 </script>

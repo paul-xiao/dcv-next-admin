@@ -44,7 +44,7 @@
             <div class="tag" :data-color-tag="getTagColor(row, item)">{{ row[item.prop] }}</div>
           </template>
         </ElTableColumn>
-        <ElTableColumn :fixed="state.conf?.fixed" label="操作" :min-width="state.conf?.optWidth">
+        <ElTableColumn :fixed="state.conf?.fixed" label="操作" :width="state.conf?.optWidth">
           <template #default="{ row }">
             <slot name="opt" :row="row"></slot>
           </template>

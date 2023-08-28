@@ -7,7 +7,7 @@
     :size="state.size"
   >
     <slot />
-    <template #footer>
+    <template #footer v-if="state.footer">
       <div style="flex: auto">
         <el-button @click="close">取消</el-button>
         <el-button type="primary" @click="onConfirm" :loading="loading">确认</el-button>
@@ -16,8 +16,7 @@
   </ElDrawer>
 </template>
 <script setup lang="ts">
-  import { onMounted, reactive, ref, unref } from 'vue';
-  const visable = ref(false);
+  import { onMounted, reactive, ref, watch } from 'vue';
   const IDrawerRef = ref();
   interface DrawerProps {
     visable?: boolean;
@@ -25,17 +24,25 @@
     header?: boolean;
     size?: string;
     loading?: boolean;
+    footer?: boolean;
   }
-  const _props = withDefaults(defineProps<DrawerProps>(), { visable: false, header: true, title: '', size: '35%' });
+  const _props = withDefaults(defineProps<DrawerProps>(), {
+    visable: false,
+    header: true,
+    footer: true,
+    title: '',
+    size: '35%',
+  });
   const state = reactive({
     title: '',
     visable: false,
     header: true,
+    footer: true,
     size: '',
   });
 
   setProps(_props);
-  const emit = defineEmits(['register', 'confirm']);
+  const emit = defineEmits(['register', 'confirm', 'open']);
 
   // set prop from useDrawer hook
   function setProps(props) {
@@ -43,8 +50,9 @@
       state[key] = val;
     });
   }
-  function open() {
+  function open(params) {
     state.visable = true;
+    emit('open', params);
   }
 
   function close() {
@@ -62,8 +70,7 @@
     emit('register', hook);
   });
 
-
   defineExpose({
-    close
-  })
+    close,
+  });
 </script>

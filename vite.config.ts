@@ -45,6 +45,11 @@ export default defineConfig(({ mode }: ConfigEnv) => {
       vue({
         // 默认开启响应性语法糖
         reactivityTransform: true,
+        template: {
+          compilerOptions: {
+            isCustomElement: tag => tag.includes('px-'),
+          },
+        },
       }),
       vueJsx(),
       AutoImport({

@@ -64,6 +64,14 @@ export default [
     parentId: 4,
   },
   {
+    id: 81,
+    title: '画板',
+    path: '/components/drawing-board',
+    component: '/demos/components/drawing-board',
+    icon: 'setting',
+    parentId: 4,
+  },
+  {
     id: 9,
     title: '图标',
     path: '/icons',

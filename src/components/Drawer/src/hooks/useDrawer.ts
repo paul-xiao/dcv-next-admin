@@ -8,8 +8,8 @@ export function useDrawer(params): any {
   }
   // 钩子
   const hooks = {
-    openDrawer: () => {
-      IDrawerRef.value.open()
+    openDrawer: (params) => {
+      IDrawerRef.value.open(params)
     }
   };
 

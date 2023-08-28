@@ -13,7 +13,7 @@ export const searchSchema = [
       api: getCloudTypeList,
       props: { label: 'val', value: 'key' },
     },
-  }
+  },
 ];
 export const schema = [
   {
@@ -40,7 +40,6 @@ export const schema = [
   },
 ];
 
-
 export const FormSchema = [
   {
     label: '名称',
@@ -54,5 +53,29 @@ export const FormSchema = [
       api: getCloudTypeList,
       props: { label: 'val', value: 'key' },
     },
-  }
-]
+  },
+];
+export const DetailSchema = [
+  {
+    label: '名称',
+    prop: 'name',
+  },
+  {
+    label: '池区域',
+    prop: 'cloudRegionName',
+  },
+  {
+    label: '云商',
+    isTag: true,
+    prop: 'cloudTypeString',
+  },
+  {
+    label: '云类型',
+    isTag: true,
+    prop: 'cloudBusTypeString',
+  },
+  {
+    label: '创建时间',
+    prop: 'createTimeString',
+  },
+];
