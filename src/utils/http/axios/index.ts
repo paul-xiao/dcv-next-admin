@@ -15,7 +15,7 @@ import { joinTimestamp, formatRequestDate } from './helper';
 import { ElNotification } from 'element-plus';
 import { useUserStore } from '@/stores/modules/user';
 
-const urlPrefix = '/';
+const urlPrefix = '/api';
 // const { createMessage, createErrorModal, notification } = useMessage();
 
 /**
@@ -224,8 +224,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           formatDate: true,
           // 消息提示类型
           errorMessageMode: 'notification',
-          // 接口地址
-          apiUrl: '/',
+     
           // 接口拼接地址
           urlPrefix: urlPrefix,
           //  是否加入时间戳
@@ -242,9 +241,4 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   );
 }
-export const defHttp = createAxios({
-  requestOptions: {
-    apiUrl: 'http://localhost:5173',
-    urlPrefix: '/api',
-  },
-});
+export const defHttp = createAxios();

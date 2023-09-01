@@ -7,7 +7,7 @@ export interface ITableProps {
   api?: (params?: any) => Promise<AxiosResponse<any, any>>;
   schema: ITableColumn[];
   search?: ITableSearch;
-  page: IPageProps;
+  page: IPageProps | boolean;
 }
 
 export function useTable(props: ITableProps): UseTableReturnType {

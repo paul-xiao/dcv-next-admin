@@ -16,6 +16,14 @@ export default [
     parentId: 1,
   },
   {
+    id: 21,
+    title: '算力地图',
+    path: '/overview/cloud',
+    component: '/overview/cloud',
+    icon: 'setting',
+    parentId: 1,
+  },
+  {
     id: 4,
     title: '基础组件',
     path: '/components',
@@ -49,7 +57,7 @@ export default [
   },
   {
     id: 41,
-    title: '编辑器',
+    title: '代码编辑器',
     path: '/components/editor',
     component: '/demos/components/editor',
     icon: 'setting',
@@ -113,5 +121,21 @@ export default [
     component: '/pool/cloud',
     icon: 'setting',
     parentId: 12,
+  },
+  {
+    id: 13,
+    title: '图表',
+    path: '/chart',
+    component: 'LAYOUT',
+    icon: 'setting',
+    parentId: 0,
+  },
+  {
+    id: 131,
+    title: 'Echarts',
+    path: '/chart/echarts',
+    component: '/demos/charts',
+    icon: 'setting',
+    parentId: 13,
   },
 ];

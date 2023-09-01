@@ -3,6 +3,7 @@
     <el-sub-menu :index="menu.path">
       <template #title>
         <SvgIcon :icon="menu.meta.icon"></SvgIcon>
+
         <span class="ml-1">{{ menu.meta.title }}</span></template
       >
 
@@ -12,14 +13,15 @@
   <template v-else>
     <el-menu-item :index="menu.path" v-if="!menu.meta.isExternal">
       <SvgIcon :icon="menu.meta.icon"></SvgIcon>
+
       <template #title>
         <span class="ml-1">{{ menu.meta.title }}</span>
       </template>
     </el-menu-item>
     <el-menu-item @click="onExternalClick" v-else>
       <SvgIcon :icon="menu.meta.icon"></SvgIcon>
-      <template #title
-        ><span class="ml-1">{{ menu.meta.title }}</span></template
+      <template #title>
+        <span class="ml-1">{{ menu.meta.title }}</span></template
       >
     </el-menu-item>
   </template>
