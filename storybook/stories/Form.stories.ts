@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import Form from '../../src/components/Form';
+import Form from '../../src/components/IForm';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta = {

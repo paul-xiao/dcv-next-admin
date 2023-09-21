@@ -27,7 +27,7 @@
   </template>
 </template>
 <script lang="ts">
-  import { SvgIcon } from '@/components/Icon';
+  import { SvgIcon } from '@/components/IIcon';
   import { ref } from 'vue';
   export default {
     name: 'SubMenu',
@@ -51,3 +51,4 @@
     },
   };
 </script>
+@/components/IIcon

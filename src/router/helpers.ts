@@ -1,4 +1,4 @@
-import { useMenuStore } from '@/stores/modules/menu';
+import { useMenuStore } from '@/styles/stores/modules/menu';
 import { emptyObjectItemFillter } from '@/utils/object';
 import { Router, RouterView } from 'vue-router';
 export interface Menu {

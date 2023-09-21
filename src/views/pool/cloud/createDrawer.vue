@@ -4,8 +4,8 @@
   </Drawer>
 </template>
 <script setup lang="ts">
-  import { Drawer } from '@/components/Drawer';
-  import { IForm, useForm } from '@/components/Form';
+  import { Drawer } from '@/components/IDrawer';
+  import { IForm, useForm } from '@/components/IForm';
   import { FormSchema } from './cloud';
   import { useMessage } from '@/hooks/useMessage';
   const loading = ref(false);

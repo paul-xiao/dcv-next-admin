@@ -1,5 +1,5 @@
 <template>
-  <Table @register="registerTable">
+  <ITable @register="registerTable">
     <template #batch>
       <ElButton type="primary" icon="plus" @click="onCreate">新增</ElButton>
       <ElButton type="primary" @click="onQuotaConf">容量配置</ElButton>
@@ -8,15 +8,15 @@
       <ElButton type="primary" text size="small" icon="view" @click="onDetailView(row)">详情</ElButton>
       <ElButton type="primary" text size="small" icon="setting" @click="onQuotaConf()">容量配置</ElButton>
     </template>
-  </Table>
+  </ITable>
   <!-- 抽屉弹窗 -->
   <CreateDrawer @register="registerDrawer" />
   <DetailDrawer @register="registerDetailDrawer" />
 </template>
 <script setup lang="ts">
   import { list } from '@/api/pool/cloud';
-  import { Table, useTable } from '@/components/Table';
-  import { useDrawer } from '@/components/Drawer';
+  import { ITable, useTable } from '@/components/ITable';
+  import { useDrawer } from '@/components/IDrawer';
   import { schema, searchSchema } from './cloud';
   import CreateDrawer from './createDrawer.vue';
   import DetailDrawer from './detail.vue';

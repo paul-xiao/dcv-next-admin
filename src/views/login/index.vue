@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
   import { ElInput, ElRow, ElCol } from 'element-plus';
-  import { useForm, IForm } from '@/components/Form';
+  import { useForm, IForm } from '@/components/IForm';
   import { loginSchema } from './login';
   import { login } from '@/api/user';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
@@ -135,4 +135,4 @@
     padding: 30px;
     border-radius: 5px;
   }
-</style>
+</style>@/components/IForm

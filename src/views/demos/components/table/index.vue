@@ -1,13 +1,13 @@
 <template>
-  <Table @register="registerTable">
+  <ITable @register="registerTable">
     <template #opt="{ row }">
       <ElButton type="primary" text size="small" icon="view" @click="detail()">详情</ElButton>
       <ElButton type="danger" text size="small" icon="delete" @click="del()">删除</ElButton>
     </template>
-  </Table>
+  </ITable>
 </template>
 <script setup lang="ts">
-  import { Table, useTable } from '@/components/Table';
+  import { ITable, useTable } from '@/components/ITable';
   import { tableSchema } from './schema';
   const [registerTable, {}] = useTable({
     title: '表格',

@@ -13,7 +13,7 @@ import { getToken } from '@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '@/utils';
 import { joinTimestamp, formatRequestDate } from './helper';
 import { ElNotification } from 'element-plus';
-import { useUserStore } from '@/stores/modules/user';
+import { useUserStore } from '@/styles/stores/modules/user';
 
 const urlPrefix = '/api';
 // const { createMessage, createErrorModal, notification } = useMessage();

@@ -37,3 +37,4 @@ const menuStore = useMenuStore()
 menus.value = (menuStore.menuData);
 
 </script>
+@/styles/stores/modules/menu

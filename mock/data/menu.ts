@@ -19,7 +19,7 @@ export default [
     id: 21,
     title: '算力地图',
     path: '/overview/cloud',
-    component: '/overview/cloud',
+    component: '/overview/Map',
     icon: 'setting',
     parentId: 1,
   },

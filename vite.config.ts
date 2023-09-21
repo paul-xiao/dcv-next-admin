@@ -74,6 +74,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         },
       }),
       Components({
+        directoryAsNamespace: true,
         resolvers: [
           ElementPlusResolver(),
           // 自动注册图标组件

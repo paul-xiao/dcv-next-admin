@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { useForm, IForm } from '@/components/Form';
+  import { useForm, IForm } from '@/components/IForm';
   const schema = [
     {
       label: '标题',

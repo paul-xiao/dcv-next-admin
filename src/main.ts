@@ -10,7 +10,7 @@ import App from './App.vue';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
 import { router, setupRouter } from './router';
-import { setupStore } from './stores';
+import { setupStore } from './styles/stores';
 import { globalProvide } from './hooks/useGlobalConfig';
 import { createApp } from 'vue';
 import { setRouteGuards } from './router/guards';

@@ -3,7 +3,7 @@
 </template>
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
-  import { useEcharts } from '@/components/Chart';
+  import { useEcharts } from '@/components/IChart';
 
   const _porps = defineProps({
     chartType: {

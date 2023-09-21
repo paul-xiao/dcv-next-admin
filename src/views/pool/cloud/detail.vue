@@ -5,8 +5,8 @@
 </template>
 <script setup lang="ts">
   import { detail } from '@/api/pool/cloud';
-  import { Drawer } from '@/components/Drawer';
-  import { Description, useDescription } from '@/components/Description';
+  import { Drawer } from '@/components/IDrawer';
+  import { Description, useDescription } from '@/components/IDescription';
   import { DetailSchema } from './cloud';
   const DrawerRef = ref();
   const [registerDesc, { setDescData }] = useDescription({
