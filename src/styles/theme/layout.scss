@@ -73,6 +73,7 @@
         margin-left: $asideWidth;
         padding: $padding;
         height: 100%;
+        overflow: auto;
         transition: all ease 0.3s;
       }
       &.colllapsed {
