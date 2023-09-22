@@ -12,9 +12,11 @@
     },
   });
   const chartContainer = ref();
-  const chartInstance = useEcharts({
-    ref: chartContainer,
-    options: {
+  const { setOption } = useEcharts(chartContainer);
+
+  onMounted(() => {
+    // Access the chart instance
+    setOption({
       xAxis: {
         type: 'category',
         data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
@@ -28,11 +30,6 @@
           type: _porps.chartType,
         },
       ],
-    },
-  });
-
-  onMounted(() => {
-    // Access the chart instance
-    console.log(chartInstance.value);
+    });
   });
 </script>

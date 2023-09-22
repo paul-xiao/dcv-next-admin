@@ -2,6 +2,7 @@
 import * as echarts from 'echarts/core'
 // 引入各种图表，图表后缀都为 Chart
 import {
+  LineChart,
   BarChart,
   PieChart,
   ScatterChart,
@@ -31,6 +32,7 @@ echarts.use([
   LegendComponent,
   GeoComponent,
   VisualMapComponent,
+  LineChart,
   BarChart,
   PieChart,
   ScatterChart,

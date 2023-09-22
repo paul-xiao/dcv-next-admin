@@ -1,2 +1,6 @@
-import useEcharts from './src/hooks/uesEcharts';
-export { useEcharts };
+import IChart from './src/index.vue';
+import { useEcharts } from './src/hooks/useEcharts';
+export {
+    useEcharts
+}
+export default IChart

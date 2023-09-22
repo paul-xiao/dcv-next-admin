@@ -10,17 +10,26 @@
         <Breadcrumb />
       </div>
       <div class="header-main-right">
-        <SvgIcon icon="setting"></SvgIcon>
-        <el-dropdown>
-          <span class="el-dropdown-link" style="outline: none">
-            <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click="userStore.logout()">退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <div class="header-main-right-item">
+          <a herf="" target="blank"><SvgIcon icon="help"></SvgIcon></a>
+        </div>
+        <div class="header-main-right-item">
+          <ElBadge :value="12">
+            <SvgIcon icon="notification"></SvgIcon>
+          </ElBadge>
+        </div>
+        <div class="header-main-right-item flex items-center">
+          <el-dropdown>
+            <span class="el-dropdown-link" style="outline: none">
+              <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="userStore.logout()">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </div>
     </div>
   </div>
