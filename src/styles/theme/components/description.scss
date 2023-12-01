@@ -19,7 +19,7 @@
           text-align: center;
         }
         @each $key, $value in $tagColors {
-          [data-color-tag='#{$value}'] {
+          [data-tag-color='#{$value}'] {
             color: $value;
             border: 1px solid $value;
             display: inline-block;

@@ -1,3 +1,7 @@
 <template>
-    <h1>map</h1>
+    <IMap />
 </template>
+<script lang="ts" setup>
+import IMap from '@/components/IMap'
+
+</script>

@@ -138,4 +138,20 @@ export default [
     icon: 'setting',
     parentId: 13,
   },
+  {
+    id: 14,
+    title: '算网编排',
+    path: '/dispatch',
+    component: 'LAYOUT',
+    icon: 'setting',
+    parentId: 0,
+  },
+  {
+    id: 141,
+    title: '层次化编排',
+    path: '/dispatch/graph',
+    component: '/dispatch/graph',
+    icon: 'setting',
+    parentId: 14,
+  },
 ];

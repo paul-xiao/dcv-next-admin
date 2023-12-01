@@ -41,7 +41,7 @@
             <slot :name="item.prop" :row="row"></slot>
           </template>
           <template v-else-if="item.isTag" #default="{ row }">
-            <div class="tag" :data-color-tag="getTagColor(row, item)">{{ row[item.prop] }}</div>
+            <div class="tag" :data-tag-color="getTagColor(row, item)">{{ row[item.prop] }}</div>
           </template>
         </ElTableColumn>
         <ElTableColumn :fixed="state.conf?.fixed" label="操作" :width="state.conf?.optWidth">
@@ -75,7 +75,7 @@
   import tableProps from './table';
   import { IPageProps, ITableColumn, ITableConf, ITableSearch } from './types';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
-  import { CloudTypeColor } from './enums/colors';
+  import { CloudTypeColor } from '@/enums/colors';
   import TableSearch from './components/TableSearch.vue';
   const ns = getGlobalConfig('namespace');
   const _props = defineProps(tableProps);
@@ -179,7 +179,9 @@
 
   function getTagColor(row, item) {
     const type = item.prop.includes('String') ? row[item.prop.replace('String', '')] : row.prop;
-    return CloudTypeColor[type];
+    console.log(CloudTypeColor[type]);
+    
+    return type ? CloudTypeColor[type] : '#ccc';
   }
 
   function setTableHeight() {
@@ -204,4 +206,3 @@
     window.removeEventListener('resize', setTableHeight);
   });
 </script>
-@/components/IIcon

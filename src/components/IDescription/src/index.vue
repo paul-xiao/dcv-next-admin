@@ -7,7 +7,7 @@
         </div>
         <div :class="`${ns}-description-item-value`">
           <template v-if="item.isTag">
-            <div class="tag" :data-color-tag="getTagColor(state.data, item)">{{ state.data[item.prop] }}</div>
+            <div class="tag" :data-tag-color="getTagColor(state.data, item)">{{ state.data[item.prop] }}</div>
           </template>
           <template v-else>
             {{ state.data[item.prop] }}
