@@ -1,12 +1,13 @@
 import { useMenuStore } from '@/styles/stores/modules/menu';
 import { emptyObjectItemFillter } from '@/utils/object';
 import { Router, RouterView } from 'vue-router';
+import { getMenuList } from '@/api/menu';
 export interface Menu {
   id: number;
   title: string;
   path: string;
   component: string;
-  parentId: number;
+  pid: number;
   children?: Menu[];
   hidden?: boolean;
   isExternal?: boolean;
@@ -46,7 +47,7 @@ export async function loadComponents() {
 
 const dynamicComponents = await loadComponents();
 
-const compoents = {
+const components = {
   ...dynamicComponents,
   LAYOUT: () => import('../layout/index.vue'),
   RouterView: RouterView,
@@ -67,37 +68,39 @@ function getChildPath(path) {
 /**
  * 菜单转换为路由
  * @param menus
- * @param parentId
+ * @param pid
  * @returns
  */
-export function parseMenuList(list: Menu[], parentId = 0) {
+export function parseMenuList(list: Menu[], pid = 0) {
   const tree: any[] = [];
-  for (const item of list) {
-    if (item.parentId === parentId) {
-      const child = parseMenuList(list, item.id);
+  const sortFunc = (a: { sort: number }, b: { sort: number }) => a.sort - b.sort;
+  const sortList = list.sort(sortFunc);
+  for (const item of sortList) {
+    if (item.pid === pid) {
+      const child = parseMenuList(sortList, item.id);
       if (child.length > 0) {
         item.children = child;
       }
-      const { title, path, component, hidden, children, parentId, isExternal, protocol, icon } = item;
-      // const childPath = parentId ? getChildPath(path) : path;
+      const { title, path, component, hidden, children, pid, isExternal, protocol, icon } = item;
+      // const childPath = pid ? getChildPath(path) : path;
       const name = path.replace('/', '').replace(/\//g, '_');
-      const isDefaultComponent = ['LAYOUT', 'RouterView'].includes(component);
-      const componentName = isDefaultComponent
-        ? component
-        : component.replace('/', '').replace(/\//g, '_').toLowerCase();
+
+      const isSubRoot = pid !== 0 && component === 'LAYOUT'; // 子节点root
+      const componentName =
+        typeof component === 'string' ? components[isSubRoot ? 'RouterView' : component] : component;
 
       const metaDta = {
         title,
         hidden,
-        parentId,
+        pid,
         isExternal,
         protocol,
         icon,
-      };      
+      };
       const treeItem = {
         path,
         name,
-        component: compoents[componentName],
+        component: componentName,
         meta: emptyObjectItemFillter(metaDta),
         children,
         redirect: children?.length ? children[0].path : null,
@@ -118,19 +121,15 @@ export function generateRoutes(router: Router): Promise<boolean> {
   const hasMenu = menuStore.menuData.length;
   if (hasMenu) return Promise.resolve(false);
   return new Promise((resolve, reject) => {
-    const getMenuList = () => {
-      fetch('/menu/list') // todo: 更换接口
-        .then(res => res.json())
-        .then(d => {
-          const menus = parseMenuList(d.result);
-          menus.forEach(m => {
-            router.addRoute(m);
-          });
-          menuStore.setMenuData(menus);
-          resolve(true);
-        })
-        .catch(err => reject(err));
-    };
-    getMenuList();
+    getMenuList()
+      .then(res => {
+        const menus = parseMenuList(res);
+        menus.forEach(m => {
+          router.addRoute(m);
+        });
+        menuStore.setMenuData(menus);
+        resolve(true);
+      })
+      .catch(err => reject(err));
   });
 }

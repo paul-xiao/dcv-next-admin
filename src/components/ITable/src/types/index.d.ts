@@ -14,7 +14,7 @@ export interface ITableConf {
   height?: string | number | undefined;
   fixed?: boolean;
   size?: 'small';
-  optWidth?: string;
+  optWidth?: string | number;
 }
 export interface ITableColumn {
   id?: string;
@@ -26,11 +26,8 @@ export interface ITableColumn {
   rules?: any[];
 }
 export interface IPageProps {
-  isAsc?: boolean;
-  orderByString?: string;
-  sort?: string;
-  pageSize?: number;
-  pageNum?: number;
+  current?: number;
+  size?: number;
   total?: number;
 }
 export interface ITableSearch {

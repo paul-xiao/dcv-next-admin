@@ -2,12 +2,12 @@ import { AxiosResponse } from 'axios';
 import { ref, unref } from 'vue';
 import { ITableColumn, ITableSearch, ITableConf, IPageProps, UseTableReturnType } from '../types';
 export interface ITableProps {
-  title: string;
-  conf?: ITableConf;
+  title?: string;
+  componentProps?: ITableConf;
   api?: (params?: any) => Promise<AxiosResponse<any, any>>;
   schema: ITableColumn[];
   search?: ITableSearch;
-  page: IPageProps | boolean;
+  page?: IPageProps | boolean;
 }
 
 export function useTable(props: ITableProps): UseTableReturnType {

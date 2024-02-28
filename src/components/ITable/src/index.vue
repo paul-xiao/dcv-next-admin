@@ -13,20 +13,16 @@
         <slot name="batch" :selections="state.multipleSelection"></slot>
       </div>
       <div class="tool mx-2 flex">
-        <SvgIcon icon="refresh" @click="onRefeshTable"></SvgIcon>
+        <SvgIcon class="cursor-pointer" icon="refresh" @click="onRefeshTable"></SvgIcon>
         <SvgIcon icon="setting" @click="onRefeshTable"></SvgIcon>
       </div>
     </div>
     <div :class="`${ns}-table-main`" ref="ITableRef">
       <ElTable
         :data="state.data"
-        :stripe="state.conf?.stripe"
-        :border="state.conf?.border"
-        :height="state.conf?.height"
         row-key="id"
-        :size="state.conf?.size"
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        :style="{ height: tableHight }"
+        v-bind="$attrs"
         @selection-change="handleSelectionChange"
       >
         <ElTableColumn type="selection" width="55" />
@@ -44,7 +40,7 @@
             <div class="tag" :data-tag-color="getTagColor(row, item)">{{ row[item.prop] }}</div>
           </template>
         </ElTableColumn>
-        <ElTableColumn :fixed="state.conf?.fixed" label="操作" :width="state.conf?.optWidth">
+        <ElTableColumn :fixed="state.componentProps?.fixed" label="操作" :width="state.componentProps?.optWidth">
           <template #default="{ row }">
             <slot name="opt" :row="row"></slot>
           </template>
@@ -53,9 +49,9 @@
     </div>
     <div v-if="state?.page?.total" :class="`${ns}-table-pagination`">
       <ElPagination
-        :current-page="state?.page?.pageNum"
+        :current-page="state?.page?.current"
         :page-sizes="[10, 20, 30, 50]"
-        :page-size="state?.page?.pageSize"
+        :page-size="state?.page?.size"
         layout="total, sizes, prev, pager, next"
         :total="state?.page?.total"
         small
@@ -79,10 +75,7 @@
   import TableSearch from './components/TableSearch.vue';
   const ns = getGlobalConfig('namespace');
   const _props = defineProps(tableProps);
-  const emit = defineEmits([
-    'register',
-    'update:modelValue',
-  ]);
+  const emit = defineEmits(['register', 'update:modelValue']);
 
   const form = computed({
     get() {
@@ -102,18 +95,11 @@
     data: [],
     multipleSelection: [],
     flag: 'add',
-    conf: {
-      addBtn: true,
-      viewBtn: true,
-      delBtn: true,
-      batchDel: true,
-      editBtn: true,
-      border: true,
-    } as ITableConf,
     schema: [] as ITableColumn[],
     search: {} as ITableSearch,
     api: (_params?: any) => {},
     page: {} as IPageProps,
+    componentProps: {} as IData,
   });
 
   const dialogTitle = computed(() => {
@@ -151,19 +137,19 @@
     onLoad();
   }
   function handleSizeChange(val: any) {
-    state.page.pageSize = val;
+    state.page.size = val;
     setTableHeight();
     onLoad();
   }
   function handleCurrentChange(val: any) {
-    state.page.pageNum = val;
+    state.page.current = val;
     onLoad();
   }
 
   function setProps(props) {
     console.group('Set Props:');
-    const { title, conf, api, schema, page, search } = props;
-    state.conf = { ...state.conf, ...conf };
+    const { title, componentProps, api, schema, page, search } = props;
+    state.componentProps = { ...state.componentProps, ...componentProps };
     state.title = title;
     state.api = api;
     state.schema = schema;
@@ -172,15 +158,17 @@
     console.groupEnd();
   }
   async function onLoad(params = {}) {
-    const res: any = await state.api({ search: { ...params }, page: { ...state.page } });
-    state.data = res?.result;
+    const { current, size } = state.page;
+
+    const res: any = await state.api({ ...params, current, size });
+    state.data = res?.total ? res.data : res;
     state.page.total = res?.total;
   }
 
   function getTagColor(row, item) {
     const type = item.prop.includes('String') ? row[item.prop.replace('String', '')] : row.prop;
     console.log(CloudTypeColor[type]);
-    
+
     return type ? CloudTypeColor[type] : '#ccc';
   }
 

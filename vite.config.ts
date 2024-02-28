@@ -34,6 +34,11 @@ export default defineConfig(({ mode }: ConfigEnv) => {
           logLevel: 'info',
           rewrite: path => path.replace(/^\/api/, ''),
         },
+        '/image': {
+          target: env.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+          secure: false
+        },
       },
     },
     css: {

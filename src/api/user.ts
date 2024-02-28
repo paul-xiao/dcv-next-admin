@@ -1,11 +1,6 @@
+import { HttpResponse } from "@/types/http";
 import { defHttp } from '@/utils/http/axios';
-const baseUrl = '/system';
-export const login = data => {
-  console.log(data);
-  
-  return defHttp.post({
-    url: baseUrl + '/login/login',
-    data,
-  });
+
+export const login = (params: any = {}): Promise<HttpResponse> => {
+  return defHttp.post({url: "/user/login", params});
 };
-export const getMenuList = params => defHttp.get({ url: '/getMenu', params });

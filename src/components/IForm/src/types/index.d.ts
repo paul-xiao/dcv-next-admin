@@ -1,7 +1,9 @@
+type Data = Record<string, unknown>;
 export interface FormProps {
   schema: any[],
-  labelWidth?: string
-  inline?: boolean
+  footer?: boolean; // 是否显示footer
+  componentProps?: Data;
+
 } 
 
 export interface FormItem {

@@ -1,13 +1,5 @@
 <template>
-  <ElForm
-    ref="formRef"
-    :rules="rules"
-    :model="state.ruleForm"
-    :inline="state?.conf?.inline"
-    status-icon
-    :label-width="state?.conf?.labelWidth"
-    :size="modelSize"
-  >
+  <ElForm ref="formRef" :model="state.ruleForm" v-bind="{ ...$attrs, ...state.conf.componentProps }">
     <template v-for="item of schema" :key="item.prop">
       <IFormItem v-model="state.ruleForm[item.prop]" @change="val => handleChange(item, val)" v-bind="item">
         <template v-if="!!$slots[item.prop]" #[item.prop]>
@@ -17,15 +9,13 @@
       </IFormItem>
     </template>
 
-    <template v-if="foot">
-      <ElFormItem v-if="!$slots.footer">
-        <ElButton type="primary" :size="modelSize" @click="submitForm">确认</ElButton>
-        <ElButton @click="resetForm()">重置</ElButton>
-      </ElFormItem>
-      <ElFormItem v-else>
-        <slot name="footer"></slot>
-      </ElFormItem>
-    </template>
+    <ElFormItem v-if="$slots.footer">
+      <slot name="footer"></slot>
+    </ElFormItem>
+    <ElFormItem v-else-if="state.conf.footer || $props.footer">
+      <ElButton type="primary" @click="submitForm">确认</ElButton>
+      <ElButton @click="resetForm()">重置</ElButton>
+    </ElFormItem>
   </ElForm>
 </template>
 <script setup lang="ts">
@@ -34,15 +24,18 @@
   import { computed, onMounted, reactive, ref, unref, watch } from 'vue';
   import { FormItem, FormProps } from './types';
   import { getCurrentInstance } from 'vue';
+  type Data = Record<string, unknown>;
+
   interface Props {
     modelValue?: object;
     schema?: FormItem[];
-    rules?: object;
-    foot?: boolean;
-    modelSize?: 'small' | 'default' | 'large';
+    footer?: boolean; // 是否显示footer
+    componentProps?: Data;
   }
   const instance = getCurrentInstance();
-  const _props = withDefaults(defineProps<Props>(), { foot: true });
+  const _props = withDefaults(defineProps<Props>(), {
+    footer: true,
+  });
   const _emits = defineEmits(['update:modelValue', 'register', 'submit']);
   const formRef = ref<FormInstance>();
   const schema = ref<any[]>([]);

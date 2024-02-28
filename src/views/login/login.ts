@@ -1,6 +1,6 @@
 export const loginSchema = [
     {
-      prop: 'userName',
+      prop: 'email',
       labelWidth: '0',
       componentProps: {
         placeholder: '用户名'
@@ -14,7 +14,7 @@ export const loginSchema = [
       ]
     },
     {
-      prop: 'passWord',
+      prop: 'password',
       labelWidth: '0',
       componentProps: {
         type: 'password',
@@ -24,20 +24,6 @@ export const loginSchema = [
         {
           required: true,
           message: '请输入密码',
-          trigger: 'blur'
-        }
-      ]
-    },
-    {
-      prop: 'verifyCode',
-      labelWidth: '0',
-      componentProps: {
-        placeholder: '验证码'
-      },
-      rules: [
-        {
-          required: true,
-          message: '请输入验证码',
           trigger: 'blur'
         }
       ]

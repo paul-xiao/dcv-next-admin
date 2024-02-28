@@ -107,22 +107,6 @@ export default [
     parentId: 0,
   },
   {
-    id: 12,
-    title: '算网资源',
-    path: '/pool',
-    component: 'LAYOUT',
-    icon: 'setting',
-    parentId: 0,
-  },
-  {
-    id: 121,
-    title: '算力资源池',
-    path: '/pool/cloud',
-    component: '/pool/cloud',
-    icon: 'setting',
-    parentId: 12,
-  },
-  {
     id: 13,
     title: '图表',
     path: '/chart',
@@ -137,21 +121,5 @@ export default [
     component: '/demos/charts',
     icon: 'setting',
     parentId: 13,
-  },
-  {
-    id: 14,
-    title: '算网编排',
-    path: '/dispatch',
-    component: 'LAYOUT',
-    icon: 'setting',
-    parentId: 0,
-  },
-  {
-    id: 141,
-    title: '层次化编排',
-    path: '/dispatch/graph',
-    component: '/dispatch/graph',
-    icon: 'setting',
-    parentId: 14,
-  },
+  }
 ];

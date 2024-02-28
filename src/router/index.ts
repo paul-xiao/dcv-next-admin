@@ -8,7 +8,7 @@ export const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/overview/dashboard',
+      redirect: '/components',
     },
     {
       path: '/login',

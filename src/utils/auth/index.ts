@@ -1,7 +1,7 @@
 
 import Cookies from 'js-cookie'
 
-const TokenKey = 'dcits_login_token'
+const TokenKey = 'dcv_login_token'
 
 export function getToken() {
   return Cookies.get(TokenKey)

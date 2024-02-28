@@ -10,6 +10,7 @@
         align-items: center;
         padding: 0 $padding;
         min-width: 63px;
+        width: 220px;
         &-title {
           font-weight: 700;
         }
@@ -20,6 +21,7 @@
         }
         &.collapsed {
           justify-content: center;
+          width: auto;
           .logo-img {
             margin: 0;
           }

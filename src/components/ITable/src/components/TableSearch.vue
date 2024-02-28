@@ -17,7 +17,9 @@
 
   const [registerForm, { validate, updateSchema, resetForm }]: any = useForm({
     schema: props.schema,
-    inline: true,
+    componentProps: {
+      inline: true,
+    }
   });
 
   watch(

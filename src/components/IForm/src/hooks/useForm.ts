@@ -39,7 +39,6 @@ export function useForm(props: FormProps) : any {
     },
     resetForm: async () => {
       const form = await getForm();
-      
       form.resetForm();
     },
   };
