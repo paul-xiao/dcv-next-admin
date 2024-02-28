@@ -1,0 +1,86 @@
+@include prefix($namespace) {
+  &-layout {
+    .header {
+      height: $headerHeight;
+      line-height: $headerHeight;
+      background: #f2f2f2;
+      display: flex;
+      .logo {
+        display: flex;
+        align-items: center;
+        padding: 0 $padding;
+        min-width: 63px;
+        &-title {
+          font-weight: 700;
+        }
+        &-img {
+          width: calc($headerHeight/2);
+          height: calc($headerHeight/2);
+          margin-right: calc($padding/2);
+        }
+        &.collapsed {
+          justify-content: center;
+          .logo-img {
+            margin: 0;
+          }
+        }
+      }
+      &-main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-left {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          .breadcrumb {
+            margin: 0 $padding;
+          }
+        }
+        &-right {
+          display: flex;
+          align-items: center;
+          margin-right: $padding;
+          &-item {
+            margin: 0 $padding;
+          }
+        }
+      }
+    }
+    & > .main {
+      height: calc(100vh - $headerHeight);
+      position: relative;
+      .aside {
+        height: 100%;
+        background: #eee;
+        position: absolute;
+        left: 0;
+        top: 0;
+        &-menu {
+          min-height: 100%;
+        }
+        &-menu:not(.el-menu--collapse) {
+          width: $asideWidth;
+        }
+        &-menu:is(.el-menu--collapse) {
+          .el-sub-menu__title {
+            padding-right: 0;
+          }
+        }
+      }
+      & > .content {
+        margin-left: $asideWidth;
+        padding: $padding;
+        height: 100%;
+        overflow: auto;
+        transition: all ease 0.3s;
+      }
+      &.colllapsed {
+        .content {
+          margin-left: 64px;
+        }
+      }
+    }
+  }
+}

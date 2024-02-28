@@ -1,0 +1,58 @@
+
+@include prefix($namespace) {
+  &-table {
+    height: 100%;
+    .search-expanded {
+     
+    }
+    &-search {
+      .el-form-item{
+        margin-bottom: 0;
+      }
+    }
+    &-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      .title {
+        font-weight: 700;
+      }
+      .opt {
+        display: flex;
+        flex: 1;
+        justify-content: end;
+      }
+    }
+    &-main {
+      height: calc(100% - 130px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      .tag {
+        padding: 2px 6px;
+        min-width: 6em;
+        font-size: 12px;
+        line-height: 25px;
+        text-align: center;
+      }
+      @each $key, $value in $tagColors {
+        [data-tag-color='#{$value}'] {
+          color: $value;
+          border: 1px solid $value;
+          display: inline-block;
+        }
+      }
+    }
+    &-pagination {
+      height: 50px;
+      line-height: 50px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.el-table th.el-table__cell{
+    --el-table-header-bg-color: #f2f2f2;
+}
+
