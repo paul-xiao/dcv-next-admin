@@ -34,7 +34,11 @@ const [registerTable, { reload }] = useTable({
       label: '上传时间',
       prop: 'uploadTime'
     }
-  ]
+  ],
+  page: {
+    current:1,
+    size: 10
+  }
 }) 
 function onAdd(row: any) {
   console.log(row)

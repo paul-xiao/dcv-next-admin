@@ -3,20 +3,20 @@ export const getArticleList = (params: any = {}) => {
   return defHttp.get({ url: '/article/list', params });
 };
 export const getArticleById = (id: any) => {
-  return defHttp.get(`/article/${id}`);
+  return defHttp.get({ url: `/article/${id}` });
 };
-export const create = (data: any) => {
-  return defHttp.post('/article/create', data);
+export const create = (params: any) => {
+  return defHttp.post({ url: '/article', params });
 };
-export const update = (data: any) => {
-  return defHttpput('/article/update', data);
+export const update = (params: any) => {
+  return defHttp.put({ url: '/article/update', params });
 };
 export const remove = (id: any) => {
-  return defHttpdelete(`/article/delete/${id}`);
+  return defHttp.delete({url: `/article/${id}`});
 };
-export const upload = (data: any) => {
-  if (!data.file) return;
+export const upload = (params: any) => {
+  if (!params.file) return;
   const formdata = new FormData();
-  formdata.append('file', data.file);
-  return defHttp.post(`/upload`, formdata);
+  formdata.append('file', params.file);
+  return defHttp.post({ url: `/upload`, params: formdata });
 };

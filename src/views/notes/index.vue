@@ -17,7 +17,12 @@
       <template #opt="{ row }">
         <ElButton type="primary" :icon="View" text @click="onRowView(row)">详情</ElButton>
         <ElButton type="primary" :icon="Edit" text @click="onAdd(row)">编辑</ElButton>
-        <ElButton type="danger" :icon="Delete" text @click="onAdd(row)">删除</ElButton>
+
+        <el-popconfirm title="Are you sure to delete this?" @confirm="onRowDel(row)">
+          <template #reference>
+            <ElButton type="danger" :icon="Delete" text>删除</ElButton>
+          </template>
+        </el-popconfirm>
       </template>
     </ITable>
   </div>
@@ -43,7 +48,7 @@
       },
       {
         label: '标签',
-        prop: 'tags',
+        prop: 'catalogName',
       },
       {
         label: '创建时间',
@@ -72,7 +77,7 @@
   });
   function onAdd(row: any) {
     console.log(row);
-    router.push({ name: 'notes_add', state: { id: row.id } });
+    router.push({ name: 'notes_create', state: { id: row.id } });
   }
 
   function onRowView(row: any) {
