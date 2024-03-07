@@ -70,11 +70,11 @@
     return axios.get(`/api/article/${id}`);
   }
 
-  async function onCatalogItemClick({ id, pid }: any) {
-    if (!pid) return;
+  async function onCatalogItemClick({ id, articleId }: any) {
+    if (!articleId) return;
     // editorRef.value?.setEditable(false)
     isEditable.value = false;
-    const artile: any = await getArticleById(id);
+    const artile: any = await getArticleById(articleId);
     const res = artile.data.result;
     editorRef?.value?.setContent(res);
   }

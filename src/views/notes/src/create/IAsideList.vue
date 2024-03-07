@@ -32,7 +32,8 @@
           :item="item"
           :activeId="activeId"
           @catalog-item-del="onCatalogDel"
-          @catalog-item-add="onCatalogAdd"
+          @add-group="onGroupAdd"
+          @add-article="onArticleAdd"
           @catalog-item-click="onCatalogItemClick"
         />
       </ul>
@@ -42,66 +43,74 @@
 <script setup lang="ts">
   import { SvgIcon } from '@/components/IIcon';
   import { onMounted, onUnmounted, ref } from 'vue';
-  import axios from 'axios';
+  import { list, create, remove } from '@/api/catalog';
   import IAsideListItem from './IAsideListItem.vue';
   import { Plus } from '@element-plus/icons-vue';
-  import { ElMessage } from 'element-plus'
+  import { ElMessage } from 'element-plus';
   const active = ref(false);
   const activeId = ref('');
   const newItem = ref(false);
-  const newItemFlag = ref(false);
+  const isArticle = ref(false);
   const pid = ref(0);
   const searchText = ref('');
   const asideText = ref('');
   const catalogs: any = ref([]);
 
-  const emits = defineEmits(['CatalogItemClick', 'SearchStart']);
-  function getCatalog(): void {
-    axios.get('/api/catalog/list').then(res => {
-      catalogs.value = res.data.result;
-      console.log('refreshed');
-    });
+  interface CatalogItem {
+    id: number;
+    name: string;
+    pid?: string | number;
+    children: CatalogItem[];
+    articleId?: boolean;
+    $active?: boolean;
   }
-  function createCatalog(data: { name: string; pid: number; type: number }) {
-    return axios.post('/api/catalog', data);
+  const emits = defineEmits(['CatalogItemClick', 'SearchStart']);
+  async function getCatalog() {
+    catalogs.value = await list();
+  }
+  async function createCatalog(data: { name: string; pid: number; type: number }) {
+    return await create(data);
   }
 
   function onNewGroupCreate(flag: boolean = false) {
     newItem.value = true;
-    newItemFlag.value = flag;
+    isArticle.value = flag;
     asideText.value = flag ? '新文章' : '新分组';
   }
   async function onAsideTextBlur() {
     newItem.value = false;
     // call catalog create
-    await createCatalog({ name: asideText.value, pid: pid.value || 0, type: newItemFlag.value ? 1 : 0 });
+    await createCatalog({ name: asideText.value, pid: pid.value || 0, type: isArticle.value ? 1 : 0 });
     // call list refresh
     getCatalog();
   }
 
-  function onCatalogItemClick(item: { articleId: any }) {
+  function onCatalogItemClick(item: CatalogItem) {
     emits('CatalogItemClick', item);
   }
-  function onCatalogDel(item: { id: any }) {
-    const isConfirm = confirm('确定删除？');
-
-    isConfirm &&
-      axios
-        .delete(`/api/catalog/${item.id}`)
-        .then(() => {
-          getCatalog();
-        })
-        .catch(err => console.log(err));
+  async function onCatalogDel(item: CatalogItem) {
+    await remove(item.id);
+    getCatalog();
   }
 
-  function onCatalogAdd(item: { id: number, articleId: number }) {
-    if(item.articleId) {
-      ElMessage.warning('请在目录下创建')
-      return
+  function onArticleAdd(item: CatalogItem) {
+    if (item.pid) {
+      ElMessage.warning('请在目录下创建');
+      return;
     }
     newItem.value = true;
-    newItemFlag.value = true;
+    isArticle.value = true;
     asideText.value = '新文章';
+    pid.value = item.id;
+  }
+  function onGroupAdd(item: CatalogItem) {
+    if (item.pid) {
+      ElMessage.warning('请在目录下创建');
+      return;
+    }
+    newItem.value = true;
+    isArticle.value = false;
+    asideText.value = '新分组';
     pid.value = item.id;
   }
 
@@ -130,7 +139,7 @@
 
     traverse(catalogs.value, articleId);
 
-    onCatalogItemClick({ articleId });
+    // onCatalogItemClick({ articleId });
 
     activeId.value = String(articleId);
   }

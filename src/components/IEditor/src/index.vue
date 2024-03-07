@@ -38,8 +38,8 @@
   const _props = withDefaults(
     defineProps<{
       modelValue: IData;
-      toolbar: IData;
-      editable: boolean;
+      toolbar?: IData;
+      editable?: boolean;
     }>(),
     {
       editable: true,
