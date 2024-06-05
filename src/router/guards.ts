@@ -3,10 +3,11 @@ import { getToken } from '@/utils/auth';
 import { generateRoutes } from './helpers';
 
 const whiteList = ['/login'];
+let flag = false;
 export function setRouteGuards(router) {
   router.beforeEach(async (to, _from, next) => {
     /* 路由发生变化修改页面title */
-    try {      
+    try {
       if (to.meta.title) {
         document.title = to.meta.title ? `${global.title}-${to.meta.title}` : global.title;
       }
@@ -20,11 +21,20 @@ export function setRouteGuards(router) {
         }
       } else {
         const token = getToken();
+        console.log(typeof token);        
         if (!token) {
           next('/login');
         } else {
-          const flag = await generateRoutes(router);
-          flag ? next(to.path) : next();
+          console.log(typeof token);
+          
+          if (flag) {
+            next();
+            return;
+          } else {
+            flag = await generateRoutes(router);
+            console.log(flag, to.path);
+            flag && next(to.path);
+          }
         }
       }
     } catch (error) {

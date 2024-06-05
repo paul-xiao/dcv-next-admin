@@ -1,7 +1,7 @@
-import { useMenuStore } from '@/styles/stores/modules/menu';
 import { emptyObjectItemFillter } from '@/utils/object';
 import { Router, RouterView } from 'vue-router';
 import { getMenuList } from '@/api/menu';
+import { useMenuStore } from '@/stores/modules/menu';
 export interface Menu {
   id: number;
   title: string;
@@ -71,7 +71,7 @@ function getChildPath(path) {
  * @param pid
  * @returns
  */
-export function parseMenuList(list: Menu[], pid = 0) {
+export function parseMenuList(list: any[], pid = 0) {
   const tree: any[] = [];
   const sortFunc = (a: { sort: number }, b: { sort: number }) => a.sort - b.sort;
   const sortList = list.sort(sortFunc);
@@ -127,6 +127,8 @@ export function generateRoutes(router: Router): Promise<boolean> {
         menus.forEach(m => {
           router.addRoute(m);
         });
+        console.warn(res);
+
         menuStore.setMenuData(menus);
         resolve(true);
       })

@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', {
       console.log(data);
       
       this.userData = data;
-      setToken(data.token);
+      setToken(data.token || '');
       router.push('/');
     },
     logout() {

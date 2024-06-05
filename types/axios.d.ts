@@ -30,6 +30,7 @@ export interface RequestOptions {
 export interface Result<T = any> {
   code: number;
   errorMsg: string;
+  message?: string;
   result: T;
   success: boolean
 }

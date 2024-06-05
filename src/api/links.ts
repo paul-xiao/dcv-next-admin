@@ -1,24 +1,25 @@
-import http from '@/utils/http'
+import http from '@/utils/http';
 export const list = (params: any = {}) => {
-  return defHttp.get('/links/list', {
-    params
-  })
-}
+  return http.get({
+    url: '/links/list', 
+    params,
+  });
+};
 export const detail = (id: number) => {
-  return defHttp.get(`/links/detail/${id}`)
-}
-export const create = (data: any) => {
-  return defHttp.post('/links/create', data)
-}
-export const update = (data: any) => {
-  return defHttpput('/links/update', data)
-}
+  return http.get({url:`/links/detail/${id}`});
+};
+export const create = (params: any) => {
+  return http.post({url:'/links/create', params});
+};
+export const update = (id, params: any) => {
+  return http.put({url:`/links/update/${id}`, params});
+};
 export const remove = (id: any) => {
-  return defHttpdelete(`/links/delete/${id}`)
-}
+  return http.delete({url: `/links/delete/${id}`});
+};
 export const upload = (data: any) => {
-  if(!data.file) return
-  const formdata = new FormData()
-  formdata.append('file', data.file)
-  return defHttp.post(`/upload`, formdata)
-}
+  if (!data.file) return;
+  const formdata = new FormData();
+  formdata.append('file', data.file);
+  return http.post({url:'/links/upload', data: formdata});
+};

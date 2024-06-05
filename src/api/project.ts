@@ -1,23 +1,23 @@
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
 
 export const list = (params: any = {}) => {
-  return defHttp.get({ url: '/project/list', params });
+  return http.get('/project/list', { params });
 };
 export const detail = (id: number) => {
-  return defHttp.get({ url: `/project/detail/${id}` });
+  return http.get(`/project/detail/${id}`);
 };
 export const create = (data: any) => {
-  return defHttp.post({ url: '/project/create', data });
+  return http.post('/project/create', data);
 };
 export const update = (data: any) => {
-  return defHttp.put('/project/update', data);
+  return http.put('/project/update', data);
 };
 export const remove = (id: any) => {
-  return defHttp.delete(`/project/delete/${id}`);
+  return http.delete(`/project/delete/${id}`);
 };
 export const upload = (data: any) => {
   if (!data.file) return;
   const formdata = new FormData();
   formdata.append('file', data.file);
-  return defHttp.post(`/upload`, formdata);
+  return http.post(`/upload`, formdata);
 };

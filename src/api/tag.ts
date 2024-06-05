@@ -1,7 +1,7 @@
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
 
 export const getTagList = (params: any = {}) => {
-  return defHttp.get("/tag/list", {
+  return http.get("/tag/list", {
     params,
   });
 };

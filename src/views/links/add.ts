@@ -1,6 +1,3 @@
-import { getToken } from "@/utils/auth";
-
-let token = getToken();
 export const schema: any[] = [
   {
     label: '标题',
@@ -20,9 +17,6 @@ export const schema: any[] = [
     type: 'upload',
     componentProps: {
       action: '/api/upload', // 自定义上传
-      headers: {
-        'authorization': token,
-      }
     },
     change: (formRef: any, response: any) => {
       formRef.setFormItem('uploadFileId', response.uploadFileId);

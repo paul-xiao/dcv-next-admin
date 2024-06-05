@@ -41,3 +41,8 @@ $--colors: (
 
 // custom dark variables
 @use './dark.scss';
+
+
+.el-table__cell {
+  position: static!important;
+}

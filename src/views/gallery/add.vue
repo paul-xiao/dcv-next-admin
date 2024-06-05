@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <IForm @register="registerForm" @submit="onSubmit">
-      <template #content="{ model }">
-        <dc-editor v-model="model.content" />
-      </template>
-    </IForm>
-  </div>
+  <IForm @register="registerForm" @submit="onSubmit"> </IForm>
 </template>
 <script lang="ts" setup>
   import { create, update, getGalleryById } from '@/api/gallery';
@@ -13,7 +7,7 @@
   import { ElMessage } from 'element-plus';
   import { useRouter } from 'vue-router';
   import { IForm, useForm } from '@/components/IForm';
-  import { onMounted, ref, watch } from 'vue';
+  import { onMounted } from 'vue';
   const router = useRouter();
 
   onMounted(() => {
@@ -37,7 +31,7 @@
     try {
       const res: any = form.id ? await update(form) : await create(form);
       ElMessage.success(res.msg);
-      router.push('/notes');
+      router.push('/gallery');
     } catch (error) {
       console.log(error);
     }

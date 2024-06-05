@@ -2,11 +2,12 @@
   <ElUpload
     ref="upload"
     class="avatar-uploader"
+    v-bind="$attrs"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
   >
-    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+    <img v-if="imageUrl" :src="'/image/' + imageUrl" class="avatar" />
     <ElIcon v-else class="avatar-uploader-icon"><Plus /></ElIcon>
   </ElUpload>
 </template>
@@ -44,9 +45,8 @@ watch(
 );
 
 const handleAvatarSuccess: UploadProps["onSuccess"] = (response) => {
-  console.log(response);
-  imageUrl.value = response.url;
-  _emit("update:modelValue", response.url);
+  imageUrl.value = response.result;
+  _emit("update:modelValue", response.result);
   _emit("change", response);
 };
 
@@ -54,8 +54,8 @@ const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
   if (!["image/jpeg", "image/png"].includes(rawFile.type)) {
     ElMessage.error("Avatar picture must be JPG or PNG format!");
     return false;
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error("Avatar picture size can not exceed 2MB!");
+  } else if (rawFile.size / 1024 / 1024 > 5) {
+    ElMessage.error("Avatar picture size can not exceed 5MB!");
     return false;
   }
   return true;

@@ -1,22 +1,64 @@
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
+/**
+ * Description placeholder
+ * @date 2024/4/7 - 16:51:59
+ *
+ * @param {*} [params={}]
+ * @returns {*}
+ */
 export const getArticleList = (params: any = {}) => {
-  return defHttp.get({ url: '/article/list', params });
+  return http.get('/article/list', { params });
 };
+/**
+ * Description placeholder
+ * @date 2024/4/7 - 16:51:59
+ *
+ * @param {*} id
+ * @returns {*}
+ */
 export const getArticleById = (id: any) => {
-  return defHttp.get({ url: `/article/${id}` });
+  return http.get(`/article/${id}`);
 };
+/**
+ * Description placeholder
+ * @date 2024/4/7 - 16:51:59
+ *
+ * @param {*} params
+ * @returns {*}
+ */
 export const create = (params: any) => {
-  return defHttp.post({ url: '/article', params });
+  return http.post('/article', params);
 };
+/**
+ * Description placeholder
+ * @date 2024/4/7 - 16:51:59
+ *
+ * @param {*} params
+ * @returns {*}
+ */
 export const update = (params: any) => {
-  return defHttp.put({ url: '/article/update', params });
+  return http.put('/article', params);
 };
+/**
+ * Description placeholder
+ * @date 2024/4/7 - 16:51:59
+ *
+ * @param {*} id
+ * @returns {*}
+ */
 export const remove = (id: any) => {
-  return defHttp.delete({url: `/article/${id}`});
+  return http.delete(`/article/${id}`);
 };
+/**
+ * Description placeholder
+ * @date 2024/4/7 - 16:51:59
+ *
+ * @param {*} params
+ * @returns {*}
+ */
 export const upload = (params: any) => {
   if (!params.file) return;
   const formdata = new FormData();
   formdata.append('file', params.file);
-  return defHttp.post({ url: `/upload`, params: formdata });
+  return http.post(`/upload`, formdata);
 };

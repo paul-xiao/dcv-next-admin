@@ -12,7 +12,7 @@
         />
       </div>
       <div class="main">
-        <IEditor class="border" v-model="state.content" :editable="true" ref="editorRef" />
+        <IEditor class="border" v-model="state.content" :editable="isEditable" ref="editorRef" />
       </div>
     </div>
     <ISearchBox @item-click="onSearchResultClick" ref="ISearchBoxRef" />
@@ -25,11 +25,13 @@
   import ISearchBox from './src/create/ISearchBox.vue';
   import axios from 'axios';
   import { IEditor } from '@/components/IEditor';
-
+  import { create, update } from '@/api/article';
+  const route = useRoute();
   const state = reactive({
     content: {} as any,
   });
   const editorRef = ref<any>();
+  console.log(route.query);
 
   interface FormData {
     id?: string;
@@ -50,13 +52,17 @@
       console.log(val);
     },
   );
+  onMounted(() => {
+    route.query?.id && onCatalogItemClick({ articleId: route.query.id });
+  });
 
   function onSubmit() {
     const isConfirm = confirm('确定提交？');
+    const request = state.content?.id ? update : create;
     isConfirm &&
-      axios[state.content?.id ? 'put' : 'post']('/api/article', state.content).then(() => {
+      request(state.content).then(() => {
         IAsideListRef.value?.getCatalog();
-        // editorRef.value?.setEditable(false)
+        editorRef.value?.editor?.setEditable(false);
         isEditable.value = false;
       });
     // 刷新列表
@@ -66,11 +72,11 @@
     isEditable.value = true;
   }
 
-  function getArticleById(id: string) {
+  function getArticleById(id) {
     return axios.get(`/api/article/${id}`);
   }
 
-  async function onCatalogItemClick({ id, articleId }: any) {
+  async function onCatalogItemClick({ articleId }: any) {
     if (!articleId) return;
     // editorRef.value?.setEditable(false)
     isEditable.value = false;

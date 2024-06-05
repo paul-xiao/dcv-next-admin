@@ -3,8 +3,8 @@ import { upload } from '@/api/common'
 
 export const formSchema: any[] = [
   {
-    label: '标题',
-    prop: 'title',
+    label: '用户名',
+    prop: 'name',
     span: 12,
     rules: [
       {
@@ -89,23 +89,15 @@ export const formSchema: any[] = [
 export const tableSchema = [
   {
     label: '名称',
-    prop: 'title'
+    prop: 'name'
   },
   {
     label: '缩略图',
-    prop: 'thumbnail',
+    prop: 'avatar',
     slot: true
   },
   {
-    label: '嵌入链接',
-    prop: 'link'
-  },
-  {
-    label: '标签',
-    prop: 'tags'
-  },
-  {
-    label: '备注',
-    prop: 'notes'
+    label: '邮箱',
+    prop: 'email'
   }
 ]

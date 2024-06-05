@@ -1,9 +1,8 @@
-import { HttpResponse } from '@/types/http';
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
 
 const baseUrl = {
   List: '/menu/list',
 };
-export const getMenuList = (params: any = {}): Promise<HttpResponse> => {
-  return defHttp.get({ url: baseUrl.List, params });
+export const getMenuList = (params: any = {}) => {
+  return http.get(baseUrl.List, params);
 };

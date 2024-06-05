@@ -12,7 +12,7 @@
       <div class="opt">
         <slot name="batch" :selections="state.multipleSelection"></slot>
       </div>
-      <div class="tool mx-2 flex">
+      <div class="flex mx-2 tool">
         <SvgIcon class="cursor-pointer" icon="refresh" @click="onRefeshTable"></SvgIcon>
         <SvgIcon icon="setting" @click="onRefeshTable"></SvgIcon>
       </div>
@@ -33,7 +33,7 @@
           :label="item.label"
           :width="item.width"
         >
-          <template v-if="item.slot" #default="{ row }">
+          <template v-if="!!$slots[item.prop]" #default="{ row }">
             <slot :name="item.prop" :row="row"></slot>
           </template>
           <template v-else-if="item.isTag" #default="{ row }">
@@ -161,7 +161,7 @@
     const { current, size } = state.page;
 
     const res: any = await state.api({ ...params, current, size });
-    state.data = res?.total ? res.data : res;
+    state.data = res?.total !== undefined ? res.data : res;
     state.page.total = res?.total;
   }
 

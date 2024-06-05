@@ -1,19 +1,19 @@
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
 
-const baseUrl = '/catalog'
+const baseUrl = '/catalog';
 
 export const list = (params: any = {}) => {
-  return defHttp.get({ url: `${baseUrl}/list`, params });
+  return http.get(`${baseUrl}/list`, { params });
 };
 export const detail = (id: any) => {
-  return defHttp.get({ url: `${baseUrl}/${id}` });
+  return http.get(`${baseUrl}/${id}`);
 };
 export const create = (params: any) => {
-  return defHttp.post({ url: `${baseUrl}`, params });
+  return http.post(`${baseUrl}`, params);
 };
 export const update = (params: any) => {
-  return defHttp.put({ url: `${baseUrl}/update`, params });
+  return http.put(`${baseUrl}/update`, params);
 };
 export const remove = (id: any) => {
-  return defHttp.delete({url: `${baseUrl}/${id}`});
+  return http.delete(`${baseUrl}/${id}`);
 };

@@ -1,10 +1,10 @@
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
 
 const baseUrl = {
   List: "/article/list",
 };
 export const getList = (params: any = {}) => {
-  return defHttp.get(baseUrl.List, {
+  return http.get(baseUrl.List, {
     params,
   });
 };

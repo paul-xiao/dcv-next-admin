@@ -5,6 +5,7 @@
       <template #thumbnail="{ row }">
         <el-image
           style="width: 100px; height: 100px"
+          v-show="row.thumbnail"
           :src="row.thumbnail"
           :zoom-rate="1.2"
           :max-scale="7"
@@ -76,13 +77,12 @@
     },
   });
   function onAdd(row: any) {
-    console.log(row);
-    router.push({ name: 'notes_create', state: { id: row.id } });
+    router.push({ path: '/article/create', query: { id: row.id } });
   }
 
   function onRowView(row: any) {
     router.push({
-      path: '/notes/detail',
+      path: '/article/detail',
       query: {
         id: row.id,
       },

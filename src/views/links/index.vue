@@ -2,10 +2,23 @@
   <div>
     <ITable @register="registerTable" @rowDel="onRowDel">
       <template #thumbnail="{ row }">
-        <img :src="row.thumbnail" width="150" height="150" v-if="row.thumbnail" style="max-height: 150px;">
+        <el-image
+          style="width: 100px; height: 100px"
+          :src="`/image/${row.thumbnail}`"
+          :zoom-rate="1.2"
+          :max-scale="7"
+          :min-scale="0.2"
+          :preview-src-list="[`/image/${row.thumbnail}`]"
+          :initial-index="4"
+          fit="cover"
+        />
       </template>
       <template #opt="{ row }">
-        <ElButton type="primary"  text @click="onAdd(row)">编辑</ElButton>
+        <el-popconfirm title="Are you sure to delete this?" @confirm="onRowDel(row)">
+          <template #reference>
+            <ElButton type="danger" :icon="Delete" text>删除</ElButton>
+          </template>
+        </el-popconfirm>
       </template>
       <template #batch>
         <ElButton type="primary" @click="onAdd">添加</ElButton>
@@ -14,22 +27,46 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { list, remove } from '@/api/project'
-import { ITable, useTable } from '@/components/ITable'
-import { useRouter } from 'vue-router'
-import { tableSchema } from './data'
-const router = useRouter()
-const [registerTable, { reload }] = useTable({
-  api: list as any,
-  schema: tableSchema
-}) 
-function onAdd(row: any) {
-  console.log(row)
-  router.push({ name: 'project_add', state: { id: row.id} })
-}
+  import { getGalleryList, remove, update } from '@/api/gallery';
+  import { ITable, useTable } from '@/components/ITable';
+  import { Edit, Delete } from '@element-plus/icons-vue';
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
+  const [registerTable, { reload }] = useTable({
+    api: getGalleryList as any,
+    schema: [
+      {
+        label: '名称',
+        prop: 'title',
+      },
+      {
+        label: '图片',
+        prop: 'thumbnail',
+      },
+      {
+        label: '备注',
+        prop: 'notes',
+      },
+      {
+        label: '创建时间',
+        prop: 'createTime',
+      }
+    ],
+    page: {
+      current: 1,
+      size: 10,
+    },
+  });
+  function onAdd(row: any) {
+    router.push({ name: 'gallery_add', state: { id: row.id } });
+  }
 
-async function onRowDel(row: { id: any }) {
-  await remove(row.id)
-  reload()
-}
+  async function onRowEdit(row: { id: any }) {
+    await update(row.id);
+    reload();
+  }
+  async function onRowDel(row: { id: any }) {
+    await remove(row.id);
+    reload();
+  }
 </script>

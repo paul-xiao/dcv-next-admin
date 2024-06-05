@@ -11,9 +11,10 @@
 import { defineComponent } from 'vue';
 import { ElFormItem, ElInput } from 'element-plus';
 import ISelect from './Select.vue';
+import IUpload from './Upload.vue';
 import { computed } from 'vue';
 export default defineComponent({
-  components: { ElFormItem, ElInput, ISelect },
+  components: { ElFormItem, ElInput, ISelect, IUpload },
   props: {
     label: { type: String, default: '' },
     labelWidth: { type: [String, Number], default: '' },

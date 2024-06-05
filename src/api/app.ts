@@ -1,12 +1,12 @@
-import { defHttp } from '@/utils/http/axios';
+import http from '@/utils/http';
 
 export const login = (data: any = {}) => {
-  return defHttp.post("/login", {
+  return http.post("/login", {
     ...data,
   });
 };
 export const getMenuList = (params: any = {}) => {
-  return defHttp.get("/getMenu", {
+  return http.get("/getMenu", {
     params,
   });
 };

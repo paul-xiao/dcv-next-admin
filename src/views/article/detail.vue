@@ -23,7 +23,7 @@ const state = reactive({
   article: {} as any
 })
 if (!route.query?.id) {
-  router.push('/notes')
+  router.push('/article')
 } else {
   getDetail()
 }
