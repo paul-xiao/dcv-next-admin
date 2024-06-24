@@ -1,10 +1,14 @@
 <template>
   <li
-    class="catalog-main-item cursor-pointer"
+    class="cursor-pointer catalog-main-item"
     :class="{ 'is-article': item?.articleId, active: item?.pid == activeId }"
+    :draggable="true"
+    @dragstart="onDragStart(item)"
+    @dragover="onDragOver"
+    @drop="onDrop(item)"
     @click.stop="onCatalogClick(item)"
   >
-    <div class="flex justify-between items-center px-5 hover:bg-gray-200" @click="onToggleChild(item)">
+    <div class="flex items-center justify-between px-5 hover:bg-gray-200" @click="onToggleChild(item)">
       <div class="flex items-center justify-center">
         <span class="mr-1"
           ><SvgIcon icon="folder" v-if="!item?.articleId"></SvgIcon> <SvgIcon icon="file" v-else></SvgIcon
@@ -15,7 +19,7 @@
       </div>
       <div>
         <el-dropdown class="outline-none">
-          <span class="el-dropdown-link outline-none"> <SvgIcon icon="more"></SvgIcon> </span>
+          <span class="outline-none el-dropdown-link"> <SvgIcon icon="more"></SvgIcon> </span>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="onGroupAdd(item)" v-if="!item?.articleId"> 新增分组 </el-dropdown-item>
@@ -83,6 +87,16 @@
       function onToggleChild(item: any) {
         item.$active = !item.$active;
       }
+      function onDragStart(item: any) {
+        console.log(item);
+      }
+      function onDragOver(e) {
+        // 阻止默认行为，以便drop事件能被触发
+        e.preventDefault();
+      }
+      function onDrop(item: any) {
+        console.log(item);
+      }
 
       return {
         onCatalogClick,
@@ -91,6 +105,9 @@
         onArticleAdd,
         onRename,
         onToggleChild,
+        onDragStart,
+        onDragOver,
+        onDrop,
       };
     },
   });

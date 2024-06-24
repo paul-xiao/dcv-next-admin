@@ -2,28 +2,29 @@
   <IForm @register="registerForm" @submit="onSubmit"> </IForm>
 </template>
 <script lang="ts" setup>
-  import { create, update, getGalleryById } from '@/api/gallery';
+  import { create, update, detail } from '@/api/link';
   import { schema } from './add';
   import { ElMessage } from 'element-plus';
   import { useRouter } from 'vue-router';
   import { IForm, useForm } from '@/components/IForm';
-  import { onMounted } from 'vue';
   const router = useRouter();
+  const route = useRoute();
 
-  onMounted(() => {
-    const { id } = history.state;
-    id && getDetail(id);
-  });
+  const isUpdate = route.path === '/system/user/update';
+  const { id } = route.query;
+  if (isUpdate && !id) router.push('/system/user/index');
+  id && getDetail(id);
 
   const [registerForm, { setValues }]: any = useForm({
-    schema,
+    componentProps: {
+      labelWidth: 100,
+      labelSuffix: ':',
+    },
+    schema: schema,
   });
 
-  async function getDetail(id: number) {
-    const res: any = await getGalleryById(id);
-    const result = res.data;
-    console.log(result);
-
+  async function getDetail(id: any) {
+    const result: any = await detail(id);
     setValues(result);
   }
 
@@ -31,7 +32,7 @@
     try {
       const res: any = form.id ? await update(form) : await create(form);
       ElMessage.success(res.msg);
-      router.push('/gallery');
+      router.push('/system/user');
     } catch (error) {
       console.log(error);
     }

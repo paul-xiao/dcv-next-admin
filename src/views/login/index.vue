@@ -8,7 +8,7 @@
     <div class="flex flex-col items-center justify-center w-1/2 p-5 bg-white">
       <div class="px-5 py-10" style="width: 500px">
         <h1 class="py-5 text-2xl text-center">用户登录</h1>
-        <DcForm @register="registerForm">
+        <DcForm @register="registerForm" tabindex="0" @keyup.enter="onSubmit">
           <template #footer>
             <el-button type="primary" style="width: 100%" @click="onSubmit">登录</el-button>
           </template>

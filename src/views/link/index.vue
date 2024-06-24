@@ -14,6 +14,7 @@
         />
       </template>
       <template #opt="{ row }">
+        <ElButton type="primary" :icon="Edit" text @click="onUpdate(row)">编辑</ElButton>
         <el-popconfirm title="Are you sure to delete this?" @confirm="onRowDel(row)">
           <template #reference>
             <ElButton type="danger" :icon="Delete" text>删除</ElButton>
@@ -27,13 +28,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { getGalleryList, remove, update } from '@/api/gallery';
+  import { list, remove } from '@/api/link';
   import { ITable, useTable } from '@/components/ITable';
   import { Edit, Delete } from '@element-plus/icons-vue';
-  import { useRouter } from 'vue-router';
+  import { useRouter, useRoute } from 'vue-router';
   const router = useRouter();
+  const route = useRoute();
+  const rootPath = route.matched[0].path;
   const [registerTable, { reload }] = useTable({
-    api: getGalleryList as any,
+    api: list as any,
     schema: [
       {
         label: '名称',
@@ -50,20 +53,19 @@
       {
         label: '创建时间',
         prop: 'createTime',
-      }
+      },
     ],
     page: {
       current: 1,
       size: 10,
     },
   });
-  function onAdd(row: any) {
-    router.push({ name: 'gallery_add', state: { id: row.id } });
+  function onAdd() {
+    router.push(rootPath + '/add');
   }
 
-  async function onRowEdit(row: { id: any }) {
-    await update(row.id);
-    reload();
+  async function onUpdate(row: { id: any }) {
+    router.push({ path: rootPath + '/update', query: { id: row.id } });
   }
   async function onRowDel(row: { id: any }) {
     await remove(row.id);

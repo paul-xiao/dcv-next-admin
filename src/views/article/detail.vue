@@ -9,7 +9,7 @@
         <span class="text-xs font-thin">{{ fromNow(state.article.createTime) }}</span>
       </div>
     </div>
-    <div class="w-full viewer" v-html="state.article.content"></div>
+    <div class="w-full ProseMirror" v-html="state.article.content"></div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -29,7 +29,9 @@ if (!route.query?.id) {
 }
 
 async function getDetail() {
+  console.log(11);
+  
   const res: any = await getArticleById(route.query?.id)
-  state.article = res.result
+  state.article = res
 }
 </script>

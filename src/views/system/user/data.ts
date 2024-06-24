@@ -1,4 +1,3 @@
-import { getTagList } from '@/api/tag'
 import { upload } from '@/api/common'
 
 export const formSchema: any[] = [
@@ -15,8 +14,8 @@ export const formSchema: any[] = [
     ]
   },
   {
-    label: '缩略图',
-    prop: 'thumbnail',
+    label: '头像',
+    prop: 'avatar',
     type: 'upload',
     componentProps: {
       httpRequest: upload // 自定义上传
@@ -27,59 +26,32 @@ export const formSchema: any[] = [
     span: 12,
     rules: [
       {
-        required: true,
-        message: '请输入标题',
+        required: false,
+        message: '请上传头像',
         trigger: 'blur'
       }
     ]
   },
   {
-    label: '分类',
-    prop: 'tags',
-    type: 'select',
-    componentProps: {
-      multiple: true,
-      clearable: true,
-      filterable: true,
-      allowCreate: true,
-      api: getTagList,
-      props: {
-        label: 'name',
-        value: 'name'
-      }
-    },
+    label: '邮箱',
+    prop: 'email',
     span: 12,
     rules: [
       {
         required: true,
-        message: '请选择分类',
+        message: '请输入邮箱',
         trigger: 'blur'
       }
     ]
   },
   {
-    label: '嵌入链接',
-    prop: 'link',
+    label: '电话',
+    prop: 'phone',
     span: 12,
     rules: [
       {
-        required: true,
-        message: '请输入嵌入链接',
-        trigger: 'blur'
-      }
-    ]
-  },
-  {
-    label: '备注',
-    prop: 'notes',
-    componentProps: {
-      type: 'textarea'
-    },
-    span: 12,
-    rules: [
-      {
-        required: true,
-        message: '请输入备注',
+        required: false,
+        message: '请输入电话',
         trigger: 'blur'
       }
     ]

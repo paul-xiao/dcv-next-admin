@@ -21,12 +21,9 @@ export function setRouteGuards(router) {
         }
       } else {
         const token = getToken();
-        console.log(typeof token);        
         if (!token) {
           next('/login');
-        } else {
-          console.log(typeof token);
-          
+        } else {          
           if (flag) {
             next();
             return;
@@ -38,7 +35,6 @@ export function setRouteGuards(router) {
         }
       }
     } catch (error) {
-      console.log(error);
       next();
     }
   });

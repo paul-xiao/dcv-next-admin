@@ -45,8 +45,8 @@ watch(
 );
 
 const handleAvatarSuccess: UploadProps["onSuccess"] = (response) => {
-  imageUrl.value = response.result;
-  _emit("update:modelValue", response.result);
+  imageUrl.value = response;  
+  _emit("update:modelValue", response);
   _emit("change", response);
 };
 

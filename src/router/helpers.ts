@@ -52,7 +52,6 @@ const components = {
   LAYOUT: () => import('../layout/index.vue'),
   RouterView: RouterView,
 };
-
 /**
  * 获取子路由路径
  * @param {string} path
@@ -123,7 +122,7 @@ export function generateRoutes(router: Router): Promise<boolean> {
   return new Promise((resolve, reject) => {
     getMenuList()
       .then(res => {
-        const menus = parseMenuList(res);
+        const menus = parseMenuList(res as any);
         menus.forEach(m => {
           router.addRoute(m);
         });

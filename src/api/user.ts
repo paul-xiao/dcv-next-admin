@@ -9,6 +9,12 @@ export const list = (params: any = {}): Promise<any> => {
 export const create = (params: any = {}): Promise<any> => {
   return http.post('/user', params);
 };
+export const update = (params: any = {}): Promise<any> => {
+  return http.put('/user', params);
+};
+export const detail = (id): Promise<any> => {
+  return http.get(`/user/${id}`);
+};
 export const remove = (id: any) => {
   return http.delete(`/user/${id}`);
 };

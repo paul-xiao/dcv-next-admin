@@ -1,3 +1,5 @@
+import { upload } from '@/api/common';
+
 export const schema: any[] = [
   {
     label: '标题',
@@ -16,7 +18,7 @@ export const schema: any[] = [
     prop: 'thumbnail',
     type: 'upload',
     componentProps: {
-      action: '/api/upload', // 自定义上传
+      httpRequest: upload, // 自定义上传
     },
     change: (formRef: any, response: any) => {
       formRef.setFormItem('uploadFileId', response.uploadFileId);

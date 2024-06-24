@@ -2,6 +2,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
 import { getToken } from '../auth';
+import { router } from '@/router';
+import { useUserStore } from '@/stores/modules/user';
 const showStatus = (code: number) => {
   let message = '';
   switch (code) {
@@ -66,9 +68,19 @@ instance.interceptors.response.use(
     } else {
       // handle error code
       // 错误抛到业务代码
+      const code = error.response.status;
+      const userStore = useUserStore();
       error.data = {};
       error.data.message = error?.response?.data?.message || '请求超时或服务器异常，请检查网络或联系管理员！';
-      ElMessage.error(error.data.message);
+      switch (code) {
+        case 401:
+          userStore.logout()
+          break;
+
+        default:
+          ElMessage.error(error.data.message);
+          break;
+      }
     }
     return Promise.reject(error);
   },

@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import NotFound from '@/views/errors/404.vue';
-import { setRouteGuards } from './guards';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,7 +7,7 @@ export const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/dashboard'
+      redirect: '/overview/dashboard',
     },
     {
       path: '/login',
@@ -19,6 +18,25 @@ export const router = createRouter({
       component: () => import('../views/login/index.vue'),
       meta: {
         title: '登陆',
+      },
+    },
+    {
+      path: '/overview',
+      name: 'overview',
+      component: () => import('../layout/index.vue'),
+      children: [
+        {
+          path: '/overview/dashboard',
+          name: 'dashboard',
+          component: () => import('../views/overview/dashboard/index.vue'),
+          meta: {
+            title: '仪表盘',
+          },
+        },
+      ],
+
+      meta: {
+        title: '概览',
       },
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },

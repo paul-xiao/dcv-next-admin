@@ -1,47 +1,40 @@
 <template>
-  <div>
-    <dc-form @register="registerForm" @submit="onSubmit">
-      <template #content="{ model }">
-        <dc-editor v-model="model.content" />
-      </template>
-    </dc-form>
-  </div>
+  <IForm @register="registerForm" @submit="onSubmit"> </IForm>
 </template>
 <script lang="ts" setup>
-import { create, update, detail } from '@/api/project'
-import { formSchema } from './data'
-import { ElMessage } from 'element-plus'
-import { useRouter } from 'vue-router'
-import { useForm } from '@/components/IForm'
-import { onMounted, ref, watch } from 'vue'
-const router = useRouter()
+  import { create, update, detail } from '@/api/user';
+  import { formSchema } from './data';
+  import { ElMessage } from 'element-plus';
+  import { useRouter } from 'vue-router';
+  import { IForm, useForm } from '@/components/IForm';
+  const router = useRouter();
+  const route = useRoute();
 
-onMounted(() => {
-  const { id } = history.state
-  id && getDetail(id)
-})
+  const isUpdate = route.path === '/system/user/update';
+  const { id } = route.query;
+  if (isUpdate && !id) router.push('/system/user/index');
+  id && getDetail(id);
 
-const [registerForm, { setValues }]: any = useForm({
-  labelWidth: 100,
-  foot: true,
-  schema: formSchema
-})
+  const [registerForm, { setValues }]: any = useForm({
+    componentProps: {
+      labelWidth: 100,
+      labelSuffix: ':',
+    },
+    schema: formSchema,
+  });
 
-async function getDetail(id: number) {
-  const res: any = await detail(id)
-  const result = res.data
-  console.log(result)
-
-  setValues(result)
-}
-
-async function onSubmit(form: any) {
-  try {
-    const res: any = form.id ? await update(form) : await create(form)
-    ElMessage.success(res.msg)
-    router.push('/project')
-  } catch (error) {
-    console.log(error)
+  async function getDetail(id: any) {
+    const result: any = await detail(id);
+    setValues(result);
   }
-}
+
+  async function onSubmit(form: any) {
+    try {
+      const res: any = form.id ? await update(form) : await create(form);
+      ElMessage.success(res.msg);
+      router.push('/system/user');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar-wrap">
     <div v-if="editor" class="toolbar" ref="toolbar"></div>
-    <div class="image-upload" v-if="showImageUpload">
+    <div class="image-upload" v-show="false">
       <span class="close-icon" @click="showImageUpload = false">X</span>
       <input ref="imageUploadRef" type="file" accept="image" @change="onImageUpload" />
     </div>
@@ -52,7 +52,7 @@
   }
   function uploadImage() {
     showImageUpload.value = true;
-    imageUploadRef.value?.focus();
+    imageUploadRef.value?.click();
   }
 
   async function onImageUpload(e: any) {

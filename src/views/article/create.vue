@@ -26,6 +26,8 @@
   import axios from 'axios';
   import { IEditor } from '@/components/IEditor';
   import { create, update } from '@/api/article';
+  import { ElMessage, ElMessageBox } from 'element-plus';
+
   const route = useRoute();
   const state = reactive({
     content: {} as any,
@@ -57,14 +59,23 @@
   });
 
   function onSubmit() {
-    const isConfirm = confirm('确定提交？');
     const request = state.content?.id ? update : create;
-    isConfirm &&
+    ElMessageBox.confirm('确定提交?', 'Warning', {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    }).then(() => {
       request(state.content).then(() => {
         IAsideListRef.value?.getCatalog();
         editorRef.value?.editor?.setEditable(false);
         isEditable.value = false;
+        ElMessage({
+          type: 'success',
+          message: '提交成功',
+        });
       });
+    });
+
     // 刷新列表
   }
   function onEdit() {
