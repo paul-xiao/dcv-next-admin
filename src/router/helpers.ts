@@ -1,6 +1,6 @@
 import { emptyObjectItemFillter } from '@/utils/object';
 import { Router, RouterView } from 'vue-router';
-import { getMenuList } from '@/api/menu';
+import { list as getMenuList } from '@/api/menu';
 import { useMenuStore } from '@/stores/modules/menu';
 export interface Menu {
   id: number;
@@ -32,6 +32,10 @@ export async function loadComponents() {
 
   // 获取指定文件夹下的所有组件文件
   const files = import.meta.glob('../views/**/*.vue');
+  // 忽略某些指定目录下的文件， 如 _test_
+  // const filteredFiles = Object.fromEntries(
+  //   Object.entries(allFiles).filter(([path]) => !path.includes('要忽略的文件夹名') && !path.endsWith('.要忽略的文件扩展名'))
+  // );
 
   for (const path in files) {
     if (Object.prototype.hasOwnProperty.call(files, path)) {
@@ -126,8 +130,6 @@ export function generateRoutes(router: Router): Promise<boolean> {
         menus.forEach(m => {
           router.addRoute(m);
         });
-        console.warn(res);
-
         menuStore.setMenuData(menus);
         resolve(true);
       })

@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./../../src/components/IForm/src/components/IFormSelect copy.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -53,9 +54,14 @@ declare module 'vue' {
     IEditorSrcComponentsIToolBar: typeof import('./../../src/components/IEditor/src/components/IToolBar.vue')['default']
     IFormSrc: typeof import('./../../src/components/IForm/src/index.vue')['default']
     IFormSrcComponentsFormItem: typeof import('./../../src/components/IForm/src/components/FormItem.vue')['default']
+    IFormSrcComponentsIFormItemSelect: typeof import('./../../src/components/IForm/src/components/IFormItemSelect.vue')['default']
+    IFormSrcComponentsIFormSelect: typeof import('./../../src/components/IForm/src/components/IFormSelect.vue')['default']
+    IFormSrcComponentsIFormTree: typeof import('./../../src/components/IForm/src/components/IFormTree.vue')['default']
+    IFormSrcComponentsIFormUpload: typeof import('./../../src/components/IForm/src/components/IFormUpload.vue')['default']
     IFormSrcComponentsSelect: typeof import('./../../src/components/IForm/src/components/Select.vue')['default']
     IFormSrcComponentsUpload: typeof import('./../../src/components/IForm/src/components/Upload.vue')['default']
     IIconSrcIcon: typeof import('./../../src/components/IIcon/src/Icon.vue')['default']
+    IIconSrcIconPicker: typeof import('./../../src/components/IIcon/src/IconPicker.vue')['default']
     IIconSrcSvgIcon: typeof import('./../../src/components/IIcon/src/SvgIcon.vue')['default']
     IMapSrc: typeof import('./../../src/components/IMap/src/index.vue')['default']
     IMapSrcGeoMap: typeof import('./../../src/components/IMap/src/geoMap.vue')['default']

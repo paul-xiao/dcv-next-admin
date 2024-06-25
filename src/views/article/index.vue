@@ -32,41 +32,15 @@
   import { getArticleList, remove } from '@/api/article';
   import { ITable, useTable } from '@/components/ITable';
   import { useRouter } from 'vue-router';
+  import { tableSchema, searchSchema } from './data';
   import { Plus, Edit, Delete, View } from '@element-plus/icons-vue';
   const router = useRouter();
   const [registerTable, { reload }] = useTable({
     title: '文章列表',
     api: getArticleList as any,
-    schema: [
-      {
-        label: '标题',
-        prop: 'title',
-      },
-      {
-        label: '缩略图',
-        prop: 'thumbnail',
-        slot: true,
-      },
-      {
-        label: '标签',
-        prop: 'catalogName',
-      },
-      {
-        label: '创建时间',
-        prop: 'createTime',
-      },
-    ],
+    schema: tableSchema,
     search: {
-      schema: [
-        {
-          label: '标题',
-          prop: 'title',
-        },
-        {
-          label: '标签',
-          prop: 'tags',
-        },
-      ],
+      schema: searchSchema,
     },
     page: {
       size: 10,

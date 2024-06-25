@@ -1,6 +1,6 @@
 import http from '@/utils/http';
 
-const baseURL = '/link';
+const baseURL = '/dict';
 
 export const list = (params?: any) => {
   return http.get(baseURL + '/list', { params });

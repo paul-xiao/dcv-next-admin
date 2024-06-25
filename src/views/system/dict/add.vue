@@ -1,15 +1,20 @@
 <template>
-  <IForm @register="registerForm" @submit="onSubmit"> </IForm>
+  <IForm @register="registerForm" @submit="onSubmit">
+    <template #icon="{ model }">
+      <IconPicker v-model="model.icon" />
+    </template>
+  </IForm>
 </template>
 <script lang="ts" setup>
-  import { create, update, detail } from '@/api/link';
-  import { schema } from './add';
+  import { create, update, detail } from '@/api/dict';
+  import { formSchema } from './data';
   import { ElMessage } from 'element-plus';
   import { useRouter, useRoute } from 'vue-router';
   import { IForm, useForm } from '@/components/IForm';
+  import { IconPicker } from '@/components/IIcon';
   const router = useRouter();
   const route = useRoute();
-  const rootPath = route.matched[0].path;
+  const rootPath = route.matched[1].path;
   const isUpdate = route.path === rootPath + '/update';
   const { id } = route.query;
   if (isUpdate && !id) router.push(rootPath + '/index');
@@ -20,7 +25,7 @@
       labelWidth: 100,
       labelSuffix: ':',
     },
-    schema: schema,
+    schema: formSchema,
   });
 
   async function getDetail(id: any) {
@@ -31,8 +36,8 @@
   async function onSubmit(form: any) {
     try {
       const res: any = form.id ? await update(form) : await create(form);
-      ElMessage.success(res.msg);
-      router.push('/link');
+      ElMessage.success('操作成功！');
+      router.push(rootPath);
     } catch (error) {
       console.log(error);
     }

@@ -49,11 +49,7 @@
       {
         label: '备注',
         prop: 'notes',
-      },
-      {
-        label: '创建时间',
-        prop: 'createTime',
-      },
+      }
     ],
     page: {
       current: 1,
