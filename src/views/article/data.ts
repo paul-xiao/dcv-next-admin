@@ -1,5 +1,5 @@
-import { getTagList } from '@/api/tag';
-import { upload } from '@/api/common';
+import { list as catalogList } from '@/api/catalog';
+import { upload, getDict } from '@/api/common';
 
 export const tableSchema: any[] = [
   {
@@ -17,7 +17,7 @@ export const tableSchema: any[] = [
   },
   {
     label: '标签',
-    prop: 'tag',
+    prop: 'tags',
   },
   {
     label: '创建时间',
@@ -33,9 +33,23 @@ export const searchSchema: any[] = [
     label: '标签',
     prop: 'tags',
   },
-]
+  {
+    label: '分组',
+    type: 'select',
+    componentProps: {
+      clearable: true,
+      filterable: true,
+      api: catalogList,
+      props: {
+        label: 'name',
+        value: 'id',
+      },
+    },
+    prop: 'catalogId',
+  },
+];
 
-export const schema: any[] = [
+export const formSchema: any[] = [
   {
     label: '标题',
     prop: 'title',
@@ -55,22 +69,39 @@ export const schema: any[] = [
     componentProps: {
       httpRequest: upload, // 自定义上传
     },
-    change: (formRef: any, response: any) => {
-      console.log(response);
-
-      formRef.setFormItem('thumbnail', response.result);
-    },
     span: 12,
     rules: [
       {
         required: true,
-        message: '请输入标题',
+        message: '请输入缩略图',
         trigger: 'blur',
       },
     ],
   },
   {
     label: '分类',
+    prop: 'catalogId',
+    type: 'select',
+    componentProps: {
+      clearable: true,
+      filterable: true,
+      api: catalogList,
+      props: {
+        label: 'name',
+        value: 'id',
+      },
+    },
+    span: 12,
+    rules: [
+      {
+        required: true,
+        message: '请选择分类',
+        trigger: 'blur',
+      },
+    ],
+  },
+  {
+    label: '标签',
     prop: 'tags',
     type: 'select',
     componentProps: {
@@ -78,7 +109,12 @@ export const schema: any[] = [
       clearable: true,
       filterable: true,
       allowCreate: true,
-      api: getTagList,
+      // apiParams: {
+      //   code: 'catalogId',
+      // },
+      api: () => {
+        return getDict({ code: 'tag' });
+      },
       props: {
         label: 'name',
         value: 'name',

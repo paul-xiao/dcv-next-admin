@@ -1,7 +1,12 @@
 <template>
   <ElForm ref="formRef" :model="state.ruleForm" v-bind="{ ...$attrs, ...state.conf.componentProps }">
     <template v-for="item of schema" :key="item.prop">
-      <IFormItem v-model="state.ruleForm[item.prop]" @change="val => handleChange(item, val)" v-bind="item">
+      <IFormItem
+        v-model="state.ruleForm[item.prop]"
+        :model="state.ruleForm"
+        @change="val => handleChange(item, val)"
+        v-bind="item"
+      >
         <template v-if="!!$slots[item.prop]" #[item.prop]>
           <!-- row: 当前表单属性, model: 当前表单内容 -->
           <slot :name="item.prop" :row="item" :model="state.ruleForm"></slot>
@@ -97,9 +102,15 @@
   function getSchema(data) {
     schema.value = data;
   }
-
-  function handleChange(item, props) {
-    item.change && item.change(formActions, props);
+  /**
+   * @description 处理表单变更
+   * @author paul.xiao
+   * @date 2024-06-26 14:14:45
+   * @param {*}
+   * @return {*}
+   */
+  function handleChange(item, value) {
+    item.change && item.change(formActions, value);
   }
 
   const formActions = {

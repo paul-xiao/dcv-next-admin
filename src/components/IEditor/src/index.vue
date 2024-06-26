@@ -70,7 +70,7 @@
       Placeholder.configure({
         placeholder: ({ node }) => {
           if (node.type.name === 'heading') {
-            return 'What’s the title?';
+            return '写点什么 ?';
           }
           return '';
         },
@@ -89,16 +89,16 @@
     content: '',
     editable: _props.editable,
     onUpdate({ editor }) {
-      const { content } = editor.getJSON();
-      state.form.title = getTitle(content);
-      if (editor.getHTML() === '<h1></h1>') {
-        const html = `<h1>${state.form.title}</h1>`;
-        editor.commands.setContent(html);
-      }
-      state.form.content = editor.getHTML();
-      state.form.thumbnail = getThumbnail(content);
+      // const { content } = editor.getJSON();
+      // state.form.title = getTitle(content);
+      // if (editor.getHTML() === '<h1></h1>') {
+      //   const html = `<h1>${state.form.title}</h1>`;
+      //   editor.commands.setContent(html);
+      // }
+      const content = editor.getHTML();
+      // state.form.thumbnail = getThumbnail(content);
 
-      emits('update:modelValue', state.form);
+      emits('update:modelValue', content);
     },
   });
 
@@ -109,14 +109,9 @@
     },
   );
 
-  function setContent(val: any) {
-    // init article
-    if (val?.id) {
-      const { title, content, catalogId, id, updateTime } = val;
-      state.form = { title, content, catalogId, id, updateTime };
-      editor.commands.setContent(content);
-      emits('update:modelValue', state.form);
-    }
+  function setContent(content: string) {
+    editor.commands.setContent(content);
+    emits('update:modelValue', content);
   }
   function getTitle(nodes: any) {
     const h1Node = nodes.find(

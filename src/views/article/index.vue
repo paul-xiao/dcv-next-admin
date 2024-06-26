@@ -4,20 +4,20 @@
       <template #batch> <ElButton type="primary" :icon="Plus" @click="onAdd">添加</ElButton> </template>
       <template #thumbnail="{ row }">
         <el-image
-          style="width: 100px; height: 100px"
+          style="width: 50px; height: 50px"
           v-show="row.thumbnail"
-          :src="row.thumbnail"
+          :src="`/image/${row.thumbnail}`"
           :zoom-rate="1.2"
           :max-scale="7"
           :min-scale="0.2"
-          :preview-src-list="[row.thumbnail]"
+          :preview-src-list="[`/image/${row.thumbnail}`]"
           :initial-index="4"
           fit="cover"
         />
       </template>
       <template #opt="{ row }">
         <ElButton type="primary" :icon="View" text @click="onRowView(row)">详情</ElButton>
-        <ElButton type="primary" :icon="Edit" text @click="onAdd(row)">编辑</ElButton>
+        <ElButton type="primary" :icon="Edit" text @click="onEdit(row)">编辑</ElButton>
 
         <el-popconfirm title="Are you sure to delete this?" @confirm="onRowDel(row)">
           <template #reference>
@@ -50,8 +50,11 @@
       optWidth: 320,
     },
   });
-  function onAdd(row: any) {
-    router.push({ path: '/article/create', query: { id: row.id } });
+  function onAdd() {
+    router.push('/article/create');
+  }
+  function onEdit(row: any) {
+    router.push({ path: '/article/update', query: { id: row.id } });
   }
 
   function onRowView(row: any) {

@@ -29,7 +29,6 @@ export function setRouteGuards(router) {
             return;
           } else {
             flag = await generateRoutes(router);
-            console.log(flag, to.path);
             flag && next(to.path);
           }
         }

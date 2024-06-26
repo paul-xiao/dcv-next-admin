@@ -1,39 +1,30 @@
 <template>
-  <div class="demo-container">
-    <IAsideList @catalog-item-click="onCatalogItemClick" @search-start="onSearchStart" ref="IAsideListRef" />
-    <div class="content">
-      <div class="top">
-        <IEditorHeader
-          :title="state.content?.title"
-          :readonly="!isEditable"
-          :date="state.content?.updateTime || ''"
-          @submit="onSubmit"
-          @eidt="onEdit"
-        />
-      </div>
-      <div class="main">
-        <IEditor class="border" v-model="state.content" :editable="isEditable" ref="editorRef" />
-      </div>
-    </div>
-    <ISearchBox @item-click="onSearchResultClick" ref="ISearchBoxRef" />
-  </div>
+  <IForm @register="registerForm" @submit="onSubmit">
+    <template #content="{ model }">
+      <IEditor class="border min-h-lg" v-model="model.content"  ref="editorRef" />
+    </template>
+  </IForm>
 </template>
 <script lang="ts" setup>
   import { watch, ref } from 'vue';
-  import IEditorHeader from './src/create/IEditorHeader.vue';
-  import IAsideList from './src/create/IAsideList.vue';
-  import ISearchBox from './src/create/ISearchBox.vue';
-  import axios from 'axios';
   import { IEditor } from '@/components/IEditor';
-  import { create, update } from '@/api/article';
+  import { create, update, getArticleById } from '@/api/article';
   import { ElMessage, ElMessageBox } from 'element-plus';
-
+  import { formSchema } from './data';
+  import { IForm, useForm } from '@/components/IForm';
+  const router = useRouter();
   const route = useRoute();
   const state = reactive({
     content: {} as any,
   });
   const editorRef = ref<any>();
-  console.log(route.query);
+  const [registerForm, { setValues }]: any = useForm({
+    componentProps: {
+      labelWidth: 100,
+      labelSuffix: ':',
+    },
+    schema: formSchema,
+  });
 
   interface FormData {
     id?: string;
@@ -46,7 +37,13 @@
 
   const IAsideListRef = ref<any>(null);
   const ISearchBoxRef = ref<any>(null);
-  const isEditable = ref<boolean>(false);
+  const isEditable = ref<boolean>(true);
+
+
+  const rootPath = route.matched[0].path;
+  const isUpdate = route.path === rootPath + '/update';
+  const { id } = route.query;
+  if (isUpdate && !id) router.push(rootPath + '/index');
 
   watch(
     () => state.content,
@@ -58,17 +55,22 @@
     route.query?.id && onCatalogItemClick({ articleId: route.query.id });
   });
 
-  function onSubmit() {
-    const request = state.content?.id ? update : create;
+  function onSubmit(form) {
+    const request = route.query.id  ? update : create;
     ElMessageBox.confirm('确定提交?', 'Warning', {
       confirmButtonText: 'OK',
       cancelButtonText: 'Cancel',
       type: 'warning',
     }).then(() => {
-      request(state.content).then(() => {
+
+      form.tags = form.tags.join(',');
+      request(form).then((res) => {    
+        console.log(res);
+            
+        if(!res) return
         IAsideListRef.value?.getCatalog();
         editorRef.value?.editor?.setEditable(false);
-        isEditable.value = false;
+        router.push('/article')
         ElMessage({
           type: 'success',
           message: '提交成功',
@@ -78,22 +80,19 @@
 
     // 刷新列表
   }
-  function onEdit() {
-    // editorRef.value?.setEditable(true)
-    isEditable.value = true;
-  }
+ 
 
-  function getArticleById(id) {
-    return axios.get(`/api/article/${id}`);
-  }
+ 
 
   async function onCatalogItemClick({ articleId }: any) {
     if (!articleId) return;
     // editorRef.value?.setEditable(false)
     isEditable.value = false;
-    const artile: any = await getArticleById(articleId);
-    const res = artile.data.result;
-    editorRef?.value?.setContent(res);
+    const res: any = await getArticleById(articleId);
+    const { content } = res;
+    res.tags = [].concat(res.tags)
+    setValues(res)
+    editorRef?.value?.setContent(content);
   }
 
   function onSearchResultClick(item: any) {

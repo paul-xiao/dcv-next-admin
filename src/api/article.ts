@@ -53,12 +53,11 @@ export const remove = (id: any) => {
  * Description placeholder
  * @date 2024/4/7 - 16:51:59
  *
- * @param {*} params
+ * @param {*} id
  * @returns {*}
  */
-export const upload = (params: any) => {
-  if (!params.file) return;
-  const formdata = new FormData();
-  formdata.append('file', params.file);
-  return http.post(`/upload`, formdata);
+export const getTagList = (params: any) => {
+  console.log(params);
+
+  return http.get(`/dict`, { params });
 };

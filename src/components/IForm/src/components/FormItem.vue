@@ -3,7 +3,7 @@
     <template v-if="!!$slots[prop]">
       <slot :name="prop"></slot>
     </template>
-    <component :is="getComponent(type)" v-model="myValue" v-bind="componentProps" @change="onChange" v-else />
+    <component :is="getComponent(type)" v-model="myValue" :form="model" v-bind="componentProps" @change="onChange" v-else />
   </ElFormItem>
 </template>
 <script lang="ts">
@@ -16,6 +16,7 @@ import { computed } from 'vue';
 export default defineComponent({
   components: { ElFormItem, ElInput, ISelect, IUpload },
   props: {
+    model: { type: Object, default: () => {} },
     label: { type: String, default: '' },
     labelWidth: { type: [String, Number], default: '' },
     prop: { type: String, default: '' },
@@ -34,12 +35,33 @@ export default defineComponent({
         emit('update:modelValue', val);
       },
     });
+    /**
+     * @description 首字母大写
+     * @author paul.xiao
+     * @date 2024-06-26 13:50:51
+     * @param {*}
+     * @return {*}
+    */
     function capitalize(str) {
       return str && str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase();
     }
+    /**
+     * @description 监听表单变化
+     * @author paul.xiao
+     * @date 2024-06-26 14:02:18
+     * @param {*}
+     * @return {*}
+    */
     function onChange(val) {
       emit('change', val);
     }
+    /**
+     * @description 获取组件
+     * @author paul.xiao
+     * @date 2024-06-26 14:02:40
+     * @param {*}
+     * @return {*}
+    */
     const getComponent = (type = 'input') => {
       const isInput = ['password', 'input'].includes(type);
       switch (type) {

@@ -5,7 +5,7 @@
         {{ state.article.title }}
       </div>
       <div>
-        <span v-for="tag of state.article.tags" class="mr-2 text-xs font-thin">{{ tag }}</span>
+        <span class="mr-2 text-xs font-thin">{{ state.article.tags }}</span>
         <span class="text-xs font-thin">{{ fromNow(state.article.createTime) }}</span>
       </div>
     </div>
