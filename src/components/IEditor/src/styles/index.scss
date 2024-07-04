@@ -120,6 +120,7 @@ body {
 /* Basic editor styles */
 .ProseMirror {
   padding: 15px;
+  height: 100%;
   > * + * {
     margin-top: 0.75em;
   }
@@ -127,6 +128,7 @@ body {
   ul,
   ol {
     padding: 0 1rem;
+    list-style:disc;
   }
 
   h1,
@@ -141,7 +143,7 @@ body {
 
   @for $i from 1 through 5 {
     h#{$i} {
-      font-size: #{30 - $i * 2}px;
+      font-size: #{24 - $i * 2}px;
     }
   }
 

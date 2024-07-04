@@ -20,6 +20,10 @@
   const showImageUpload = ref<boolean>(false);
   const instance: any = getCurrentInstance();
 
+  const emits = defineEmits<{
+    (e: 'toggle-fullscreen'): void;
+  }>();
+
   function buildToolbar() {
     menus.forEach(m => {
       const newChild = buildToolbarItem(m);
@@ -34,9 +38,6 @@
       const command = item.command;
       const foos = props.editor.chain().focus();
       const isCustom = Object.keys(foos).findIndex(k => k === item.command) === -1;
-      console.log(isCustom);
-      console.log(instance);
-
       isCustom ? instance.exposed?.[command]() : props.editor.chain().focus()[item.command]().run();
     };
 
@@ -79,7 +80,16 @@
       props.editor.chain().focus().extendMarkRange('link').setLink({ href: url, target: '_blank' }).run();
     }
   }
-
+  /**
+   * @description 全屏
+   * @author paul.xiao
+   * @date 2024-06-27 09:35:50
+   * @param {*}
+   * @return {*}
+   */
+  function toggleFullScreen() {
+   emits('toggle-fullscreen');
+  }
   onMounted(() => {
     buildToolbar();
   });
@@ -88,5 +98,6 @@
     addImage,
     uploadImage,
     addUrl,
+    toggleFullScreen,
   });
 </script>

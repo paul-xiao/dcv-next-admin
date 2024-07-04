@@ -3,7 +3,8 @@
     .header {
       height: $headerHeight;
       line-height: $headerHeight;
-      background: #f2f2f2;
+      background: #fff;
+      box-shadow: 5px 5px 5px 0 #e2e2e2;
       display: flex;
       .logo {
         display: flex;
@@ -52,7 +53,8 @@
       }
     }
     & > .main {
-      height: calc(100vh - $headerHeight);
+      height: calc(100vh - $headerHeight - 5px);
+      margin-top: 5px;
       position: relative;
       .aside {
         height: 100%;

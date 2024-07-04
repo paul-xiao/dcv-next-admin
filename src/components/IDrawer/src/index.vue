@@ -6,17 +6,18 @@
     :with-header="state.header"
     :size="state.size"
   >
-    <slot />
+    <!-- froce slot  rerender -->
+    <slot v-if="state.visable" :row="state.row" />
     <template #footer v-if="state.footer">
       <div style="flex: auto">
         <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="onConfirm" :loading="loading">确认</el-button>
+        <el-button type="primary" @click="onConfirm" :loading="state.loading">确认</el-button>
       </div>
     </template>
   </ElDrawer>
 </template>
 <script setup lang="ts">
-  import { onMounted, reactive, ref, watch } from 'vue';
+  import { onMounted, reactive, ref, useSlots } from 'vue';
   const IDrawerRef = ref();
   interface DrawerProps {
     visable?: boolean;
@@ -30,15 +31,19 @@
     visable: false,
     header: true,
     footer: true,
+    loading: false,
     title: '',
     size: '35%',
   });
   const state = reactive({
     title: '',
     visable: false,
+    loading: false,
     header: true,
     footer: true,
     size: '',
+    row: {},
+    onSubmit: (params?: any) => {},
   });
 
   setProps(_props);
@@ -52,6 +57,7 @@
   }
   function open(params) {
     state.visable = true;
+    state.row = params;
     emit('open', params);
   }
 
@@ -59,18 +65,26 @@
     state.visable = false;
   }
   function onConfirm() {
-    emit('confirm');
+    state.onSubmit(state.row);
   }
-  const hook = {
+  function setLoading(loading) {
+    state.loading = loading
+  }
+  /**
+   * @description 注册给useDrawerHooks使用的方法
+   * @author paul.xiao
+   * @date 2024-07-03 17:13:07
+   * @param {*}
+   * @return {*}
+  */
+  const registerFoos = {
     setProps,
     open,
+    close,
+    setLoading,
   };
 
   onMounted(() => {
-    emit('register', hook);
-  });
-
-  defineExpose({
-    close,
+    emit('register', registerFoos);
   });
 </script>

@@ -1,7 +1,7 @@
 <template>
-    <node-view-wrapper class="code-block">
-      <pre><code><node-view-content /></code></pre>
-    </node-view-wrapper>
+    <NodeViewWrapper class="code-block">
+      <pre><code><NodeViewContent /></code></pre>
+    </NodeViewWrapper>
   </template>
   
   <script lang="ts" setup>

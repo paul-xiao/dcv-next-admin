@@ -31,7 +31,7 @@
   async function onSubmit(form: any) {
     try {
       const res: any = form.id ? await update(form) : await create(form);
-      ElMessage.success(res.msg);
+      res && ElMessage.success('操作成功');
       router.push('/system/user');
     } catch (error) {
       console.log(error);

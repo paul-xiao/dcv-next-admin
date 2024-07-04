@@ -2,6 +2,7 @@ import { emptyObjectItemFillter } from '@/utils/object';
 import { Router, RouterView } from 'vue-router';
 import { list as getMenuList } from '@/api/menu';
 import { useMenuStore } from '@/stores/modules/menu';
+import { __MyStorage__ } from '@/utils/cache/storage';
 export interface Menu {
   id: number;
   title: string;
@@ -119,20 +120,29 @@ export function parseMenuList(list: any[], pid = 0) {
  * @param {object} router vue-router
  * @returns {Promise<boolean>} flag:是否返回当前路由
  */
-export function generateRoutes(router: Router): Promise<boolean> {
+export function generateRoutes(router: Router, cache?: any[]): Promise<boolean> {
   const menuStore = useMenuStore();
-  const hasMenu = menuStore.menuData.length;
+  const hasMenu = menuStore.menuData.length;  
   if (hasMenu) return Promise.resolve(false);
   return new Promise((resolve, reject) => {
-    getMenuList()
-      .then(res => {
-        const menus = parseMenuList(res as any);
-        menus.forEach(m => {
-          router.addRoute(m);
-        });
-        menuStore.setMenuData(menus);
-        resolve(true);
-      })
-      .catch(err => reject(err));
+    let menus: any[] = [];
+    const genRoutes = menuData => {
+      menus = parseMenuList(menuData as any[]);
+      menus.forEach(m => {
+        router.addRoute(m);
+      });
+      menuStore.setMenuData(menus);
+      resolve(true);
+    };    
+    if (cache) {
+      genRoutes(cache);
+    } else {
+      getMenuList()
+        .then(menuData => {
+          __MyStorage__.set('menuData', menuData);
+          genRoutes(menuData);
+        })
+        .catch(err => reject(err));
+    }
   });
 }

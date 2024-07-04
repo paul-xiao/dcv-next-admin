@@ -2,6 +2,7 @@ import { setToken, removeToken } from '@/utils/auth';
 import { defineStore } from 'pinia';
 import { router } from '@/router';
 import { login } from '@/api/user';
+import { __MyStorage__ } from '@/utils/cache/storage';
 interface User {}
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -25,6 +26,7 @@ export const useUserStore = defineStore('user', {
     },
     logout() {
       removeToken();
+      __MyStorage__.clear()
       router.push('/login');
     },
   },

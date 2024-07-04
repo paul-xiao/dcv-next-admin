@@ -1,9 +1,9 @@
 import global from '@/settings/global';
 import { getToken } from '@/utils/auth';
 import { generateRoutes } from './helpers';
+import { __MyStorage__ } from '@/utils/cache/storage';
 
 const whiteList = ['/login'];
-let flag = false;
 export function setRouteGuards(router) {
   router.beforeEach(async (to, _from, next) => {
     /* 路由发生变化修改页面title */
@@ -13,24 +13,15 @@ export function setRouteGuards(router) {
       }
 
       if (whiteList.includes(to.path)) {
-        const token = getToken();
-        if (token && to.path === '/login') {
-          next('/');
-        } else {
-          next();
-        }
+        next();
       } else {
         const token = getToken();
         if (!token) {
           next('/login');
-        } else {          
-          if (flag) {
-            next();
-            return;
-          } else {
-            flag = await generateRoutes(router);
-            flag && next(to.path);
-          }
+        } else {
+          const menuData = __MyStorage__.get('menuData');
+          const rerendered = await generateRoutes(router, menuData?.length ? menuData : null);
+          rerendered ? next(to.fullPath) : next();
         }
       }
     } catch (error) {

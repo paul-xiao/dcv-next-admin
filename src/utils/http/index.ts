@@ -59,8 +59,13 @@ instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const code = response.data.code;
     let message = showStatus(code);
-    code !== 200 && ElMessage.error(response.data.message || message);
-    return (response?.data?.result as any) || [];
+    if (code !== 200) {
+      ElMessage.error(response.data.message || message);
+      return false;
+    } else {
+      // ElMessage.success(response.data.message || message);
+      return (response?.data?.result as any) || true;
+    }
   },
   error => {
     if (axios.isCancel(error)) {
@@ -74,7 +79,7 @@ instance.interceptors.response.use(
       error.data.message = error?.response?.data?.message || '请求超时或服务器异常，请检查网络或联系管理员！';
       switch (code) {
         case 401:
-          userStore.logout()
+          userStore.logout();
           break;
 
         default:

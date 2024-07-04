@@ -47,6 +47,7 @@ declare module 'vue' {
     ICodeEditorSrc: typeof import('./../../src/components/ICodeEditor/src/index.vue')['default']
     IDataDisplaySrcDataBox: typeof import('./../../src/components/IDataDisplay/src/DataBox.vue')['default']
     IDescriptionSrc: typeof import('./../../src/components/IDescription/src/index.vue')['default']
+    IDrawer: typeof import('../../src/components/IDrawer/src/index.vue')['default']
     IDrawerSrc: typeof import('./../../src/components/IDrawer/src/index.vue')['default']
     IEditorSrc: typeof import('./../../src/components/IEditor/src/index.vue')['default']
     IEditorSrcComponentsICodeBlock: typeof import('./../../src/components/IEditor/src/components/ICodeBlock.vue')['default']

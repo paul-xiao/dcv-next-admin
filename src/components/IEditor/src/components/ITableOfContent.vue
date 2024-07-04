@@ -1,5 +1,4 @@
 <template>
-  <NodeViewWrapper class="toc">
     <ul class="toc__list">
       <li class="toc__item" :class="`toc__item--${heading.level}`" v-for="(heading, index) in headings" :key="index">
         <a :href="`#${heading.id}`">
@@ -7,7 +6,6 @@
         </a>
       </li>
     </ul>
-  </NodeViewWrapper>
 </template>
 
 <script setup lang="ts">

@@ -12,12 +12,12 @@
   const matchedRoute: Ref<RouteLocationMatched[]> = ref([]);
   const router = useRouter();
   const route = useRoute();
-  matchedRoute.value = route.matched?.filter(m => !m.meta.hidden);
+  matchedRoute.value = route.matched;
 
   watch(
     () => router.currentRoute.value,
     () => {
-      matchedRoute.value = route.matched?.filter(m => !m.meta.hidden);
+      matchedRoute.value = route.matched;
     },
   );
 </script>

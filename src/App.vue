@@ -1,10 +1,6 @@
 <template>
   <ElConfigProvider :locale="zhCn">
-    <Suspense> 
-      <div>
-        <RouterView />
-      </div>
-    </Suspense>
+    <RouterView />
   </ElConfigProvider>
 </template>
 <script setup lang="ts">

@@ -22,6 +22,8 @@ const router = useRouter()
 const state = reactive({
   article: {} as any
 })
+console.log(route);
+
 if (!route.query?.id) {
   router.push('/article')
 } else {

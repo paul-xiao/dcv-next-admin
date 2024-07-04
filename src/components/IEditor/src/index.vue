@@ -123,7 +123,15 @@
     const imgNode = nodes.find((n: { type: string; attrs: { level: number } }) => n.type === 'image');
     return imgNode?.attrs?.src;
   }
-
+  function onToggleFullscreen() {
+    const element = document.getElementById('editor');
+    if (!element) return;
+    // 兼容谷歌、火狐、IE
+    const requestMethod = element.requestFullscreen;
+    if (requestMethod) {
+      requestMethod.call(element);
+    }
+  }
   // expose to parent
   defineExpose({
     setContent,
@@ -134,9 +142,9 @@
   });
 </script>
 <template>
-  <div class="container">
+  <div class="container bg-white" id="editor">
     <div class="top">
-      <IToolBar :editor="editor" v-bind="toolbar" />
+      <IToolBar :editor="editor" v-bind="toolbar" @toggle-fullscreen="onToggleFullscreen" />
     </div>
     <div class="main">
       <EditorContent class="editor" :editor="editor" />

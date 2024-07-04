@@ -1,16 +1,21 @@
 export function useDrawer(params): any {
-
-  const IDrawerRef = ref()
+  const IDrawerRef = ref();
   // 注册
   function register(instance) {
-    instance.setProps(params)
-    IDrawerRef.value = instance
+    instance.setProps(params);
+    IDrawerRef.value = instance;
   }
   // 钩子
   const hooks = {
-    openDrawer: (params) => {
-      IDrawerRef.value.open(params)
-    }
+    openDrawer: params => {
+      IDrawerRef.value.open(params);
+    },
+    closeDrawer: () => {
+      IDrawerRef.value.close();
+    },
+    showLoading: (loading: boolean = true) => {
+      IDrawerRef.value.setLoading(loading);
+    },
   };
 
   return [register, hooks];

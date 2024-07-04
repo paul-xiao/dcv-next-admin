@@ -17,7 +17,7 @@
     <ElFormItem v-if="$slots.footer">
       <slot name="footer"></slot>
     </ElFormItem>
-    <ElFormItem v-else-if="state.conf.footer || $props.footer">
+    <ElFormItem v-else-if="state.conf.footer">
       <ElButton type="primary" @click="submitForm">确认</ElButton>
       <ElButton @click="resetForm()">重置</ElButton>
     </ElFormItem>
@@ -83,13 +83,15 @@
     }
   };
 
+  // todo 单独字段？
+
   const resetForm = () => {
     formRef.value?.resetFields();
     state.ruleForm = {};
   };
 
   function setProps(props) {
-    state.conf = { ...props };
+    state.conf = { footer: _props.footer, ...props };
   }
   function setDefautValues(values) {
     state.ruleForm = { ...values };

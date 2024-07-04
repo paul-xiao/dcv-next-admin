@@ -1,6 +1,6 @@
 import { useDrawer } from './src/hooks/useDrawer';
-import Drawer from './src/index.vue';
+import IDrawer from './src/index.vue';
 export {
-    Drawer, useDrawer
+    IDrawer, useDrawer
 }
-export default Drawer;
+export default IDrawer;
