@@ -80,3 +80,54 @@ export const schema: any[] = [
     ],
   },
 ];
+
+export const changgePwdFormSchema: any[] = [
+    {
+      label: '旧密码',
+      prop: 'password',
+      componentProps: {
+        type: 'password',
+        placeholder: '请输入旧密码',
+      },
+      span: 12,
+      rules: [
+        {
+          required: true,
+          message: '请输入旧密码',
+          trigger: 'blur',
+        },
+      ],
+    },
+    {
+      label: '新密码',
+      prop: 'newPassword',
+      componentProps: {
+        type: 'password',
+        placeholder: '请输入新密码',
+      },
+      span: 12,
+      rules: [
+        {
+          required: true,
+          message: '请输入新密码',
+          trigger: 'blur',
+        },
+      ],
+    },
+    {
+      label: '确认密码',
+      prop: 'rePassword',
+      componentProps: {
+        type: 'password',
+        placeholder: '请输入确认密码',
+      },
+      span: 12,
+      rules: [
+        {
+          required: true,
+          message: '请再次输入新密码',
+          trigger: 'blur',
+        },
+      ],
+    },
+  ];

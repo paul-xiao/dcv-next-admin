@@ -7,7 +7,6 @@
   import { ElMessage } from 'element-plus';
   import { useRouter } from 'vue-router';
   import { IForm, useForm } from '@/components/IForm';
-  const router = useRouter();
 
   getDetail();
   const [registerForm, { setValues }]: any = useForm({

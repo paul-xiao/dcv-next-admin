@@ -15,6 +15,9 @@ export const update = (params: any = {}): Promise<any> => {
 export const updatePwd = (params: any = {}): Promise<any> => {
   return http.put('/user/pwd', params);
 };
+export const updateCurrentUserPwd = (params: any = {}): Promise<any> => {
+  return http.put('/user/current/pwd', params);
+};
 export const detail = (id): Promise<any> => {
   return http.get(`/user/${id}`);
 };
