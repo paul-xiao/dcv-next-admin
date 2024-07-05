@@ -24,3 +24,6 @@ export const remove = (id: any) => {
 export const getCaptcha = (email: string) => {
   return http.post(`/user/send/email`, { email });
 };
+export const getUserInfo = (): Promise<any>  => {
+  return http.get(`/user/info`);
+};

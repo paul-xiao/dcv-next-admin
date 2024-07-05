@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center justify-center h-screen">
-    <div>
-      <h1>404</h1>
+    <div class="text-center">
+      <img src="@/assets/images/404.png" width="500" />
       <div>
-        <router-link to="/"> <ElButton>返回首页</ElButton> </router-link>
-        <ElButton @click="onLogout">退出登录</ElButton>
+        <RouterLink to="/"> <ElButton type="primary">返回首页</ElButton> </RouterLink>
+        <ElButton class="ml-2" @click="onLogout">退出登录</ElButton>
       </div>
     </div>
   </div>
@@ -12,6 +12,8 @@
 <script setup lang="ts">
   import { useUserStore } from '@/stores/modules/user';
   const userStore = useUserStore();
+ 
+  
   function onLogout() {
     userStore.logout();
   }

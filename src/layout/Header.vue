@@ -18,14 +18,25 @@
             <SvgIcon icon="notification"></SvgIcon>
           </ElBadge>
         </div>
-        <div class="header-main-right-item flex items-center">
+        <div class="flex items-center header-main-right-item">
           <el-dropdown>
             <span class="el-dropdown-link" style="outline: none">
-              <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+              <el-avatar :size="30" :src="`/image/${userInfo.avatar}`" />
             </span>
             <template #dropdown>
+              <div class="p-5 text-center w-60">
+                <p class="text-sm">{{ userInfo.name }}</p>
+                <el-avatar :size="30" :src="`/image/${userInfo.avatar}`" />
+                <p>{{ userInfo.email }}</p>
+              </div>
               <el-dropdown-menu>
-                <el-dropdown-item @click="userStore.logout()">退出登录</el-dropdown-item>
+                <el-dropdown-item :icon="Edit">
+                  <RouterLink to="/user/profile">编辑资料</RouterLink>
+                </el-dropdown-item>
+                <el-dropdown-item :icon="Lock">
+                  <RouterLink to="/user/update-pwd">修改密码</RouterLink></el-dropdown-item
+                >
+                <el-dropdown-item :icon="SwitchButton" @click="userStore.logout()">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -38,11 +49,12 @@
   import Logo from './src/Logo';
   import Breadcrumb from './src/Breadcrumb';
   import { SvgIcon } from '@/components/IIcon';
-  import { Expand, Fold } from '@element-plus/icons-vue';
+  import { Expand, Fold, SwitchButton, Edit, Lock } from '@element-plus/icons-vue';
   import { getGlobalConfig } from '@/hooks/useGlobalConfig';
   import { useUserStore } from '@/stores/modules/user';
   const userStore = useUserStore();
   const title = getGlobalConfig('title');
+  const userInfo = userStore.userInfo;
   const isCollapse = ref(false);
 
   const emit = defineEmits(['update:isCollapse']);

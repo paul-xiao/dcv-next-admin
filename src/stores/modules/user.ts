@@ -1,32 +1,37 @@
 import { setToken, removeToken } from '@/utils/auth';
 import { defineStore } from 'pinia';
 import { router } from '@/router';
-import { login } from '@/api/user';
+import { login, getUserInfo } from '@/api/user';
 import { __MyStorage__ } from '@/utils/cache/storage';
-interface User {}
+interface User {
+  email: string;
+}
+const userInfo = __MyStorage__.get('userInfo');
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
-      userData: [],
+      userInfo: userInfo || ({} as User),
     };
   },
   getters: {
-    getUserData(): User[] {
-      return this.userData;
+    getUserInfo(): User {
+      return this.userInfo;
     },
   },
   actions: {
     async login(params) {
-      const data = await login(params)
-      console.log(data);
-      
-      this.userData = data;
-      setToken(data.token || '');
-      router.push('/');
+      const { token }: { token: string } = await login(params);
+      if (token) {
+        setToken(token || '');
+        const userInfo = await getUserInfo();
+        this.userInfo = userInfo;
+        __MyStorage__.set('userInfo', userInfo);
+        router.push('/');
+      }
     },
     logout() {
       removeToken();
-      __MyStorage__.clear()
+      __MyStorage__.clear();
       router.push('/login');
     },
   },

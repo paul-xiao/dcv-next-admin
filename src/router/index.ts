@@ -21,6 +21,38 @@ export const router = createRouter({
       },
     },
     {
+      path: '/user',
+      name: 'user',
+      component: () => import('../layout/index.vue'),
+      children: [
+        {
+          path: '/user/profile',
+          name: 'profile',
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../views/user/profile.vue'),
+          meta: {
+            title: '编辑资料',
+          },
+        },
+        {
+          path: '/user/update-pwd',
+          name: 'updatePwd',
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../views/user/updatePwd.vue'),
+          meta: {
+            title: '修改密码',
+          },
+        },
+      ],
+      meta: {
+        title: '系统用户',
+      },
+    },
+    {
       path: '/overview',
       name: 'overview',
       component: () => import('../layout/index.vue'),
