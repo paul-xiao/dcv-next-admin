@@ -1,10 +1,9 @@
 type Data = Record<string, unknown>;
 export interface FormProps {
-  schema: any[],
+  schema: any[];
   footer?: boolean; // 是否显示footer
   componentProps?: Data;
-
-} 
+}
 
 export interface FormItem {
   label?: string;
@@ -15,10 +14,10 @@ export interface FormItem {
   slot?: boolean;
   rules?: any[];
   componentProps?: any;
-  change?: Function;
+  change?: (params?) => void;
 }
 
 export interface SelectOption {
-  label?: String;
-  value?: String;
+  label?: string;
+  value?: string;
 }

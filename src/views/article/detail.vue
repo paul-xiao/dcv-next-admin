@@ -13,27 +13,27 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { getArticleById } from '@/api/article'
-import { fromNow } from '@/utils/dayjs'
-import { reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-const route = useRoute()
-const router = useRouter()
-const state = reactive({
-  article: {} as any
-})
-console.log(route);
+  import { getArticleById } from '@/api/article';
+  import { fromNow } from '@/utils/dayjs';
+  import { reactive } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  const route = useRoute();
+  const router = useRouter();
+  const state = reactive({
+    article: {} as any,
+  });
+  console.log(route);
 
-if (!route.query?.id) {
-  router.push('/article')
-} else {
-  getDetail()
-}
+  if (!route.query?.id) {
+    router.push('/article');
+  } else {
+    getDetail();
+  }
 
-async function getDetail() {
-  console.log(11);
-  
-  const res: any = await getArticleById(route.query?.id)
-  state.article = res
-}
+  async function getDetail() {
+    console.log(11);
+
+    const res: any = await getArticleById(route.query?.id);
+    state.article = res;
+  }
 </script>

@@ -2,7 +2,7 @@
   <div :class="`${ns}-table`">
     <!-- 搜索栏 -->
     <div :class="`${ns}-table-search`">
-      <TableSearch :schema="state.search.schema" v-if="state.search" :search-method="onLoad" />
+      <TableSearch v-if="state.search" :schema="state.search.schema" :search-method="onLoad" />
     </div>
     <!-- 表格 -->
     <div :class="`${ns}-table-head`">
@@ -17,7 +17,7 @@
         <SvgIcon icon="setting" @click="onRefeshTable"></SvgIcon>
       </div>
     </div>
-    <div :class="`${ns}-table-main`" ref="ITableRef">
+    <div ref="ITableRef" :class="`${ns}-table-main`">
       <ElTable
         :data="state.data"
         row-key="id"

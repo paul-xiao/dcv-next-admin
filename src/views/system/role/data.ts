@@ -1,4 +1,3 @@
-
 export const formSchema: any[] = [
   {
     label: '角色名称',
@@ -8,9 +7,9 @@ export const formSchema: any[] = [
       {
         required: true,
         message: '请输入角色名称',
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     label: '权限',
@@ -20,23 +19,23 @@ export const formSchema: any[] = [
       {
         required: false,
         message: '请输入权限',
-        trigger: 'blur'
-      }
-    ]
-  }
-]
+        trigger: 'blur',
+      },
+    ],
+  },
+];
 
 export const tableSchema = [
   {
     label: 'ID',
-    prop: 'id'
+    prop: 'id',
   },
   {
     label: '名称',
-    prop: 'name'
+    prop: 'name',
   },
   {
     label: '权限',
-    prop: 'permissions'
-  }
-]
+    prop: 'permissions',
+  },
+];

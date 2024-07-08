@@ -4,7 +4,7 @@
  * @date 2024-07-01 11:18:29
  * @param {*}
  * @return {*}
-*/
+ */
 export function usePageRootPath() {
   const rootPath = ref('');
   const getRootPath = () => {

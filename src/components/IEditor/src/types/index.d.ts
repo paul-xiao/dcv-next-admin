@@ -1,12 +1,12 @@
 interface EditorProps {
-    title: string
+  title: string;
 }
 
 export interface FormData {
-    id?: string
-    title: string
-    thumbnail?: string
-    updateTime?: string
-    content: string
-    catalogId: string | number
-  }
+  id?: string;
+  title: string;
+  thumbnail?: string;
+  updateTime?: string;
+  content: string;
+  catalogId: string | number;
+}

@@ -41,8 +41,8 @@ export const formSchema: any[] = [
       api: roleList,
       props: {
         label: 'name',
-        value: 'id'
-      }
+        value: 'id',
+      },
     },
     span: 12,
     rules: [

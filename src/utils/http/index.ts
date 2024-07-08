@@ -34,7 +34,7 @@ instance.interceptors.request.use(
   config => {
     // 在这里判断请求类型，并设置 header
     //获取token，并将其添加至请求头中
-    let token = getToken();
+    const token = getToken();
     // 为 POST 请求设置 header
     if (!config.headers['Content-Type']) {
       config.headers['Content-Type'] = 'application/json';
@@ -58,7 +58,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const code = response.data.code;
-    let message = showStatus(code);
+    const message = showStatus(code);
     if (code !== 200) {
       ElMessage.error(response.data.message || message);
       return false;

@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar-wrap">
-    <div v-if="editor" class="toolbar" ref="toolbar"></div>
-    <div class="image-upload" v-show="false">
+    <div v-if="editor" ref="toolbar" class="toolbar"></div>
+    <div v-show="false" class="image-upload">
       <span class="close-icon" @click="showImageUpload = false">X</span>
       <input ref="imageUploadRef" type="file" accept="image" @change="onImageUpload" />
     </div>
@@ -88,7 +88,7 @@
    * @return {*}
    */
   function toggleFullScreen() {
-   emits('toggle-fullscreen');
+    emits('toggle-fullscreen');
   }
   onMounted(() => {
     buildToolbar();

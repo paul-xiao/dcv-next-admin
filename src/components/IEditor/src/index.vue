@@ -1,5 +1,17 @@
+
+<template>
+  <div id="editor" class="container bg-white">
+    <div class="top">
+      <IToolBar :editor="editor" v-bind="toolbar" @toggle-fullscreen="onToggleFullscreen" />
+    </div>
+    <div class="main">
+      <EditorContent class="editor" :editor="editor" />
+      <ITableOfContent :editor="editor" :title="state.form?.title" />
+    </div>
+  </div>
+</template>
 <script lang="ts" setup>
-  import { onBeforeUnmount, reactive, ref, watch } from 'vue';
+  import { onBeforeUnmount, reactive, watch } from 'vue';
   import Document from '@tiptap/extension-document';
   import Image from '@tiptap/extension-image';
   import Link from '@tiptap/extension-link';
@@ -38,7 +50,7 @@
   const _props = withDefaults(
     defineProps<{
       modelValue: IData;
-      toolbar?: IData;
+      toolbar?: any;
       editable?: boolean;
     }>(),
     {
@@ -141,14 +153,3 @@
     editor.destroy();
   });
 </script>
-<template>
-  <div class="container bg-white" id="editor">
-    <div class="top">
-      <IToolBar :editor="editor" v-bind="toolbar" @toggle-fullscreen="onToggleFullscreen" />
-    </div>
-    <div class="main">
-      <EditorContent class="editor" :editor="editor" />
-      <ITableOfContent :editor="editor" :title="state.form?.title" />
-    </div>
-  </div>
-</template>

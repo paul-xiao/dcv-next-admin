@@ -12,8 +12,7 @@
 <script setup lang="ts">
   import { useUserStore } from '@/stores/modules/user';
   const userStore = useUserStore();
- 
-  
+
   function onLogout() {
     userStore.logout();
   }

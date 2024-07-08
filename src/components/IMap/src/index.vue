@@ -7,7 +7,7 @@
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
   import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
   import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
-  import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+  import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
   import Stats from 'three/examples/jsm/libs/stats.module';
   import { loadSvg, projection } from './helpers';
   let controls, renderer, scene, camera, stats, domEl;

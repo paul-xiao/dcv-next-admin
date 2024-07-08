@@ -4,23 +4,27 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
+    "isolatedModules": true,
+    "noUnusedLocals": false,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
     "jsx": "preserve",
     "sourceMap": true,
+    "sourceRoot": "./",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "lib": ["esnext", "dom"],
-    "types": ["element-plus/global"],
-    // "typeRoots": ["./node_modules/@types/", "./types"],
+    // "types": ["element-plus/global"], // If types is specified, only packages listed will be included in the global scope
     "noImplicitAny": false,
+
+    "noEmit": true,
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "/#/*": ["./types/*"]
+      "@/*": ["src/*"],
+      "/#/*": ["types/*"]
     }
   },
   "include": [

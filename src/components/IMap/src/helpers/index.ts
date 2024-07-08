@@ -22,7 +22,7 @@ import proj4 from 'proj4';
  * +vunits：用于指定垂直坐标的单位。这个参数通常与+units参数一起使用，以确保水平和垂直坐标单位的一致性。
  */
 function Wgs84ToMector2([lon, lat]) {
-  var fromProjection = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+  const fromProjection = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
 
   // const projection = '+proj=merc +lon_0=108.55 +lat_0=34.42 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=km +no_defs';
   // const projection = '+proj=longlat +ellps=GRS80 +no_defs';
@@ -59,12 +59,11 @@ export function coordsToxy(coords, center = [104.0, 37.5]) {
   const [lat1, lon1] = center;
   const x1 = 0;
   const y1 = 0;
-  let a, dst;
-  let north = new THREE.Vector2(0, 1);
-  let arc = 6371.393 * 1000;
-  a = Math.atan(((lon2 - lon1) / (lat2 - lat1)) * Math.cos(lat1));
-  dst = ((lat2 - lat1) * ((arc * 2 * Math.PI) / 360)) / Math.cos(a);
-  let b = north.angle() - a;
+  const north = new THREE.Vector2(0, 1);
+  const arc = 6371.393 * 1000;
+  const a = Math.atan(((lon2 - lon1) / (lat2 - lat1)) * Math.cos(lat1));
+  const dst = ((lat2 - lat1) * ((arc * 2 * Math.PI) / 360)) / Math.cos(a);
+  const b = north.angle() - a;
   console.log(a, b, north.angle());
 
   return [Math.cos(b) * dst + x1, Math.sin(b) * dst + y1];
@@ -112,28 +111,28 @@ export function createSideShaderMaterial(material) {
  */
 export function convertCoordsToSVG(longitude, latitude, zoom, bounds) {
   // 将经纬度转换为弧度
-  var lonRad = longitude * (Math.PI / 180);
-  var latRad = latitude * (Math.PI / 180);
+  const lonRad = longitude * (Math.PI / 180);
+  const latRad = latitude * (Math.PI / 180);
 
   // 计算缩放级别和像素大小
-  var scaleX = Math.pow(2, zoom);
-  var scaleY = Math.pow(2, zoom);
-  var pixelSizeX = 1 / scaleX;
-  var pixelSizeY = 1 / scaleY;
+  const scaleX = Math.pow(2, zoom);
+  const scaleY = Math.pow(2, zoom);
+  const pixelSizeX = 1 / scaleX;
+  const pixelSizeY = 1 / scaleY;
 
   // 计算边界框的中心点
-  var centerX = (bounds[2] + bounds[0]) / 2;
-  var centerY = (bounds[3] + bounds[1]) / 2;
+  const centerX = (bounds[2] + bounds[0]) / 2;
+  const centerY = (bounds[3] + bounds[1]) / 2;
 
   // 使用双线性插值计算像素坐标
-  var x0 = Math.floor(centerX - lonRad * pixelSizeX);
-  var y0 = Math.floor(centerY - latRad * pixelSizeY);
-  var x1 = Math.floor(centerX + lonRad * pixelSizeX);
-  var y1 = Math.floor(centerY + latRad * pixelSizeY);
+  const x0 = Math.floor(centerX - lonRad * pixelSizeX);
+  const y0 = Math.floor(centerY - latRad * pixelSizeY);
+  const x1 = Math.floor(centerX + lonRad * pixelSizeX);
+  const y1 = Math.floor(centerY + latRad * pixelSizeY);
 
   // 计算经纬度对应的像素坐标
-  var x = Math.round(lonRad * pixelSizeX + centerX);
-  var y = Math.round(latRad * pixelSizeY + centerY);
+  const x = Math.round(lonRad * pixelSizeX + centerX);
+  const y = Math.round(latRad * pixelSizeY + centerY);
 
   return { x: x1, y: y0 };
 }
@@ -147,11 +146,11 @@ export function convertCoordsToSVG(longitude, latitude, zoom, bounds) {
  */
 
 export function interpolation(sw, sh, x_, y_, data) {
-  let t1 = new Date().getTime();
-  let w = data[0].length;
-  let h = data.length;
-  let x = ((x_ + 0.5) * w) / sw - 0.5;
-  let y = ((y_ + 0.5) * h) / sh - 0.5;
+  const t1 = new Date().getTime();
+  const w = data[0].length;
+  const h = data.length;
+  const x = ((x_ + 0.5) * w) / sw - 0.5;
+  const y = ((y_ + 0.5) * h) / sh - 0.5;
   let x1 = Math.floor(x);
   let x2 = Math.floor(x + 0.5);
   let y1 = Math.floor(y);
@@ -162,15 +161,15 @@ export function interpolation(sw, sh, x_, y_, data) {
   y1 = y1 < h - 1 ? y1 : h - 1;
   x2 = x2 < w - 1 ? x2 : w - 1;
   y2 = y2 < h - 1 ? y2 : h - 1; // 取出原矩阵中对应四个点的值
-  let f11 = data[y1][x1];
-  let f21 = data[y1][x2];
-  let f12 = data[y2][x1];
-  let f22 = data[y2][x2]; // 计算该点的值
-  let xm = x - x1;
-  let ym = y - y1;
-  let r1 = (1 - xm) * f11 + xm * f21;
-  let r2 = (1 - xm) * f12 + xm * f22;
-  let value = (1 - ym) * r1 + ym * r2;
+  const f11 = data[y1][x1];
+  const f21 = data[y1][x2];
+  const f12 = data[y2][x1];
+  const f22 = data[y2][x2]; // 计算该点的值
+  const xm = x - x1;
+  const ym = y - y1;
+  const r1 = (1 - xm) * f11 + xm * f21;
+  const r2 = (1 - xm) * f12 + xm * f22;
+  const value = (1 - ym) * r1 + ym * r2;
   return value;
 }
 /**
@@ -216,19 +215,19 @@ export function projection(mesh, coords) {
   console.log(mapBoundaries);
 
   // 计算经纬度相对于其最小值的偏移量
-  let lon_relative = coords[0] - srcBoundaries.lon_min;
-  let lat_relative = coords[1] - srcBoundaries.lat_min;
+  const lon_relative = coords[0] - srcBoundaries.lon_min;
+  const lat_relative = coords[1] - srcBoundaries.lat_min;
 
   // 计算经纬度范围
-  let lon_range = srcBoundaries.lon_max - srcBoundaries.lon_min;
-  let lat_range = srcBoundaries.lat_max - srcBoundaries.lat_min;
+  const lon_range = srcBoundaries.lon_max - srcBoundaries.lon_min;
+  const lat_range = srcBoundaries.lat_max - srcBoundaries.lat_min;
 
   // 计算把经纬度偏移量映射到平面坐标系上的比例
-  let x_scale = (mapBoundaries.xmax - mapBoundaries.xmin) / lon_range;
-  let y_scale = (mapBoundaries.ymax - mapBoundaries.ymin) / lat_range;
+  const x_scale = (mapBoundaries.xmax - mapBoundaries.xmin) / lon_range;
+  const y_scale = (mapBoundaries.ymax - mapBoundaries.ymin) / lat_range;
 
   // 应用比例计算出平面坐标系中的坐标
-  let x = lon_relative * x_scale + mapBoundaries.xmin;
+  const x = lon_relative * x_scale + mapBoundaries.xmin;
   let y = lat_relative * y_scale + mapBoundaries.ymin;
   // offset
   y = mapBoundaries.ymax - y + 25;

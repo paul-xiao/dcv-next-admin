@@ -1,11 +1,11 @@
 <script setup lang="ts">
-interface Props {
-  icon?: string;
-  size?: string;
-}
-const props = withDefaults(defineProps<Props>(), {
-  size: "20",
-});
+  interface Props {
+    icon?: string;
+    size?: string;
+  }
+  const props = withDefaults(defineProps<Props>(), {
+    size: '20',
+  });
 </script>
 
 <template>

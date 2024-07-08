@@ -63,11 +63,9 @@
           trigger: 'blur',
         },
       ],
-    }
+    },
   ];
   const [registerForm, { setValues }]: any = useForm({
-    labelWidth: 100,
-    foot: true,
     schema,
   });
 

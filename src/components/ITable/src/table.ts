@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { DefaultRow, IPageProps, ITableOptionProps, TableProps } from "./types";
+import { PropType } from 'vue';
+import { DefaultRow, IPageProps, ITableOptionProps, TableProps } from './types';
 
 export default {
   data: {

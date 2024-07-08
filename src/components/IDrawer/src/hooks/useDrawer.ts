@@ -13,7 +13,7 @@ export function useDrawer(params): any {
     closeDrawer: () => {
       IDrawerRef.value.close();
     },
-    showLoading: (loading: boolean = true) => {
+    showLoading: (loading = true) => {
       IDrawerRef.value.setLoading(loading);
     },
   };

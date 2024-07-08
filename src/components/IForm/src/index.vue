@@ -4,8 +4,8 @@
       <IFormItem
         v-model="state.ruleForm[item.prop]"
         :model="state.ruleForm"
-        @change="val => handleChange(item, val)"
         v-bind="item"
+        @change="val => handleChange(item, val)"
       >
         <template v-if="!!$slots[item.prop]" #[item.prop]>
           <!-- row: 当前表单属性, model: 当前表单内容 -->

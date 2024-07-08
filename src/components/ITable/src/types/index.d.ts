@@ -23,6 +23,7 @@ export interface ITableColumn {
   width?: string;
   slot?: boolean;
   formslot?: boolean;
+  isTag?: boolean;
   rules?: any[];
 }
 export interface IPageProps {
@@ -38,7 +39,7 @@ export interface TableProps<T> {
   data: T[];
   option: any;
   page: IPageProps;
-  modelValue: String | Object;
+  modelValue: string | object;
 }
 // export interface TableActionType {
 //   reload: (opt?: any) => Function<void>;

@@ -4,7 +4,7 @@ import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
 import 'virtual:windi-utilities.css';
 // svg icon
-import 'virtual:svg-icons-register'
+import 'virtual:svg-icons-register';
 
 import App from './App.vue';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
@@ -24,6 +24,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(globalProvide);
 setupRouter(app);
 // 包含异步操作，需要单独执行
-setRouteGuards(router)
+setRouteGuards(router);
 setupStore(app);
 app.mount('#app');

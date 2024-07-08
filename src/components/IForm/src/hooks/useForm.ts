@@ -1,7 +1,7 @@
 import { nextTick, ref, unref } from 'vue';
 import { FormProps } from '../types';
 
-export function useForm(props: FormProps) : any {
+export function useForm(props: FormProps): any {
   const { schema, ...rest } = props;
   const formRef = ref<any>();
 
@@ -33,7 +33,7 @@ export function useForm(props: FormProps) : any {
       const form = await getForm();
       form.setDefautValues(values);
     },
-    updateSchema: async (schema) => {
+    updateSchema: async schema => {
       const form = await getForm();
       form.getSchema(schema);
     },

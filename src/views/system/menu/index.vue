@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ITable @register="registerTable" @rowDel="onRowDel">
+    <ITable @register="registerTable" @row-del="onRowDel">
       <template #hidden="{ row }">
         {{ row.hidden ? '是' : '否' }}
       </template>

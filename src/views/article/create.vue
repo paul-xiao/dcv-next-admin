@@ -1,7 +1,7 @@
 <template>
   <IForm @register="registerForm" @submit="onSubmit">
     <template #content="{ model }">
-      <IEditor class="border min-h-lg" v-model="model.content"  ref="editorRef" />
+      <IEditor ref="editorRef" v-model="model.content" class="border min-h-lg" />
     </template>
   </IForm>
 </template>
@@ -39,7 +39,6 @@
   const ISearchBoxRef = ref<any>(null);
   const isEditable = ref<boolean>(true);
 
-
   const rootPath = route.matched[0].path;
   const isUpdate = route.path === rootPath + '/update';
   const { id } = route.query;
@@ -56,21 +55,20 @@
   });
 
   function onSubmit(form) {
-    const request = route.query.id  ? update : create;
+    const request = route.query.id ? update : create;
     ElMessageBox.confirm('确定提交?', 'Warning', {
       confirmButtonText: 'OK',
       cancelButtonText: 'Cancel',
       type: 'warning',
     }).then(() => {
-
       form.tags = form.tags.join(',');
-      request(form).then((res) => {    
+      request(form).then(res => {
         console.log(res);
-            
-        if(!res) return
+
+        if (!res) return;
         IAsideListRef.value?.getCatalog();
         editorRef.value?.editor?.setEditable(false);
-        router.push('/article')
+        router.push('/article');
         ElMessage({
           type: 'success',
           message: '提交成功',
@@ -80,9 +78,6 @@
 
     // 刷新列表
   }
- 
-
- 
 
   async function onCatalogItemClick({ articleId }: any) {
     if (!articleId) return;
@@ -90,8 +85,8 @@
     isEditable.value = false;
     const res: any = await getArticleById(articleId);
     const { content } = res;
-    res.tags = [].concat(res.tags)
-    setValues(res)
+    res.tags = [].concat(res.tags);
+    setValues(res);
     editorRef?.value?.setContent(content);
   }
 

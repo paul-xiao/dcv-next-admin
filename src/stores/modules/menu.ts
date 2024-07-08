@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-interface Menu {}
 export const useMenuStore = defineStore({
   id: 'menu',
   state: () => {
@@ -8,7 +7,7 @@ export const useMenuStore = defineStore({
     };
   },
   getters: {
-    getMenuData(): Menu[] {
+    getMenuData(): any[] {
       return this.menuData;
     },
   },

@@ -121,5 +121,5 @@ export default [
     component: '/demos/charts',
     icon: 'setting',
     parentId: 13,
-  }
+  },
 ];

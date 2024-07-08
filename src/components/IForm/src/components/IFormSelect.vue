@@ -9,12 +9,9 @@
   import { SelectOption } from '../types';
 
   interface SelectProps {
-    form: { type: Object; default: () => {} };
-    api?: Function;
-    apiParams?: {
-      type: Object;
-      default: () => {};
-    };
+    form: object;
+    api?: (params?) => void;
+    apiParams?: object;
     options?: SelectOption[];
     modelValue?: number | string | string[];
     props?: SelectOption;
@@ -66,7 +63,7 @@
     }, []);
   }
 
-  async function loadDataFromApi(api: Function, param?: Object) {
+  async function loadDataFromApi(api: (params?) => void, param?: object) {
     const data = await api(param);
     myOptions.value = getMatched(data, _props.props || { label: 'label', value: 'value' });
   }

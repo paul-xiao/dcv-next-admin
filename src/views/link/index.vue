@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ITable @register="registerTable" @rowDel="onRowDel">
+    <ITable @register="registerTable" @row-del="onRowDel">
       <template #thumbnail="{ row }">
         <el-image
           style="width: 100px; height: 100px"
@@ -49,7 +49,7 @@
       {
         label: '备注',
         prop: 'notes',
-      }
+      },
     ],
     page: {
       current: 1,

@@ -12,17 +12,17 @@
         </el-icon>
       </template>
     </el-input>
-    <div class="icon-list" v-show="showIconList">
-      <SvgIcon :icon="icon" class="icon" v-for="icon of iconList" @click="onIconSelected(icon)"></SvgIcon>
+    <div v-show="showIconList" class="icon-list">
+      <SvgIcon v-for="icon of iconList" :key="icon" :icon="icon" class="icon" @click="onIconSelected(icon)"></SvgIcon>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-  import { SvgIcon } from '@/components/IIcon';
-  import { Edit, Delete } from '@element-plus/icons-vue';
+  import SvgIcon from './SvgIcon.vue';
+  import { Edit } from '@element-plus/icons-vue';
   const icons = import.meta.glob('@/assets/icons/*.svg');
   const iconList = Object.keys(icons).map(key => {
-    return key.match(/([^\/\\]+)\.svg$/)?.[1];
+    return key.match(/([^/]+)\.svg$/)?.[1];
   });
 
   const showIconList = ref(false);
@@ -67,11 +67,11 @@
     z-index: 999;
     border-radius: 5px;
     box-shadow: 5px 5px 5px 1px #fafafa;
-    .icon{
-        margin: 5px;
-        &:hover {
-            background-color: #ccc;
-        }
+    .icon {
+      margin: 5px;
+      &:hover {
+        background-color: #ccc;
+      }
     }
   }
 </style>

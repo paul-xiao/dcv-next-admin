@@ -1,4 +1,4 @@
-import { getUnit } from "@/components/IDataDisplay/src/helpers";
+import { getUnit } from '@/components/IDataDisplay/src/helpers';
 import echarts from '@/utils/echarts';
 
 export const option = {
@@ -19,28 +19,28 @@ export const option = {
       barWidth: '25%',
       itemStyle: {
         normal: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: '#8bd46e'
-            }, {
-                offset: 1,
-                color: '#09bcb7'
-            }]),
-            barBorderRadius: 5,
-        }
-        
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: '#8bd46e',
+            },
+            {
+              offset: 1,
+              color: '#09bcb7',
+            },
+          ]),
+          barBorderRadius: 5,
+        },
       },
     },
   ],
 };
-const unitFormatter = (params) => {
-  const { data } = params  
+const unitFormatter = params => {
+  const { data } = params;
   return !['disk', 'bandwidth'].includes(data.unit)
     ? `${data.name} ` + data.value + ` ${data.unit}`
-    : `${data.name} ` +
-        getUnit(data.unit, data.value).val +
-        ` ${getUnit(data.unit, data.value).unit}`
-}
+    : `${data.name} ` + getUnit(data.unit, data.value).val + ` ${getUnit(data.unit, data.value).unit}`;
+};
 export const qutaPieOption = (name, data, index) => ({
   grid: {
     top: 0,
@@ -55,7 +55,10 @@ export const qutaPieOption = (name, data, index) => ({
   tooltip: {
     trigger: 'item',
   },
-  color: ['#3B80E2', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'].splice(index, 2),
+  color: ['#3B80E2', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'].splice(
+    index,
+    2,
+  ),
   legend: {
     orient: 'vertical',
     show: true,

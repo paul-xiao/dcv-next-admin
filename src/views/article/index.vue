@@ -4,8 +4,8 @@
       <template #batch> <ElButton type="primary" :icon="Plus" @click="onAdd">添加</ElButton> </template>
       <template #thumbnail="{ row }">
         <el-image
-          style="width: 50px; height: 50px"
           v-show="row.thumbnail"
+          style="width: 50px; height: 50px"
           :src="`/image/${row.thumbnail}`"
           :zoom-rate="1.2"
           :max-scale="7"

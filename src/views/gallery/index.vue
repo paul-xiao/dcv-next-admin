@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ITable @register="registerTable" @rowDel="onRowDel">
+    <ITable @register="registerTable" @row-del="onRowDel">
       <template #thumbnail="{ row }">
         <el-image
           style="width: 100px; height: 100px"
@@ -50,7 +50,7 @@
       {
         label: '创建时间',
         prop: 'createTime',
-      }
+      },
     ],
     page: {
       current: 1,

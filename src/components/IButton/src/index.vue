@@ -1,5 +1,5 @@
 <template>
-  <button type="button" :class="classes" @click="onClick" :style="style">{{ label }}</button>
+  <button type="button" :class="classes" :style="style" @click="onClick">{{ label }}</button>
 </template>
 <script lang="ts">
   export default {
@@ -28,7 +28,7 @@
        */
       backgroundColor?: string;
     }>(),
-    { primary: false },
+    { primary: false, size: 'medium', backgroundColor: undefined },
   );
 
   const emit = defineEmits<{
@@ -36,7 +36,7 @@
   }>();
 
   const classes = computed(() => ({
-    'btn': true,
+    btn: true,
     'btn--primary': props.primary,
     'btn--success': !props.primary,
     [`btn--${props.size || 'medium'}`]: true,

@@ -32,7 +32,7 @@ export interface Result<T = any> {
   errorMsg: string;
   message?: string;
   result: T;
-  success: boolean
+  success: boolean;
 }
 
 // multipart/form-data: upload file

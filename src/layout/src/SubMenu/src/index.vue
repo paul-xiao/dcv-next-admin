@@ -1,6 +1,6 @@
 <template>
   <template v-if="children && children.length">
-    <el-sub-menu :index="menu.path">
+    <el-sub-menu :key="menu.path" :index="menu.path">
       <template #title>
         <SvgIcon :icon="menu.meta.icon"></SvgIcon>
 
@@ -11,14 +11,14 @@
     </el-sub-menu>
   </template>
   <template v-else>
-    <el-menu-item :index="menu.path" v-if="!menu.meta.isExternal">
+    <el-menu-item v-if="!menu.meta.isExternal" :key="menu.path" :index="menu.path">
       <SvgIcon :icon="menu.meta.icon"></SvgIcon>
 
       <template #title>
         <span class="ml-1">{{ menu.meta.title }}</span>
       </template>
     </el-menu-item>
-    <el-menu-item @click="onExternalClick" v-else>
+    <el-menu-item v-else @click="onExternalClick">
       <SvgIcon :icon="menu.meta.icon"></SvgIcon>
       <template #title>
         <span class="ml-1">{{ menu.meta.title }}</span></template

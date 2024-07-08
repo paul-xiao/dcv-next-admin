@@ -5,10 +5,18 @@
   import { ref, onMounted } from 'vue';
   import { useEcharts } from '@/components/IChart';
 
+  const _porps = defineProps({
+    chartType: {
+      type: String,
+      default: 'bar',
+    },
+  });
   const chartContainer = ref();
-  const chartInstance = useEcharts({
-    ref: chartContainer,
-    options: {
+  const { setOption } = useEcharts(chartContainer);
+
+  onMounted(() => {
+    // Access the chart instance
+    setOption({
       xAxis: {
         type: 'category',
         data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
@@ -19,14 +27,9 @@
       series: [
         {
           data: [120, 200, 150, 80, 70],
-          type: 'line',
+          type: _porps.chartType,
         },
       ],
-    },
-  });
-
-  onMounted(() => {
-    // Access the chart instance
-    console.log(chartInstance.value);
+    });
   });
 </script>

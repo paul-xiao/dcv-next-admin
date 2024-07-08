@@ -10,7 +10,7 @@
   import { useForm, IForm } from '@/components/IForm';
   interface SearchProps {
     schema: any;
-    searchMethod: Function;
+    searchMethod: (params?) => void;
   }
   const props = defineProps<SearchProps>();
   const loading = ref(false);
@@ -19,7 +19,7 @@
     schema: props.schema,
     componentProps: {
       inline: true,
-    }
+    },
   });
 
   watch(
@@ -42,4 +42,3 @@
     await props.searchMethod();
   }
 </script>
-@/components/IForm

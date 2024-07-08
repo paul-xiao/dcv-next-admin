@@ -8,7 +8,7 @@
     <div class="flex flex-col items-center justify-center w-1/2 p-5 bg-white">
       <div class="px-5 py-10" style="width: 500px">
         <h1 class="py-5 text-2xl text-center">用户登录</h1>
-        <DcForm @register="registerForm" tabindex="0" @keyup.enter="onSubmit">
+        <DcForm tabindex="0" @register="registerForm" @keyup.enter="onSubmit">
           <template #captcha="{ model }">
             <div class="flex w-full">
               <ElInput v-model="model.captcha" placeholder="请输入验证码" class="flex-1 mr-2" />

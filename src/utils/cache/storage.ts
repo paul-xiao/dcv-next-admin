@@ -31,7 +31,7 @@ export const Session = {
 
 class MyStorage {
   StorageName: string;
-  StorageVal: {};
+  StorageVal: object;
   constructor(StorageName = '__MyStorage__') {
     this.StorageName = StorageName;
     this.StorageVal = {};
@@ -41,7 +41,7 @@ class MyStorage {
     this.StorageVal[key] = value;
     Local.set(this.StorageName, this.StorageVal);
   }
-  get(key) {    
+  get(key) {
     return Local.get(this.StorageName)[key];
   }
   remove(key) {

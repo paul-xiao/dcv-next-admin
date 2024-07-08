@@ -1,8 +1,8 @@
 <template>
   <div :class="`${ns}-layout`">
     <Header v-model:isCollapse="isCollapse" />
-    <main class="main" :class="{colllapsed: isCollapse}">
-      <Aside :isCollapse="isCollapse" />
+    <main class="main" :class="{ colllapsed: isCollapse }">
+      <Aside :is-collapse="isCollapse" />
       <div class="content">
         <RouterView />
       </div>

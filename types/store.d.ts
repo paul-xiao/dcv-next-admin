@@ -45,7 +45,7 @@ export interface UserInfo {
   //创建人userId
   createUser: number;
   //是否为管理员
-  admin: Boolean;
+  admin: boolean;
   //登录时间
   loginDate: string;
   //登录IP

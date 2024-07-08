@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ITable @register="registerTable" @rowDel="onRowDel">
+    <ITable @register="registerTable" @row-del="onRowDel">
       <template #thumbnail="{ row }">
         <el-image
           style="width: 100px; height: 100px"
@@ -51,7 +51,7 @@
       {
         label: '创建时间',
         prop: 'createTime',
-      }
+      },
     ],
     page: {
       current: 1,
@@ -62,10 +62,10 @@
     router.push({ name: 'project_add', state: { id: row.id } });
   }
 
-  async function onRowEdit(row: { id: any }) {
-    await update(row.id);
-    reload();
-  }
+  // async function onRowEdit(row: { id: any }) {
+  //   await update(row.id);
+  //   reload();
+  // }
   async function onRowDel(row: { id: any }) {
     await remove(row.id);
     reload();

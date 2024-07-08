@@ -6,13 +6,13 @@
           <SvgIcon icon="search" />
         </div>
         <div class="flex-1">
-          <input type="text" class="outline-none" v-model="searchText" @focus="onSearchStart" placeholder="搜索" />
+          <input v-model="searchText" type="text" class="outline-none" placeholder="搜索" @focus="onSearchStart" />
         </div>
-        <div class="font-light text-xs text-gray-400 mr-2">
+        <div class="mr-2 text-xs font-light text-gray-400">
           <small>Ctrl + K</small>
         </div>
       </div>
-      <el-dropdown class="outline-none ml-2">
+      <el-dropdown class="ml-2 outline-none">
         <el-button circle :icon="Plus"></el-button>
         <template #dropdown>
           <el-dropdown-menu>
@@ -23,14 +23,15 @@
       </el-dropdown>
     </div>
     <div class="catalog-main">
-      <div class="catalog-main-top-input" v-if="newItem">
-        <input type="text" v-model="asideText" @blur="onAsideTextBlur" />
+      <div v-if="newItem" class="catalog-main-top-input">
+        <input v-model="asideText" type="text" @blur="onAsideTextBlur" />
       </div>
       <ul>
         <IAsideListItem
           v-for="item of catalogs"
+          :key="item.id"
           :item="item"
-          :activeId="activeId"
+          :active-id="activeId"
           @catalog-item-del="onCatalogDel"
           @add-group="onGroupAdd"
           @add-article="onArticleAdd"
@@ -72,7 +73,7 @@
     return await create(data);
   }
 
-  function onNewGroupCreate(flag: boolean = false) {
+  function onNewGroupCreate(flag = false) {
     newItem.value = true;
     isArticle.value = flag;
     asideText.value = flag ? '新文章' : '新分组';

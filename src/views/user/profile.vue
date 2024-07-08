@@ -5,7 +5,6 @@
   import { create, update, getUserInfo } from '@/api/user';
   import { schema } from './data';
   import { ElMessage } from 'element-plus';
-  import { useRouter } from 'vue-router';
   import { IForm, useForm } from '@/components/IForm';
 
   getDetail();
@@ -28,7 +27,7 @@
   async function onSubmit(form: any) {
     try {
       const res: any = form.id ? await update(form) : await create(form);
-     res && ElMessage.success('操作成功！');
+      res && ElMessage.success('操作成功！');
     } catch (error) {
       console.log(error);
     }

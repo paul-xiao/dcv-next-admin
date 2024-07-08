@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <Logo :title="title" :isCollapse="isCollapse" icon="/favicon.ico" />
+    <Logo :title="title" :is-collapse="isCollapse" icon="/favicon.ico" />
     <div class="header-main">
       <div class="header-main-left">
         <el-icon @click="onAsideToggle"

@@ -17,6 +17,6 @@ export const update = (params: any) => {
 export const remove = (id: any) => {
   return http.delete(baseURL + `/${id}`);
 };
-export const menuTree = (id: any) => {
+export const menuTree = () => {
   return http.get(baseURL + `/tree`);
 };

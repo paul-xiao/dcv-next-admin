@@ -8,10 +8,10 @@
   >
     <!-- froce slot  rerender -->
     <slot v-if="state.visable" :row="state.row" />
-    <template #footer v-if="state.footer">
+    <template v-if="state.footer" #footer>
       <div style="flex: auto">
         <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="onConfirm" :loading="state.loading">确认</el-button>
+        <el-button type="primary" :loading="state.loading" @click="onConfirm">确认</el-button>
       </div>
     </template>
   </ElDrawer>
@@ -68,7 +68,7 @@
     state.onSubmit(state.row);
   }
   function setLoading(loading) {
-    state.loading = loading
+    state.loading = loading;
   }
   /**
    * @description 注册给useDrawerHooks使用的方法
@@ -76,7 +76,7 @@
    * @date 2024-07-03 17:13:07
    * @param {*}
    * @return {*}
-  */
+   */
   const registerFoos = {
     setProps,
     open,

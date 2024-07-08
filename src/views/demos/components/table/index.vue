@@ -1,7 +1,7 @@
 <template>
   <ITable @register="registerTable">
     <template #opt="{ row }">
-      <ElButton type="primary" text size="small" icon="view" @click="detail()">详情</ElButton>
+      <ElButton type="primary" text size="small" icon="view" @click="detail(row)">详情</ElButton>
       <ElButton type="danger" text size="small" icon="delete" @click="del()">删除</ElButton>
     </template>
   </ITable>
@@ -9,13 +9,15 @@
 <script setup lang="ts">
   import { ITable, useTable } from '@/components/ITable';
   import { tableSchema } from './schema';
-  const [registerTable, {}] = useTable({
+  const [registerTable] = useTable({
     title: '表格',
     api: () => Promise.resolve({ result: [{ field1: 1111, field2: 1111, field3: 1111, field4: 1111 }] }) as any,
     schema: tableSchema,
     page: false,
   });
 
-  function detail() {}
+  function detail(row) {
+    console.log(row);
+  }
   function del() {}
 </script>

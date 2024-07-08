@@ -11,7 +11,7 @@
     <div class="flex items-center justify-between px-5 hover:bg-gray-200" @click="onToggleChild(item)">
       <div class="flex items-center justify-center">
         <span class="mr-1"
-          ><SvgIcon icon="folder" v-if="!item?.articleId"></SvgIcon> <SvgIcon icon="file" v-else></SvgIcon
+          ><SvgIcon v-if="!item?.articleId" icon="folder"></SvgIcon> <SvgIcon v-else icon="file"></SvgIcon
         ></span>
         <span>
           {{ item?.name }}
@@ -22,9 +22,9 @@
           <span class="outline-none el-dropdown-link"> <SvgIcon icon="more"></SvgIcon> </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="onGroupAdd(item)" v-if="!item?.articleId"> 新增分组 </el-dropdown-item>
-              <el-dropdown-item @click="onArticleAdd(item)" v-if="!item?.articleId"> 新增文章 </el-dropdown-item>
-              <el-dropdown-item @click="onRename(item)" v-if="!item?.articleId"> 重命名 </el-dropdown-item>
+              <el-dropdown-item v-if="!item?.articleId" @click="onGroupAdd(item)"> 新增分组 </el-dropdown-item>
+              <el-dropdown-item v-if="!item?.articleId" @click="onArticleAdd(item)"> 新增文章 </el-dropdown-item>
+              <el-dropdown-item v-if="!item?.articleId" @click="onRename(item)"> 重命名 </el-dropdown-item>
               <el-dropdown-item>
                 <el-popconfirm title="Are you sure to delete this?" @confirm="onCatalogDel(item)">
                   <template #reference> 删除 </template>
@@ -35,11 +35,12 @@
         </el-dropdown>
       </div>
     </div>
-    <ul class="catalog-main-item-children" v-show="item?.$active">
+    <ul v-show="item?.$active" class="catalog-main-item-children">
       <IAsideListItem
         v-for="child of item?.children"
+        :key="child.id"
         :item="child"
-        :activeId="activeId"
+        :active-id="activeId"
         @catalog-item-del="onCatalogDel"
         @add-group="onGroupAdd"
         @add-article="onArticleAdd"

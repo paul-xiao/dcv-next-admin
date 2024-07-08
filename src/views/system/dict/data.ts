@@ -1,4 +1,3 @@
-
 export const formSchema: any[] = [
   {
     label: '名称',
@@ -8,9 +7,9 @@ export const formSchema: any[] = [
       {
         required: true,
         message: '请输入名称',
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     label: '编码',
@@ -20,9 +19,9 @@ export const formSchema: any[] = [
       {
         required: true,
         message: '请输入编码',
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   },
   {
     label: '父级ID',
@@ -32,27 +31,27 @@ export const formSchema: any[] = [
       {
         required: false,
         message: '请输入父级ID',
-        trigger: 'blur'
-      }
-    ]
-  }
-]
+        trigger: 'blur',
+      },
+    ],
+  },
+];
 
 export const tableSchema = [
   {
     label: 'ID',
-    prop: 'id'
+    prop: 'id',
   },
   {
     label: 'PID',
-    prop: 'pid'
+    prop: 'pid',
   },
   {
     label: '名称',
-    prop: 'name'
+    prop: 'name',
   },
   {
     label: '编码',
-    prop: 'code'
-  }
-]
+    prop: 'code',
+  },
+];

@@ -1,3 +1,3 @@
-import Logo from './src/index.vue'
+import Logo from './src/index.vue';
 
-export default Logo
+export default Logo;

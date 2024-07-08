@@ -1,8 +1,8 @@
 <template>
-  <div class="p-5 bg-white search-box" tabindex="0" @keyup.esc="visable = false" v-if="visable">
+  <div v-if="visable" class="p-5 bg-white search-box" tabindex="0" @keyup.esc="visable = false">
     <div class="search-box-inner">
       <div class="search-box-inner-search">
-        <input type="text" v-model="text" @keyup="onKeyup" />
+        <input v-model="text" type="text" @keyup="onKeyup" />
       </div>
       <div class="search-box-inner-result">
         <ul>

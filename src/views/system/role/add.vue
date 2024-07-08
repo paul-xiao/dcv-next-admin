@@ -2,8 +2,8 @@
   <IForm @register="registerForm" @submit="onSubmit">
     <template #permissions="{ model }">
       <ElTreeSelect
-        :data="treeData"
         v-model="model.permissions"
+        :data="treeData"
         multiple
         node-key="id"
         :props="{
@@ -47,7 +47,8 @@
   async function getDetail(id: any) {
     const result: any = await detail(id);
 
-    const menuData = await menuTree(result.menuId);
+    const menuData = await menuTree();
+    //const menuData = await menuTree(result.menuId);
     treeData.value = menuData as any;
     setValues(result);
   }

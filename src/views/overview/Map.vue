@@ -1,7 +1,6 @@
 <template>
-    <IMap />
+  <IMap />
 </template>
 <script lang="ts" setup>
-import IMap from '@/components/IMap'
-
+  import IMap from '@/components/IMap';
 </script>

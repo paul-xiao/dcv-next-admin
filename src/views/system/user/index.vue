@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ITable @register="registerTable" @rowDel="onRowDel">
+    <ITable @register="registerTable" @row-del="onRowDel">
       <template #avatar="{ row }">
-        <img :src="`/image/${row.avatar}`" width="100" height="100" v-if="row.avatar" style="max-height: 150px" />
+        <img v-if="row.avatar" :src="`/image/${row.avatar}`" width="100" height="100" style="max-height: 150px" />
       </template>
       <template #opt="{ row }">
         <ElButton type="primary" :icon="Edit" text @click="onRowEdit(row)">编辑</ElButton>
@@ -22,7 +22,7 @@
   import { list, remove } from '@/api/user';
   import { ITable, useTable } from '@/components/ITable';
   import { IDrawer, useDrawer } from '@/components/IDrawer';
-  import { Edit, Delete, Plus } from '@element-plus/icons-vue';
+  import { Edit, Plus } from '@element-plus/icons-vue';
   import ChangePassword from './changePassword.vue';
   import { useRouter } from 'vue-router';
   import { tableSchema } from './data';

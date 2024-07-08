@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb class="breadcrumb" separator="/">
-    <el-breadcrumb-item v-for="item of matchedRoute" :to="{ path: item.path }">{{
+    <el-breadcrumb-item v-for="item of matchedRoute" :key="item.path" :to="{ path: item.path }">{{
       item.meta.title
     }}</el-breadcrumb-item>
   </el-breadcrumb>

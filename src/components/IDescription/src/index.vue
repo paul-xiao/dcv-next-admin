@@ -1,7 +1,7 @@
 <template>
   <div :class="`${ns}-description`">
     <ElRow>
-      <ElCol :span="row" v-for="item of state.schema" :class="`${ns}-description-item`">
+      <ElCol v-for="item of state.schema" :key="item.prop" :span="row" :class="`${ns}-description-item`">
         <div :class="`${ns}-description-item-label`">
           {{ item.label }}
         </div>

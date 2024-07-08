@@ -37,7 +37,6 @@
     val => {
       chartInstance.value.setOption(val, true);
       console.log(val);
-      
     },
     { deep: true },
   );

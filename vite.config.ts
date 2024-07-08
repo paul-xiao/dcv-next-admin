@@ -37,7 +37,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         '/image': {
           target: env.VITE_APP_API_BASE_URL,
           changeOrigin: true,
-          secure: false
+          secure: false,
         },
       },
     },

@@ -50,7 +50,11 @@ export async function loadComponents() {
   return components;
 }
 
-const dynamicComponents = await loadComponents();
+let dynamicComponents
+(async () => {
+  dynamicComponents = await loadComponents();
+  // 在这里处理 dynamicComponents
+})();
 
 const components = {
   ...dynamicComponents,
@@ -122,7 +126,7 @@ export function parseMenuList(list: any[], pid = 0) {
  */
 export function generateRoutes(router: Router, cache?: any[]): Promise<boolean> {
   const menuStore = useMenuStore();
-  const hasMenu = menuStore.menuData.length;  
+  const hasMenu = menuStore.menuData.length;
   if (hasMenu) return Promise.resolve(false);
   return new Promise((resolve, reject) => {
     let menus: any[] = [];
@@ -133,7 +137,7 @@ export function generateRoutes(router: Router, cache?: any[]): Promise<boolean> 
       });
       menuStore.setMenuData(menus);
       resolve(true);
-    };    
+    };
     if (cache) {
       genRoutes(cache);
     } else {

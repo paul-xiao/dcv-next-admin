@@ -1,9 +1,8 @@
-
 interface IDescritionProps {
-    label: string,
-    prop: string,
-    isTag?: boolean
+  label: string;
+  prop: string;
+  isTag?: boolean;
 }
 interface IDescrition {
-    schema: IDescritionProps[]
+  schema: IDescritionProps[];
 }
