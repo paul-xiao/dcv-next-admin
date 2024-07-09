@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "lib": ["esnext", "dom"],
-    // "types": ["element-plus/global"], // If types is specified, only packages listed will be included in the global scope
+    "types": ["element-plus/global"], // If types is specified, only packages listed will be included in the global scope
     "noImplicitAny": false,
 
     "noEmit": true,

@@ -9,7 +9,7 @@
   import { SelectOption } from '../types';
 
   interface SelectProps {
-    form: object;
+    form?: object;
     api?: (params?) => void;
     apiParams?: object;
     options?: SelectOption[];
@@ -33,7 +33,7 @@
     value => {
       let obj = {};
       // 如果存在apiParams, 触发级联
-      if (_props.apiParams && Object.keys(_props.apiParams).length) {
+      if (value && _props.apiParams && Object.keys(_props.apiParams).length) {
         Object.entries(_props.apiParams).forEach(([key, val]: any) => {
           obj[key] = value[val];
         });

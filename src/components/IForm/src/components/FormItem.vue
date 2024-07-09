@@ -7,7 +7,6 @@
       :is="getComponent(type)"
       v-else
       v-model="myValue"
-      :form="model"
       v-bind="componentProps"
       @change="onChange"
     />
@@ -23,14 +22,14 @@
   export default defineComponent({
     components: { ElFormItem, ElInput, ISelect, IUpload },
     props: {
-      model: { type: Object, default: () => {} },
+      model: [String,Object],
       label: { type: String, default: '' },
       labelWidth: { type: [String, Number], default: '' },
       prop: { type: String, default: '' },
       type: String,
       rules: { type: Array, default: null } as any,
       componentProps: { type: Object, default: () => {} },
-      modelValue: [String, Array],
+      modelValue: [String, Array, Number],
     },
     emits: ['update:modelValue', 'change'],
     setup(_props, { emit }) {

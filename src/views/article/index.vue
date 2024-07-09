@@ -71,7 +71,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  ::v-deep .el-table .el-table__cell {
+  :deep(.el-table .el-table__cell) {
     position: inherit;
   }
 </style>

@@ -21,7 +21,7 @@ export interface Menu {
  * @param {string} path
  * @returns {string}
  */
-function parsedcomponentNameName(path) {
+function parsedcomponentName(path) {
   return path
     .match(/\..\/views\/(.*)\.vue$/)[1]
     .toLowerCase()
@@ -41,7 +41,7 @@ export async function loadComponents() {
   for (const path in files) {
     if (Object.prototype.hasOwnProperty.call(files, path)) {
       const component: any = await files[path]();
-      const componentName = parsedcomponentNameName(path);
+      const componentName = parsedcomponentName(path);
       // 动态导入并定义异步组件
       components[componentName] = component.default;
     }
@@ -50,17 +50,26 @@ export async function loadComponents() {
   return components;
 }
 
-let dynamicComponents
-(async () => {
-  dynamicComponents = await loadComponents();
-  // 在这里处理 dynamicComponents
-})();
+let dynamicComponents;
+let components;
+/**
+ * @description 初始化组件
+ * @author paul.xiao
+ * @date 2024-07-09 09:50:57
+ * @param {*}
+ * @return {*}
+*/
+async function initComs() {
+  const coms = await loadComponents();
+  dynamicComponents = coms;
+  components = {
+    ...dynamicComponents,
+    LAYOUT: () => import('../layout/index.vue'),
+    RouterView: RouterView,
+  };
+  return (list, pid?) => parseMenuList(list, pid);
+}
 
-const components = {
-  ...dynamicComponents,
-  LAYOUT: () => import('../layout/index.vue'),
-  RouterView: RouterView,
-};
 /**
  * 获取子路由路径
  * @param {string} path
@@ -94,6 +103,7 @@ export function parseMenuList(list: any[], pid = 0) {
       const name = path.replace('/', '').replace(/\//g, '_');
 
       const isSubRoot = pid !== 0 && component === 'LAYOUT'; // 子节点root
+
       const componentName =
         typeof component === 'string' ? components[isSubRoot ? 'RouterView' : component] : component;
 
@@ -130,8 +140,9 @@ export function generateRoutes(router: Router, cache?: any[]): Promise<boolean> 
   if (hasMenu) return Promise.resolve(false);
   return new Promise((resolve, reject) => {
     let menus: any[] = [];
-    const genRoutes = menuData => {
-      menus = parseMenuList(menuData as any[]);
+    const genRoutes = async menuData => {
+      const foo = await initComs();
+      menus = foo(menuData as any[]);
       menus.forEach(m => {
         router.addRoute(m);
       });
